@@ -25,9 +25,11 @@
         .header {
             position: absolute;
             top: 10px;
-            left: 10px;
+            right: 10px;
             display: flex;
             align-items: center;
+            cursor: pointer;
+            transition: transform 0.6s ease;
         }
 
         .header img {
@@ -38,24 +40,25 @@
         .sidebar {
             position: absolute;
             top: 10px;
-            right: 10px;
+            left: 10px;
             cursor: pointer;
-            color: #000000; /* Changed to black */
-            font-size: 2em; /* Made bigger */
+            color: #ffffff;
+            font-size: 2em;
+            font-weight: bold;
             user-select: none;
-            text-shadow: 0 0 10px #000000; /* Added glow */
-            transition: text-shadow 0.3s ease;
+            text-shadow: 0 0 10px #ffffff;
+            transition: transform 0.6s ease, text-shadow 0.3s ease;
         }
 
         .sidebar:hover {
-            text-shadow: 0 0 20px #000000; /* Stronger glow on hover */
+            text-shadow: 0 0 20px #ffffff;
         }
 
         .sidebar-menu {
             display: none;
             position: absolute;
             top: 50px;
-            right: 10px;
+            left: 10px;
             background-color: rgba(0, 0, 0, 0.7);
             border-radius: 5px;
             padding: 10px;
@@ -139,7 +142,7 @@
 
             .sidebar-menu {
                 top: 60px;
-                right: 5px;
+                left: 5px;
                 padding: 5px;
             }
 
@@ -148,16 +151,31 @@
                 font-size: 0.9em;
             }
         }
+
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 0.8em;
+            text-shadow: 0 0 10px #ffffff;
+            transition: text-shadow 0.3s ease;
+        }
+
+        .footer:hover {
+            text-shadow: 0 0 20px #ffffff;
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Top Left Logo -->
-    <div class="header">
+    <!-- Top Right Logo -->
+    <div class="header" onclick="spinLogoAndRedirect()">
         <img src="https://upload.wikimedia.org/wikipedia/en/d/d3/Mahatma_Gandhi_Kashi_Vidyapith_logo.png" alt="MGKVP Logo">
     </div>
 
-    <!-- Sidebar Button -->
+    <!-- Sidebar Button on Left -->
     <div class="sidebar" onclick="toggleSidebar()">☰</div>
 
     <!-- Sidebar Menu -->
@@ -166,9 +184,9 @@
         <a href="https://www.instagram.com/kashividhyapith?igsh=eWNyNjY0am5heTBs" target="_blank">Follow MGKVP on Instagram</a>
         <a href="https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==" target="_blank">Talk to Developer on Instagram</a>
         <a href="https://chat.whatsapp.com/Im7qVdo3SgX22weOw8FfdZ" target="_blank">Join the WhatsApp Group</a>
-        <a href="https://uzairb2b.blogspot.com" target="_blank">Uzair B2B Services</a> <!-- New Menu Item -->
-        <a href="https://educationsimplified.github.io/internship/" target="_blank">Internships</a> <!-- New Menu Item -->
-        <a href="https://educationsimplified.github.io/skills/" target="_blank">Skilled Courses</a> <!-- New Menu Item -->
+        <a href="https://uzairb2b.blogspot.com" target="_blank">Uzair B2B Services</a>
+        <a href="https://educationsimplified.github.io/internship/" target="_blank">Internships</a>
+        <a href="https://educationsimplified.github.io/skills/" target="_blank">Skilled Courses</a>
     </div>
 
     <!-- Main Content -->
@@ -178,15 +196,38 @@
         <button class="glowing-button" onclick="redirectToJoin()">Click Below to Join</button>
     </div>
 
+    <!-- Footer with Glowing Effect -->
+    <div class="footer">
+        <a href="https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==" target="_blank" style="color: #ffffff; text-decoration: none;">
+            Made by: Uzair Ahmed @2024, B.A.(Hons) Mass Communication Student
+        </a>
+    </div>
+
     <script>
-        // Toggle Sidebar Menu
+        // Toggle Sidebar Menu with Spin Effect
         function toggleSidebar() {
             var sidebarMenu = document.getElementById('sidebarMenu');
+            var sidebarIcon = document.querySelector('.sidebar');
+
             if (sidebarMenu.style.display === 'block') {
                 sidebarMenu.style.display = 'none';
+                sidebarIcon.style.transform = 'rotate(-360deg)';
             } else {
                 sidebarMenu.style.display = 'block';
+                sidebarIcon.style.transform = 'rotate(360deg)';
             }
+        }
+
+        // Spin Logo and Redirect
+        function spinLogoAndRedirect() {
+            var logo = document.querySelector('.header');
+
+            logo.style.transform = 'rotate(360deg)';
+
+            setTimeout(function() {
+                window.location.href = 'https://mgkvp.ac.in/';
+                logo.style.transform = 'rotate(0deg)';
+            }, 600); // Matches the transition duration
         }
 
         // Redirect to Join Link
