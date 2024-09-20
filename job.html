@@ -17,14 +17,8 @@
             padding: 10px 20px;
             text-align: center;
         }
-        h1 {
+        h1, h2 {
             margin-top: 0;
-        }
-        .header-img {
-            max-width: 150px; /* Set a max width for the header image */
-            height: auto;
-            margin: 10px auto; /* Center the image */
-            border-radius: 8px; /* Rounded corners */
         }
         .section {
             background-color: white;
@@ -36,9 +30,9 @@
         .section img {
             max-width: 100%;
             height: auto;
-            display: block;
-            margin: 20px auto; /* Centers the image */
-            border-radius: 8px; /* Adds rounded corners to the image */
+            display: block; /* Centers the image */
+            margin: 20px auto; /* Centers the image with margin */
+            border-radius: 8px; /* Optional: Adds rounded corners to the image */
         }
         .section a {
             color: #007bff;
@@ -47,31 +41,27 @@
         .section a:hover {
             text-decoration: underline;
         }
-        .video-links a {
-            display: block;
-            margin: 5px 0;
-        }
-        .charges {
-            font-weight: bold;
-            color: red;
-        }
-        .contact-link {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 15px;
-            background-color: #28a745;
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
             color: white;
-            text-decoration: none;
             border-radius: 5px;
         }
-        .contact-link:hover {
-            background-color: #218838;
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
         }
-        .bold-section {
-            font-weight: bold;
-            margin-top: 20px;
+        .footer a:hover {
+            text-decoration: underline;
         }
-        /* Responsive adjustments */
+        .header-img {
+            display: block;
+            margin: 20px auto; /* Centers the header image */
+            max-width: 100%; /* Ensures responsive design */
+            height: auto;
+            border-radius: 8px; /* Optional: Adds rounded corners to the image */
+        }
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -88,7 +78,7 @@
 <body>
     <header>
         <h1>Internship and Job Guidance</h1>
-        <!-- Added a centered image in the header -->
+        <!-- Centered header image -->
         <img src="Uzair2.jpg" alt="Uzair Ahmed" class="header-img">
     </header>
 
@@ -123,5 +113,9 @@
         <p><strong>If you have prepared your resume and completed all the steps, click below to send your resume and wait for our call:</strong></p>
         <a href="https://wa.link/424x5f" class="contact-link" target="_blank">Send Your Resume</a>
     </div>
+
+    <footer class="footer">
+        <p>Thank you, and excel in your future!</p>
+    </footer>
 </body>
 </html>
