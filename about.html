@@ -20,16 +20,16 @@
         }
 
         .header {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            transition: transform 0.6s ease;
+            margin-top: 20px;
+            text-align: center;
         }
 
         .header img {
-            width: 100px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
             transition: transform 0.6s ease;
+            cursor: pointer;
         }
 
         .header img:hover {
@@ -47,7 +47,7 @@
             background-color: rgba(0, 0, 0, 0.6);
             border-radius: 10px;
             max-width: 90%;
-            margin: 0 auto;
+            margin: 20px auto;
         }
 
         .content h1 {
@@ -57,9 +57,11 @@
 
         .profile-img {
             width: 200px;
-            height: auto;
-            border-radius: 50%;
+            height: 200px;
+            border-radius: 10px;
+            border: 5px solid #ffffff;
             margin-bottom: 20px;
+            object-fit: cover;
         }
 
         .cards {
@@ -102,11 +104,21 @@
                 flex-direction: column;
                 align-items: center;
             }
+
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+
+            .header img {
+                width: 120px;
+                height: 120px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Logo with Rotate Animation -->
+    <!-- Logo Section -->
     <div class="header" onclick="spinLogoAndRedirect()">
         <img src="EDUCATION SIMPLIFIED INDIA.png" alt="EDUCATION SIMPLIFIED Logo">
     </div>
@@ -116,7 +128,7 @@
         <h1>About Uzair Ahmed</h1>
         <img class="profile-img" src="Uzair2.jpg" alt="Uzair Ahmed">
         <p>Hello! My name is Uzair Ahmed, a B.A. (Hons) Mass Communication student from the 2022-2025 batch. I am a passionate front-end web developer and have built a dedicated notes website for MGKVP students. In addition to my development skills, I am a professional video editor and graphic designer. As an educator in web development, I aim to help others learn and grow in this field.</p>
-        <p>This website is designed to be a valuable resource, especially for journalism students, but also for students from all streams...</p>
+        <p>This website is designed to be a valuable resource, especially for journalism students, but also for students from all streams. Here, you can not only study but also explore job opportunities. Whether you're preparing for competitive exams like CAT, IIMC, UPSC, or simply seeking new learning tools, this platform has something for you. I like to think of it as the "Google" of education and job applications, particularly for students in Varanasi, especially those at MGKVP. However, it's open to all students from different colleges and schools, so feel free to explore and benefit from it!!!</p>
 
         <h2>Benefit of Choosing Us?</h2>
         <div class="cards">
@@ -145,11 +157,11 @@
         }
 
         function showContent1() {
-            alert("Our platform offers a completely free job and internship portal tailored for students and fresh graduates...");
+            alert("Our platform offers a completely free job and internship portal tailored for students and fresh graduates. You can explore countless opportunities in various fields without any cost. Whether you're studying journalism, engineering, business, or any other discipline, this portal connects you to relevant employers and internships that match your skills and interests. It’s a hassle-free way to kickstart your career while still in school, making it easier for you to gain valuable experience and enhance your resume. Start applying today, and take your first step toward a successful future!");
         }
 
         function showContent2() {
-            alert("We provide free study material for both college courses and popular competitive exams...");
+            alert("We provide free study material for both college courses and popular competitive exams, making it easier for students to access essential resources. Whether you're preparing for university-level subjects or aiming for competitive exams like CAT, IIMC, UPSC, or others, we offer comprehensive guides, notes, practice papers, and tips—all available without any cost. Our study materials are designed to help you excel academically while saving you time and money. Explore a variety of resources that cater to your specific educational needs and stay ahead in your studies with ease!");
         }
 
         function showContent3() {
