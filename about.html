@@ -2,198 +2,306 @@
 <html lang="en">
 
 <head>
+    <meta name="google-site-verification" content="l9l5QvjFSakUCbRz6lC-X-TfGQJOFxEbz-_iZQOJ35c" />
+    <meta name="google-adsense-account" content="ca-pub-4074130011096587">
+    <meta name="google-site-verification" content="qSZcROSBW4sFubwNpIYlMwvNYbQUA_2svJFPt3hfxls" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MGKVP Department of Journalism and Mass Communication</title>
-    <link rel="stylesheet" href="css/styles.css">
     <style>
         body {
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background: url('https://png.pngtree.com/thumb_back/fh260/background/20230706/pngtree-3d-rendering-background-of-live-news-concept-in-journalism-image_3818400.jpg');
+            background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20230706/pngtree-3d-rendering-background-of-live-news-concept-in-journalism-image_3818400.jpg');
             background-size: cover;
             background-position: center;
-            color: #fff;
-        }
-
-        .header-contact p {
-            font-size: 14px;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            margin: 0;
-            text-align: center;
-        }
-
-        .header-main {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .header-main img {
-            width: 150px;
-            cursor: pointer;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 32px;
-            color: #f0e68c;
-        }
-
-        h2 {
-            font-size: 24px;
-            color: #ffebcd;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        nav ul li {
-            display: inline-block;
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        main {
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.8);
-            margin: 0;
-        }
-
-        .welcome img {
-            width: 200px;
-            display: block;
-            margin: 0 auto 20px auto;
-        }
-
-        .welcome p {
-            text-align: center;
-            font-size: 18px;
-            line-height: 1.6;
-        }
-
-        .why-choose-us {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-        }
-
-        .why-choose-us h2, .popular-courses h2 {
-            text-align: center;
-            color: #ffebcd;
-        }
-
-        .cards {
+            height: 100vh;
+            color: #ffffff;
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .card {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            width: 30%;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        .header {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.6s ease;
         }
 
-        footer {
-            background-color: rgba(0, 0, 0, 0.9);
-            text-align: center;
+        .header img {
+            width: 100px;
+            height: auto;
+            transition: transform 0.6s ease;
+        }
+
+        .sidebar {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 2em;
+            font-weight: bold;
+            user-select: none;
+            text-shadow: 0 0 10px #ffffff;
+            transition: transform 0.6s ease, text-shadow 0.3s ease;
+        }
+
+        .sidebar:hover {
+            text-shadow: 0 0 20px #ffffff;
+        }
+
+        .sidebar-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
             padding: 10px;
-            font-size: 14px;
+            z-index: 100;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px;
+            border-bottom: 1px solid #ffffff;
+        }
+
+        .sidebar-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-menu a:hover {
+            background-color: #333333;
+        }
+
+        .content {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .content h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .content h2 {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+
+        .glowing-button {
+            background-color: #00e6e6;
+            color: #000000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #00e6e6;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .glowing-button:hover {
+            box-shadow: 0 0 30px #00b3b3, 0 0 40px #00b3b3, 0 0 50px #00b3b3;
+            transform: scale(1.05);
+        }
+
+        .page-links {
+            margin-top: 30px;
+        }
+
+        .page-links a {
+            color: #00e6e6;
+            font-size: 1.5em;
+            text-decoration: none;
+            margin: 10px;
+            padding: 10px 20px;
+            border: 2px solid #00e6e6;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px #00e6e6;
+        }
+
+        .page-links a:hover {
+            background-color: #00e6e6;
+            color: #000000;
+            box-shadow: 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #00e6e6;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .content h1 {
+                font-size: 2em;
+            }
+
+            .content h2 {
+                font-size: 1.2em;
+            }
+
+            .glowing-button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+
+            .header img {
+                width: 80px;
+            }
+
+            .sidebar {
+                font-size: 1.5em;
+            }
+
+            .sidebar-menu {
+                top: 60px;
+                left: 5px;
+                padding: 5px;
+            }
+
+            .sidebar-menu a {
+                padding: 8px;
+                font-size: 0.9em;
+            }
+
+            .page-links a {
+                font-size: 1.2em;
+                padding: 8px 15px;
+            }
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 0.8em;
+            text-shadow: 0 0 10px #ffffff;
+            transition: text-shadow 0.3s ease;
+        }
+
+        .footer:hover {
+            text-shadow: 0 0 20px #ffffff;
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <!-- Top Right Logo -->
-        <div class="header-main" onclick="spinLogoAndRedirect()">
-            <img src="EDUCATION SIMPLIFIED INDIA.png" alt="Education Simplified India Logo">
-            <h1>MGKVP EDUCATION ONLINE</h1>
-            <h2>Providing the Digital Shift to Technology Learning—All the Education Tools in One Place.</h2>
-        </div>
-        <div class="header-contact">
-            <p>
-                CALL ICON: <img src="https://static-00.iconduck.com/assets.00/call-icon-2047x2048-1v137evf.png" alt="Call" width="20px"> +91 9335723334 |
-                EMAIL ICON: <img src="https://cdn4.iconfinder.com/data/icons/social-media-logos-6/512/112-gmail_email_mail-512.png" alt="Email" width="20px"> uzairatwork02@gmail.com |
-                WHATSAPP ICON: <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" width="20px"> <a href="https://wa.link/4jrun4" style="color: #fff;">+91 933572 3334</a> |
-                INSTAGRAM ICON: <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png" alt="Instagram" width="20px"> <a href="https://www.instagram.com/uzairvibes" style="color: #fff;">@uzairvibes</a>
-            </p>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="courses.html">Courses</a></li>
-                <li><a href="mock-test.html">Mock Test</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-            </ul>
-        </nav>
-    </header>
+   <!-- Top Right Logo -->
+    <div class="header" onclick="spinLogoAndRedirect()">
+        <img src="EDUCATION SIMPLIFIED INDIA.png" alt="EDUCATION SIMPLIFIED Logo">
+    </div>
 
-    <main>
-        <section class="welcome">
-            <h2>Welcome to MGKVP EDUCATION ONLINE By EDUCATION SIMPLIFIED</h2>
-            <img src="Uzair2.jpg" alt="Uzair Ahmed">
-            <p>Hello! My name is Uzair Ahmed, a B.A. (Hons) Mass Communication student from the 2022-2025 batch. I am a passionate front-end web developer and have built a dedicated notes website for MGKVP students. In addition to my development skills, I am a professional video editor and graphic designer. As an educator in web development, I aim to help others learn and grow in this field.</p>
-            <p>This website is designed to be a valuable resource, especially for journalism students, but also for students from all streams. Whether you're preparing for competitive exams like CAT, IIMC, UPSC, or simply seeking new learning tools, this platform has something for you. I like to think of it as the "Google" of education and job applications, particularly for students in Varanasi, especially those at MGKVP. However, it's open to all students from different colleges and schools, so feel free to explore and benefit from it!!!</p>
+ <!-- Sidebar Button on Left -->
+    <div class="sidebar" onclick="toggleSidebar()">☰</div>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar-menu" id="sidebarMenu">
+        <a href="https://wa.link/4jrun4" target="_blank">Contact the Developer</a>
+        <a href="https://youtube.com/@uzairentertainment?si=z_WBJrxYp0miibon" target="_blank">SUBSCRIBE Uzair Entertainment</a>
+        <a href="https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==" target="_blank">Talk to Developer on Instagram</a>
+        <a href="https://chat.whatsapp.com/Im7qVdo3SgX22weOw8FfdZ" target="_blank">Join the WhatsApp Group</a>
+        <a href="https://uzairb2b.blogspot.com" target="_blank">Uzair B2B Services</a>
+        <a href="https://educationsimplified.github.io/internship/" target="_blank">Internships</a>
+        <a href="https://educationsimplified.github.io/skills/" target="_blank">Skilled Courses</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>MGKVP JOURNALISM ONLINE</h1>
+        <h2>Providing the Digital Shift to Technology Learning—All the Journalism Tools in One Place.</h2>
+        
+        <button class="glowing-button" onclick="redirectToJoin()">Click Below to Join</button>
+         
+        <!-- Page Links with Glowing Effect -->
+        <div class="page-links">
+            <a href="about.html">About</a>
+            <a href="home.html">Home</a>
+            <a href="notes.html">Notes</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="seminar.html">Seminars</a>
+        </div>
+<br>
+<p> </p>
+<img src="Uzair2.jpg" alt="Uzair Ahmed">
+            <p>Hello! My name is Uzair Ahmed, and I am a B.A. (Hons) Mass Communication student and a passionate educator. Welcome to MGKVP EDUCATION ONLINE, your one-stop platform for academic resources, job opportunities, and competitive exam preparation.</p>
+            <p>We aim to provide valuable learning tools for students across streams. Explore our free job and internship portal, study materials, and 24/7 support.</p>
         </section>
 
         <section class="why-choose-us">
-            <h2>Benifit of Choosing Us?</h2>
-            <p>Choosing our platform offers a range of benefits designed to support your academic and career growth...</p>
+            <h2>Why Choose Us?</h2>
             <div class="cards">
                 <div class="card">
-                    <h3>Free Job / Intership Portal</h3>
-                    <p>Our platform offers a completely free job and internship portal tailored for students and fresh graduates...</p>
+                    <h3>Free Study Material</h3>
+                    <p>Access a vast range of study materials for college courses and competitive exams.</p>
                 </div>
                 <div class="card">
-                    <h3>Free College/ Popular Competitive Exam Study Material</h3>
-                    <p>We provide free study material for both college courses and popular competitive exams...</p>
+                    <h3>Job & Internship Portal</h3>
+                    <p>Get free access to job listings and internships tailored for students and fresh graduates.</p>
                 </div>
                 <div class="card">
-                    <h3>24/7 User Support</h3>
-                    <p>Contact us via WhatsApp</p>
+                    <h3>24/7 Support</h3>
+                    <p>We are always here to help. Contact us anytime through WhatsApp or email.</p>
                 </div>
             </div>
         </section>
-
-        <section class="popular-courses">
-            <h2>MY CURRENT STATUS</h2>
-            <ul>
-                <li><a href="www.techogies.com">EDUCATOR & FOUNDING MEMBERS</a></li>
-                <li><a href="https://educationsimplified.github.io/UzairAhmed/">MY RESUME</a></li>
-                <li><a href="https://wa.link/4jrun4">CLICK HERE TO CONTACT ME FOR WEB DEVLOPMENT, OR DIGITAL MARKETING SERVICES</a></li>
-            </ul>
-        </section>
     </main>
 
-    <footer>
-        <p>COPYRIGHT MGKVP EDUCATION ONLINE by EDUCATION SIMPLIFIED INDIA, DEVELOPED BY UZAIR AHMED</p>
-        <p>Note this is not MGKVP OFFICIAL WEBSITE, it belongs to a Student / Private Entity</p>
-    </footer>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Powered by Uzair Ahmed | All Rights Reserved © 2024
+    </div>
 
     <script>
+ // Toggle Sidebar Menu with Spin Effect
+        function toggleSidebar() {
+            var sidebarMenu = document.getElementById('sidebarMenu');
+            var sidebarIcon = document.querySelector('.sidebar');
+
+            if (sidebarMenu.style.display === 'block') {
+                sidebarMenu.style.display = 'none';
+                sidebarIcon.style.transform = 'rotate(-360deg)';
+            } else {
+                sidebarMenu.style.display = 'block';
+                sidebarIcon.style.transform = 'rotate(360deg)';
+            }
+        }
+
         // Spin Logo and Redirect
         function spinLogoAndRedirect() {
-            var logo = document.querySelector('.header-main img');
+            var logo = document.querySelector('.header');
+
             logo.style.transform = 'rotate(360deg)';
-            setTimeout(function () {
+
+            setTimeout(function() {
                 window.location.href = 'https://educationsimplified.github.io/india';
                 logo.style.transform = 'rotate(0deg)';
-            }, 600);
+            }, 600); // Matches the transition duration
+        }
+// Redirect to Join Link
+        function redirectToJoin() {
+            window.location.href = 'https://educationsimplified.github.io/india';
+        }
+
+        function redirectToJoin() {
+            window.location.href = 'https://chat.whatsapp.com/Im7qVdo3SgX22weOw8FfdZ';
         }
     </script>
 </body>
