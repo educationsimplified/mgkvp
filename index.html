@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="google-site-verification" content="l9l5QvjFSakUCbRz6lC-X-TfGQJOFxEbz-_iZQOJ35c" />
     <meta name="google-adsense-account" content="ca-pub-4074130011096587">
@@ -36,6 +37,7 @@
         .header img {
             width: 100px;
             height: auto;
+            transition: transform 0.6s ease;
         }
 
         .sidebar {
@@ -88,6 +90,8 @@
             background-color: rgba(0, 0, 0, 0.6);
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            margin: 0 auto;
         }
 
         .content h1 {
@@ -116,6 +120,29 @@
 
         .glowing-button:hover {
             box-shadow: 0 0 30px #00b3b3, 0 0 40px #00b3b3, 0 0 50px #00b3b3;
+            transform: scale(1.05);
+        }
+
+        .page-links {
+            margin-top: 30px;
+        }
+
+        .page-links a {
+            color: #00e6e6;
+            font-size: 1.5em;
+            text-decoration: none;
+            margin: 10px;
+            padding: 10px 20px;
+            border: 2px solid #00e6e6;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px #00e6e6;
+        }
+
+        .page-links a:hover {
+            background-color: #00e6e6;
+            color: #000000;
+            box-shadow: 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #00e6e6;
             transform: scale(1.05);
         }
 
@@ -151,6 +178,11 @@
                 padding: 8px;
                 font-size: 0.9em;
             }
+
+            .page-links a {
+                font-size: 1.2em;
+                padding: 8px 15px;
+            }
         }
 
         .footer {
@@ -166,11 +198,10 @@
         .footer:hover {
             text-shadow: 0 0 20px #ffffff;
         }
-
     </style>
 </head>
-<body>
 
+<body>
     <!-- Top Right Logo -->
     <div class="header" onclick="spinLogoAndRedirect()">
         <img src="EDUCATION SIMPLIFIED INDIA.png" alt="EDUCATION SIMPLIFIED Logo">
@@ -182,7 +213,7 @@
     <!-- Sidebar Menu -->
     <div class="sidebar-menu" id="sidebarMenu">
         <a href="https://wa.link/4jrun4" target="_blank">Contact the Developer</a>
-        <a href="https://youtube.com/@uzairentertainment?si=z_WBJrxYp0miibon" target="_blank">SUBSCRIBE Uzair Entertainment </a>
+        <a href="https://youtube.com/@uzairentertainment?si=z_WBJrxYp0miibon" target="_blank">SUBSCRIBE Uzair Entertainment</a>
         <a href="https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==" target="_blank">Talk to Developer on Instagram</a>
         <a href="https://chat.whatsapp.com/Im7qVdo3SgX22weOw8FfdZ" target="_blank">Join the WhatsApp Group</a>
         <a href="https://uzairb2b.blogspot.com" target="_blank">Uzair B2B Services</a>
@@ -195,47 +226,40 @@
         <h1>MGKVP JOURNALISM ONLINE</h1>
         <h2>Providing the Digital Shift to Technology Learning—All the Journalism Tools in One Place.</h2>
         <button class="glowing-button" onclick="redirectToJoin()">Click Below to Join</button>
+
+        <!-- Page Links with Glowing Effect -->
+        <div class="page-links">
+            <a href="about.html">About</a>
+            <a href="home.html">Home</a>
+            <a href="notes.html">Notes</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="seminar.html">Seminars</a>
+        </div>
     </div>
 
-    <!-- Footer with Glowing Effect -->
+    <!-- Footer -->
     <div class="footer">
-        <a href="https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==" target="_blank" style="color: #ffffff; text-decoration: none;">
-            Created by: Uzair Ahmed @2024, B.A.(Hons) Mass Communication Student: (it's not a MGKVP Official Website)
-      </a>
+        Powered by Uzair Ahmed | All Rights Reserved © 2024
     </div>
 
     <script>
-        // Toggle Sidebar Menu with Spin Effect
-        function toggleSidebar() {
-            var sidebarMenu = document.getElementById('sidebarMenu');
-            var sidebarIcon = document.querySelector('.sidebar');
-
-            if (sidebarMenu.style.display === 'block') {
-                sidebarMenu.style.display = 'none';
-                sidebarIcon.style.transform = 'rotate(-360deg)';
-            } else {
-                sidebarMenu.style.display = 'block';
-                sidebarIcon.style.transform = 'rotate(360deg)';
-            }
-        }
-
-        // Spin Logo and Redirect
         function spinLogoAndRedirect() {
-            var logo = document.querySelector('.header');
-
+            const logo = document.querySelector('.header img');
             logo.style.transform = 'rotate(360deg)';
-
-            setTimeout(function() {
-                window.location.href = 'https://educationsimplified.github.io/india';
-                logo.style.transform = 'rotate(0deg)';
-            }, 600); // Matches the transition duration
+            setTimeout(() => {
+                window.location.href = 'https://educationsimplified.in';
+            }, 600);
         }
 
-        // Redirect to Join Link
+        function toggleSidebar() {
+            const sidebarMenu = document.getElementById('sidebarMenu');
+            sidebarMenu.style.display = sidebarMenu.style.display === 'block' ? 'none' : 'block';
+        }
+
         function redirectToJoin() {
-            window.location.href = 'https://educationsimplified.github.io/india';
+            window.location.href = 'https://chat.whatsapp.com/Im7qVdo3SgX22weOw8FfdZ';
         }
     </script>
-
 </body>
+
 </html>
