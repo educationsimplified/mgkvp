@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery/Events - Seminar on Cyber Security</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .gallery video {
+            width: 300px;
+            height: 200px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery video:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .gallery video {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>Seminar on Cyber Security</h1>
+            <img src="Uzair2.jpg" alt="Uzair Ahmed">
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="gallery">
+            <!-- Video 1 -->
+            <video controls>
+                <source src="Video 1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Video 2 -->
+            <video controls>
+                <source src="Video 2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Video 3 -->
+            <video controls>
+                <source src="Video 3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Video 4 -->
+            <video controls>
+                <source src="Video 4.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Video 5 -->
+            <video controls>
+                <source src="Video 5.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Video 6 (Duplicate Video 5) -->
+            <video controls>
+                <source src="Video 5.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>Developed by Uzair Ahmed, &copy; 2024</p>
+    </footer>
+
+</body>
+</html>
