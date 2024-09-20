@@ -52,6 +52,26 @@
         .footer a:hover {
             text-decoration: underline;
         }
+        /* Image Styling */
+        .header-img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px; /* Optional: Adds rounded corners to the image */
+        }
+        @media (max-width: 768px) {
+            /* Responsive styles for mobile */
+            body {
+                padding: 10px;
+            }
+            .section {
+                padding: 15px;
+            }
+            header {
+                padding: 15px 10px;
+            }
+        }
     </style>
     <script>
         function getRandomQuote() {
@@ -74,8 +94,8 @@
 <body onload="updateFooter()">
     <header>
         <h1>Join Our Team & Skill Courses</h1>
-        <!-- Image added below the heading -->
-        <img src="Uzair2.jpg" alt="Uzair Ahmed">
+        <!-- Image added and centered -->
+        <img src="Uzair2.jpg" alt="Uzair Ahmed" class="header-img">
     </header>
 
     <div class="section">
@@ -97,4 +117,15 @@
             <img src="https://content.jdmagicbox.com/comp/varanasi/f4/0542px542.x542.201209233507.v1f4/catalogue/segacademy-pvt-ltd-sigra-varanasi-share-trading-institutes-t3ervpzu1k.jpg" alt="SEG Academy Varanasi">
         </a>
         <p>Say <strong>“Uzair Bhaiye ne recommend kiya hai”</strong> when you visit.</p>
-        <p>If you have financial problems and need a free way to develop the skill and personal guidence, you can also
+        <p>If you have financial problems and need a free way to develop the skill and personal guidence, you can also join our WhatsApp group:</p>
+        <a href="https://chat.whatsapp.com/ISC7TxqPxoFAGd4QsztkOP" target="_blank">
+            Join WhatsApp Group
+        </a>
+    </div>
+
+    <footer class="footer">
+        <p id="footer-quote"></p>
+        <p>Thank you, and excel in your future!</p>
+    </footer>
+</body>
+</html>
