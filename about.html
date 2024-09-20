@@ -153,7 +153,10 @@
         }
 
         function showContent3() {
-            alert("Contact us via WhatsApp: https://wa.link/4jrun4");
+            alert("Contact us via WhatsApp");
+            setTimeout(function() {
+                window.location.href = 'https://wa.link/4jrun4';
+            }, 500); // Redirects after the alert
         }
     </script>
 </body>
