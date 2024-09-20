@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta name="google-site-verification" content="l9l5QvjFSakUCbRz6lC-X-TfGQJOFxEbz-_iZQOJ35c" />
@@ -36,7 +36,6 @@
         .header img {
             width: 100px;
             height: auto;
-            transition: transform 0.6s ease; /* Animation for spinning */
         }
 
         .sidebar {
@@ -49,7 +48,7 @@
             font-weight: bold;
             user-select: none;
             text-shadow: 0 0 10px #ffffff;
-            transition: transform 0.6s ease, text-shadow 0.3s ease; /* Animation for spinning */
+            transition: transform 0.6s ease, text-shadow 0.3s ease;
         }
 
         .sidebar:hover {
@@ -120,30 +119,6 @@
             transform: scale(1.05);
         }
 
-        /* Glowing effect for page links */
-        .page-links {
-            margin-top: 30px;
-        }
-
-        .page-links a {
-            color: #00e6e6;
-            font-size: 1.5em;
-            text-decoration: none;
-            margin: 10px;
-            padding: 10px 20px;
-            border: 2px solid #00e6e6;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 10px #00e6e6;
-        }
-
-        .page-links a:hover {
-            background-color: #00e6e6;
-            color: #000000;
-            box-shadow: 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #00e6e6;
-            transform: scale(1.05);
-        }
-
         @media (max-width: 768px) {
             .content h1 {
                 font-size: 2em;
@@ -176,11 +151,6 @@
                 padding: 8px;
                 font-size: 0.9em;
             }
-
-            .page-links a {
-                font-size: 1.2em;
-                padding: 8px 15px;
-            }
         }
 
         .footer {
@@ -201,19 +171,18 @@
 </head>
 <body>
 
-     <!-- Top Right Logo -->
+    <!-- Top Right Logo -->
     <div class="header" onclick="spinLogoAndRedirect()">
         <img src="EDUCATION SIMPLIFIED INDIA.png" alt="EDUCATION SIMPLIFIED Logo">
     </div>
 
-
-   <!-- Sidebar Button on Left -->
+    <!-- Sidebar Button on Left -->
     <div class="sidebar" onclick="toggleSidebar()">☰</div>
 
-   <!-- Sidebar Menu -->
+    <!-- Sidebar Menu -->
     <div class="sidebar-menu" id="sidebarMenu">
         <a href="https://wa.link/4jrun4" target="_blank">Contact the Developer</a>
-        <a href="https://youtube.com/@uzairentertainment?si=z_WBJrxYp0miibon" target="_blank">SUBSCRIBE Uzair Entertainment</a>
+        <a href="https://youtube.com/@uzairentertainment?si=z_WBJrxYp0miibon" target="_blank">SUBSCRIBE Uzair Entertainment </a>
         <a href="https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==" target="_blank">Talk to Developer on Instagram</a>
         <a href="https://chat.whatsapp.com/Im7qVdo3SgX22weOw8FfdZ" target="_blank">Join the WhatsApp Group</a>
         <a href="https://uzairb2b.blogspot.com" target="_blank">Uzair B2B Services</a>
@@ -226,40 +195,31 @@
         <h1>MGKVP JOURNALISM ONLINE</h1>
         <h2>Providing the Digital Shift to Technology Learning—All the Journalism Tools in One Place.</h2>
         <button class="glowing-button" onclick="redirectToJoin()">Click Below to Join</button>
-
-        <!-- Page Links with Glowing Effect -->
-        <div class="page-links">
-            <a href="about.html">About</a>
-            <a href="home.html">Home</a>
-            <a href="notes.html">Notes</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="blog.html">Blog</a>
-            <a href="courses.html">Courses</a>
-            <a href="contact_us.html">Contact Us</a>
-        </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer with Glowing Effect -->
     <div class="footer">
-        © 2024 MGKVP Department of Journalism and Mass Communication. All Rights Reserved.
+        <a href="https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==" target="_blank" style="color: #ffffff; text-decoration: none;">
+            Created by: Uzair Ahmed @2024, B.A.(Hons) Mass Communication Student: (it's not a MGKVP Official Website)
+      </a>
     </div>
 
     <script>
-// Toggle Sidebar Menu with Spin Effect
+        // Toggle Sidebar Menu with Spin Effect
         function toggleSidebar() {
             var sidebarMenu = document.getElementById('sidebarMenu');
             var sidebarIcon = document.querySelector('.sidebar');
 
             if (sidebarMenu.style.display === 'block') {
                 sidebarMenu.style.display = 'none';
-                sidebarIcon.style.transform = 'rotate(-360deg)'; // Spin back on close
+                sidebarIcon.style.transform = 'rotate(-360deg)';
             } else {
                 sidebarMenu.style.display = 'block';
-                sidebarIcon.style.transform = 'rotate(360deg)'; // Spin forward on open
+                sidebarIcon.style.transform = 'rotate(360deg)';
             }
         }
 
-      // Spin Logo and Redirect
+        // Spin Logo and Redirect
         function spinLogoAndRedirect() {
             var logo = document.querySelector('.header');
 
@@ -273,12 +233,7 @@
 
         // Redirect to Join Link
         function redirectToJoin() {
-            window.location.href = 'https://educationsimplified.github.io/india'; // Join redirect
-        }
-
-        // Redirect to WhatsApp group
-        function redirectToJoin() {
-            window.open('https://chat.whatsapp.com/Im7qVdo3SgX22weOw8FfdZ', '_blank');
+            window.location.href = 'https://educationsimplified.github.io/india';
         }
     </script>
 
