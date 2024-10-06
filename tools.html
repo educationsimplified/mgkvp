@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Tools - Education Simplified</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-image: url('https://img.freepik.com/free-photo/rendering-abstract-futuristic-background-with-glowing-neon-blue-orange-lights_181624-19807.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        header {
+            margin-bottom: 50px;
+        }
+        .logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #fff;
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        .tagline {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 40px;
+        }
+
+        /* Button Styles */
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 20px 40px;
+            text-decoration: none;
+            color: white;
+            background-color: #ff7e00;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        /* Glowing effect when button is clicked */
+        .btn:active {
+            box-shadow: 0 0 20px 10px rgba(255, 126, 0, 0.8);
+            transform: scale(1.05);
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .btn span {
+            font-weight: 600;
+        }
+
+        /* After click animation */
+        .glow {
+            animation: glowing 1s ease-in-out;
+        }
+        @keyframes glowing {
+            0% {
+                box-shadow: 0 0 5px rgba(255, 126, 0, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 126, 0, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 5px rgba(255, 126, 0, 0.4);
+            }
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            font-size: 1rem;
+            color: #ccc;
+        }
+        footer a {
+            color: #00f7ff;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        footer a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="education-simplified.png" alt="Education Simplified Logo" class="logo">
+        <h1>Business & Advertising Tools</h1>
+        <h2>Created by Uzair - For Digital Advertising</h2>
+        <p class="tagline">Your Gateway to Digital Excellence.</p>
+    </header>
+
+    <div class="buttons-container">
+        <a href="https://educationsimplified.github.io/barcode/" class="btn">
+            <span>Free Barcode Creator</span><br>
+            No ads, no paid membership. Create and download.
+        </a>
+        <a href="https://educationsimplified.github.io/qr/" class="btn">
+            <span>Free QR Code Creator</span><br>
+            No ads, no paid membership. QR code is the future of advertising.
+        </a>
+        <a href="https://educationsimplified.github.io/linkshortner/" class="btn">
+            <span>Link Shortener</span><br>
+            No ads, no paid membership. Transform long, ugly links to short ones.
+        </a>
+        <a href="https://educationsimplified.github.io/whatsapp-message/" class="btn">
+            <span>WhatsApp Bulk Message Sender</span><br>
+            No ads, no paid membership. Send bulk WhatsApp messages without the cost of API.
+        </a>
+        <a href="https://educationsimplified.github.io/writingpad/" class="btn">
+            <span>Digital Signature Writing Pad</span><br>
+            No ads, no paid membership. Sign on the board and download your signature.
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Education Simplified by Uzair. Website developed by Uzair - B2B Services.</p>
+        <a href="https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==" target="_blank">Follow Uzair on Instagram</a>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.add('glow');
+                setTimeout(() => {
+                    this.classList.remove('glow');
+                }, 1000);  // Remove the glow effect after 1 second
+            });
+        });
+    </script>
+</body>
+</html>
