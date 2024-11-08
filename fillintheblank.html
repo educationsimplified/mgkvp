@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Fill-in-the-Blank Quiz</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background-color: #fff;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #3e206d;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question h2 {
+            font-size: 1.2em;
+        }
+
+        .question input {
+            width: auto;
+            padding: 5px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            size: 6;
+            maxlength: 6;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color:#FF6D00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        .submit-btn:hover {
+            background-color:#3e206d;
+        }
+
+        .details-container, .report-card-container {
+            display: none;
+            text-align: center;
+        }
+
+        .join-bootcamp {
+            font-size: 1.5em;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #c8ff00;
+            padding: 10px;
+            border-radius: 10px;
+            animation: glow 1s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px #ffeb3b;
+            }
+            to {
+                box-shadow: 0 0 20px #ffeb3b;
+            }
+        }
+
+        .join-bootcamp a {
+            font-size: 1.8em;
+            text-decoration: none;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>HTML Fill-in-the-Blank Quiz</h1>
+        <form id="quizForm">
+            <!-- Question 1 -->
+            <div class="question">
+                <h2>Question 1:</h2>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta <input type="text" id="q1_blank1" maxlength="6" size="6" placeholder="Enter your answer">&gt;
+    &lt;<input type="text" id="q1_blank2" maxlength="6" size="6" placeholder="Enter your answer">&gt;
+    &lt;title&gt;Headings and Paragraphs&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;This is a Heading 1&lt;/h1&gt;
+    &lt;p&gt;This is a paragraph under Heading 1.&lt;/p&gt;
+    &lt;<input type="text" id="q1_blank3" maxlength="6" size="6" placeholder="Enter your answer">&gt;This is a Heading 2&lt;/h2&gt;
+    &lt;p&gt;This is a paragraph under Heading 2.&lt;/p&gt;
+    &lt;h3&gt;This is a Heading 3&lt;/h3&gt;
+    &lt;<input type="text" id="q1_blank4" maxlength="6" size="6" placeholder="Enter your answer">&gt;This is a paragraph under Heading 3.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <h2>Question 2:</h2>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="<input type="text" id="q2_blank1" maxlength="6" size="6" placeholder="Enter your answer">&gt;
+    &lt;<input type="text" id="q2_blank2" maxlength="6" size="6" placeholder="Enter your answer">&gt;
+    &lt;title&gt;Document Structure&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="<input type="text" id="q2_blank3" maxlength="6" size="6" placeholder="Enter your answer">&gt;This is a div section.&lt;/div&gt;
+    &lt;<input type="text" id="q2_blank4" maxlength="6" size="6" placeholder="Enter your answer">&gt;This is a paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <h2>Question 3:</h2>
+                <pre><code>&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;<input type="text" id="q3_blank1" maxlength="6" size="6" placeholder="Enter your answer">&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;<input type="text" id="q3_blank2" maxlength="6" size="6" placeholder="Enter your answer">&gt;Welcome to the HTML Quiz&lt;/h1&gt;
+    &lt;<input type="text" id="q3_blank3" maxlength="6" size="6" placeholder="Enter your answer">&gt;This is an introductory paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="showDetailsForm()">Submit</button>
+        </form>
+
+        <!-- Details Form -->
+        <div class="details-container" id="detailsForm">
+            <h2>Enter Your Details</h2>
+            <input type="text" id="studentName" placeholder="Enter your name"><br><br>
+            <input type="email" id="studentEmail" placeholder="Enter your Gmail"><br><br>
+            <input type="text" id="address" placeholder="Enter your address"><br><br>
+            <label for="institution">Select Institution:</label>
+            <select id="institution" onchange="handleInstitutionChange()">
+                <option value="school">School</option>
+                <option value="college">College</option>
+                <option value="others">Others</option>
+            </select><br><br>
+            <div id="additionalFields"></div>
+            <button class="submit-btn" onclick="generateReportCard()">Generate Report Card</button>
+        </div>
+
+        <!-- Report Card -->
+        <div class="report-card-container" id="reportCard">
+            <h2>Your Report Card</h2>
+            <div id="reportContent">
+                <!-- Report card content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="join-bootcamp">
+        <p>Want to learn more? <a href="https://forms.gle/MtmEoC7NdUuBdSbj7">Join our Bootcamp!</a></p>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            // Question 1
+            q1_blank1: "meta",
+            q1_blank2: "head",
+            q1_blank3: "h2",
+            q1_blank4: "p",
+            
+            // Question 2
+            q2_blank1: "utf-8",
+            q2_blank2: "head",
+            q2_blank3: "container",
+            q2_blank4: "p",
+            
+            // Question 3
+            q3_blank1: "Quiz",
+            q3_blank2: "h1",
+            q3_blank3: "p",
+        };
+
+        function showDetailsForm() {
+            // Hide quiz form and show details form
+            document.getElementById('quizForm').style.display = 'none';
+            document.getElementById('detailsForm').style.display = 'block';
+        }
+
+        function handleInstitutionChange() {
+            const institution = document.getElementById("institution").value;
+            const additionalFields = document.getElementById("additionalFields");
+
+            // Show additional input based on institution
+            if (institution === "others") {
+                additionalFields.innerHTML = '<input type="text" id="otherInstitution" placeholder="Enter your institution"><br><br>';
+            } else {
+                additionalFields.innerHTML = '';
+            }
+        }
+
+        function generateReportCard() {
+            // Hide details form and show report card
+            document.getElementById('detailsForm').style.display = 'none';
+            document.getElementById('reportCard').style.display = 'block';
+
+            const reportContent = document.getElementById('reportContent');
+            reportContent.innerHTML = '';
+
+            // Generate report for each question
+            let reportHTML = '<h3>Quiz Results</h3>';
+
+            // Loop through each question's blanks and display user and correct answers
+            for (let i = 1; i <= 4; i++) {
+                const userAnswer1 = document.getElementById(`q1_blank${i}`).value;
+                const correctAnswer1 = correctAnswers[`q1_blank${i}`];
+                reportHTML += `
+                    <p><strong>Question 1, Blank ${i}:</strong><br>
+                    Your Answer: ${userAnswer1}<br>
+                    Correct Answer: ${correctAnswer1}</p><hr>`;
+            }
+
+            for (let i = 1; i <= 4; i++) {
+                const userAnswer2 = document.getElementById(`q2_blank${i}`).value;
+                const correctAnswer2 = correctAnswers[`q2_blank${i}`];
+                reportHTML += `
+                    <p><strong>Question 2, Blank ${i}:</strong><br>
+                    Your Answer: ${userAnswer2}<br>
+                    Correct Answer: ${correctAnswer2}</p><hr>`;
+            }
+
+            for (let i = 1; i <= 3; i++) {
+                const userAnswer3 = document.getElementById(`q3_blank${i}`).value;
+                const correctAnswer3 = correctAnswers[`q3_blank${i}`];
+                reportHTML += `
+                    <p><strong>Question 3, Blank ${i}:</strong><br>
+                    Your Answer: ${userAnswer3}<br>
+                    Correct Answer: ${correctAnswer3}</p><hr>`;
+            }
+
+            reportContent.innerHTML = reportHTML;
+        }
+    </script>
+</body>
+</html>
