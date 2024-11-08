@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Quiz</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background-color: #fff;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #62078c;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question h2 {
+            font-size: 1.2em;
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .options li {
+            margin-bottom: 10px;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #f19808;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        .submit-btn:hover {
+            background-color: #62078c;
+        }
+
+        .report-card-container {
+            display: none;
+            text-align: center;
+        }
+
+        .details-container {
+            margin-top: 20px;
+        }
+
+        .join-bootcamp {
+            font-size: 1.5em;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #fbff00;
+            padding: 10px;
+            border-radius: 10px;
+            animation: glow 1s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px #ffeb3b;
+            }
+            to {
+                box-shadow: 0 0 20px #ffeb3b;
+            }
+        }
+
+        .join-bootcamp a {
+            font-size: 1.8em;
+            text-decoration: none;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>HTML Quiz</h1>
+        <form id="quizForm">
+            <!-- Questions will be dynamically inserted here by JavaScript -->
+        </form>
+        <button class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+    </div>
+
+    <div class="report-card-container" id="reportCardContainer">
+        <h2>Quiz Report Card</h2>
+        <p>Please enter your details to view the report card:</p>
+        <div class="details-container">
+            <input type="text" id="studentName" placeholder="Enter your name"><br><br>
+            <input type="email" id="studentEmail" placeholder="Enter your Gmail"><br><br>
+            <input type="text" id="address" placeholder="Enter your address"><br><br>
+            <label for="institution">Select Institution:</label>
+            <select id="institution" onchange="handleInstitutionChange()">
+                <option value="school">School</option>
+                <option value="college">College</option>
+                <option value="others">Others</option>
+            </select><br><br>
+            <div id="additionalFields"></div>
+        </div>
+        <button class="submit-btn" onclick="generateReportCard()">Generate Report Card</button>
+        <div class="report-card" id="reportCard">
+            <!-- Report card will be dynamically inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <div class="join-bootcamp">
+        <p><strong>Don't miss out!</strong> Join our next online bootcamp and get your name certificate.</p>
+        <a href="https://forms.gle/MtmEoC7NdUuBdSbj7" target="_blank">Register Now</a>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What file extension should be used when saving an HTML document?",
+                options: [".txt", ".htm or .html", ".doc", ".xml"],
+                answer: 1
+            },
+            {
+                question: "Which software can you use to view your HTML webpage?",
+                options: ["Microsoft Word", "Adobe Photoshop", "Web browser (Chrome, Firefox, etc.)", "Excel"],
+                answer: 2
+            },
+
+{
+                question: "Which tag is used to define the overall structure of an HTML document?",
+                options: ["<head>", "<body>", "<html>", "<title>"],
+                answer: 2
+            },
+            {
+                question: "Which tag is used to create a line break in HTML?",
+                options: ["<br>", "<hr>", "<p>", "<line>"],
+                answer: 0
+            },
+            {
+                question: "The <title> tag is nested within which tag?",
+                options: ["<html>", "<body>", "<header>", "<head>"],
+                answer: 3
+            },
+            {
+                question: "How do you create a comment in HTML?",
+                options: ["/* comment */", "// comment", "<!-- comment -->", "# comment"],
+                answer: 2
+            },
+            {
+                question: "Which of the following tags is used for headings in HTML?",
+                options: ["<p>", "<h1> to <h6>", "<title>", "<h>"],
+                answer: 1
+            },
+            {
+                question: "Which tag is used for a horizontal line?",
+                options: ["<line>", "<hr>", "<hline>", "<break>"],
+                answer: 1
+            },
+            {
+                question: "What tag is used to create a paragraph in HTML?",
+                options: ["<para>", "<br>", "<p>", "<text>"],
+                answer: 2
+            },
+            {
+                question: "Which HTML tag is used to make text bold?",
+                options: ["<i>", "<u>", "<b>", "<strong>"],
+                answer: 2
+            },
+            {
+                question: "How do you create an unordered list in HTML?",
+                options: ["<ul>", "<ol>", "<li>", "<list>"],
+                answer: 0
+            },
+            {
+                question: "Which tag is used to create an ordered list in HTML?",
+                options: ["<ol>", "<ul>", "<list>", "<order>"],
+                answer: 0
+            },
+            {
+                question: "Which attribute of the font tag is used to change the font color?",
+                options: ["type", "color", "size", "font"],
+                answer: 1
+            },
+            {
+                question: "Which attribute is used to define the font size in HTML?",
+                options: ["face", "size", "type", "text"],
+                answer: 1
+            },
+            {
+                question: "Which attribute is required in the <img> tag to define the image source?",
+                options: ["src", "href", "link", "image"],
+                answer: 0
+            },
+            {
+                question: "What does the alt attribute in the <img> tag specify?",
+                options: ["Image file size", "Alternative text in case the image doesn't load", "Image alignment", "Image type"],
+                answer: 1
+            },
+            {
+                question: "Which tag is used for superscript text?",
+                options: ["<sub>", "<sup>", "<small>", "<high>"],
+                answer: 1
+            },
+            {
+                question: "Which tag is used for subscript text?",
+                options: ["<low>", "<sup>", "<sub>", "<below>"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is used to create a text input field in a form?",
+                options: ["<textarea>", "<textbox>", "<input type='text'>", "<input type='password'>"],
+                answer: 2
+            },
+            {
+                question: "How do you create a checkbox in a form?",
+                options: ["<input type='checkbox'>", "<checkbox>", "<input type='radio'>", "<check>"],
+                answer: 0
+            },
+            {
+                question: "Which tag is used to embed a video in HTML?",
+                options: ["<media>", "<embed>", "<video>", "<movie>"],
+                answer: 2
+            },
+            {
+                question: "Which tag is used to embed an audio file in HTML?",
+                options: ["<music>", "<sound>", "<audio>", "<embed>"],
+                answer: 2
+            },
+            {
+                question: "Which tag is used to create a table in HTML?",
+                options: ["<tbl>", "<td>", "<table>", "<tab>"],
+                answer: 2
+            },
+            {
+                question: "Which attribute is used to merge two or more columns in an HTML table?",
+                options: ["rowspan", "colspan", "merge", "width"],
+                answer: 1
+            },
+            {
+                question: "Which attribute of the <a> tag is used to define the destination URL?",
+                options: ["link", "href", "src", "target"],
+                answer: 1
+            }
+            // Additional questions...
+        ];
+
+        let correctAnswers = 0;
+        let wrongAnswers = 0;
+
+        function loadQuestions() {
+            const quizForm = document.getElementById('quizForm');
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+                
+                const questionTitle = document.createElement('h2');
+                questionTitle.innerText = `${index + 1}. ${q.question}`;
+                questionDiv.appendChild(questionTitle);
+
+                const optionsList = document.createElement('ul');
+                optionsList.classList.add('options');
+
+                q.options.forEach((option, i) => {
+                    const optionItem = document.createElement('li');
+                    const optionLabel = document.createElement('label');
+                    const optionRadio = document.createElement('input');
+                    optionRadio.type = 'radio';
+                    optionRadio.name = `question${index}`;
+                    optionRadio.value = i;
+                    optionLabel.appendChild(optionRadio);
+                    optionLabel.appendChild(document.createTextNode(option));
+                    optionItem.appendChild(optionLabel);
+                    optionsList.appendChild(optionItem);
+                });
+
+                questionDiv.appendChild(optionsList);
+                quizForm.appendChild(questionDiv);
+            });
+        }
+
+        function submitQuiz() {
+            correctAnswers = 0;
+            wrongAnswers = 0;
+
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption && parseInt(selectedOption.value) === q.answer) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswers++;
+                }
+            });
+
+            alert(`You got ${correctAnswers} correct and ${wrongAnswers} wrong.`);
+
+            if (correctAnswers >= 20) {
+                document.querySelector('.container').style.display = 'none';
+                document.getElementById('reportCardContainer').style.display = 'block';
+            } else {
+                alert('You did not pass the quiz. Please try again.');
+            }
+        }
+
+        function handleInstitutionChange() {
+            const institution = document.getElementById('institution').value;
+            const additionalFields = document.getElementById('additionalFields');
+            additionalFields.innerHTML = ''; // Clear previous inputs
+
+            if (institution === 'school') {
+                additionalFields.innerHTML = `
+                    <label for="schoolBoard">Select Board:</label>
+                    <select id="schoolBoard">
+                        <option value="cbse">CBSE</option>
+                        <option value="icse">ICSE</option>
+                        <option value="state">State</option>
+                        <option value="other">Other</option>
+                    </select><br><br>
+                `;
+            } else if (institution === 'college') {
+                additionalFields.innerHTML = `
+                    <input type="text" id="course" placeholder="Enter your course name"><br><br>
+                `;
+            } else {
+                additionalFields.innerHTML = `
+                    <input type="text" id="institutionOther" placeholder="Specify your institution"><br><br>
+                `;
+            }
+        }
+
+        function generateReportCard() {
+            const name = document.getElementById('studentName').value;
+            const email = document.getElementById('studentEmail').value;
+            const reportCardDiv = document.getElementById('reportCard');
+
+            if (!name || !email) {
+                alert('Please fill in all details.');
+                return;
+            }
+
+            reportCardDiv.innerHTML = `
+                <h3>Report Card</h3>
+                <p>Name: ${name}</p>
+                <p>Email: ${email}</p>
+                <p>Total Questions: ${questions.length}</p>
+                <p>Correct Answers: ${correctAnswers}</p>
+                <p>Wrong Answers: ${wrongAnswers}</p>
+                <p><strong>Take a screenshot of this report card</strong> and click below to share it via WhatsApp to receive your certificate:</p>
+                <button class="submit-btn">
+                    <a href="https://wa.link/4jrun4" style="color: white;" target="_blank">Share on WhatsApp</a>
+                </button>
+                <p>Or, fill the form to join our next online bootcamp and get a customized name certificate: 
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAT34Te8ILaS5G_6-yhmDu-z78aNtRIrDKp6dOBq8jx_u-Vg/viewform" target="_blank">
+                        Boot Camp Registration
+                    </a>
+                </p>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadQuestions);
+    </script>
+
+</body>
+</html>
