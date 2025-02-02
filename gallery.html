@@ -5,123 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery/Events - Seminar on Cyber Security</title>
     <style>
+        :root {
+            --background-color: #181818;
+            --text-color: #fff;
+            --accent-color: #d90000;
+        }
+        
+        body.light-mode {
+            --background-color: #f4f4f4;
+            --text-color: #000;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            background-color: var(--background-color);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            padding: 20px;
+            border-bottom: 2px solid #333;
         }
 
         .header img {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            margin-top: 20px;
+            border: 3px solid var(--accent-color);
         }
 
         h1 {
             font-size: 2.5em;
-            margin-bottom: 10px;
-            color: #333;
+            margin-top: 10px;
+        }
+
+        .toggle-mode-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .toggle-mode {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 0 10px var(--accent-color);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .toggle-mode:hover {
+            box-shadow: 0 0 20px var(--accent-color);
         }
 
         .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
+            margin-top: 20px;
         }
 
         .gallery video {
-            width: 300px;
-            height: 200px;
-            cursor: pointer;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
         .gallery video:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.8);
         }
 
         footer {
             text-align: center;
             margin-top: 40px;
-            font-size: 0.9em;
-            color: #555;
+            padding: 20px;
+            background-color: #222;
         }
 
         footer p {
-            margin: 0;
+            color: #aaa;
+            font-size: 0.9em;
         }
 
         @media (max-width: 768px) {
-            .gallery video {
-                width: 100%;
-                height: auto;
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
         <!-- Header Section -->
-        <div class="header">
+        <div class="header">Uzair2.jpg
             <h1>Seminar on Cyber Security</h1>
             <img src="Uzair2.jpg" alt="Uzair Ahmed">
+            <div class="toggle-mode-container">
+                <button class="toggle-mode" id="toggleMode">Turn On Dark/Light Theme</button>
+            </div>
         </div>
 
         <!-- Gallery Section -->
         <div class="gallery">
-            <!-- Video 1 -->
-            <video controls>
-                <source src="Video 1.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-
-            <!-- Video 2 -->
-            <video controls>
-                <source src="video 2.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-
-            <!-- Video 3 -->
-            <video controls>
-                <source src="video 3.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-
-            <!-- Video 4 -->
-            <video controls>
-                <source src="video 4.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-
-            <!-- Video 5 -->
-            <video controls>
-                <source src="video 5.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-
-            <!-- Video 6 (Duplicate Video 5) -->
-            <video controls>
-                <source src="video 6.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <video controls><source src="Video 1.mp4" type="video/mp4"></video>
+            <video controls><source src="Video 2.mp4" type="video/mp4"></video>
+            <video controls><source src="Video 3.mp4" type="video/mp4"></video>
+            <video controls><source src="Video 4.mp4" type="video/mp4"></video>
+            <video controls><source src="Video 5.mp4" type="video/mp4"></video>
+            <video controls><source src="Video 6.mp4" type="video/mp4"></video>
         </div>
     </div>
 
@@ -130,5 +135,10 @@
         <p>Developed by Uzair Ahmed, &copy; 2024</p>
     </footer>
 
+    <script>
+        document.getElementById("toggleMode").addEventListener("click", function() {
+            document.body.classList.toggle('light-mode');
+        });
+    </script>
 </body>
 </html>
