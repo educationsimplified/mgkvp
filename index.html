@@ -10,7 +10,89 @@
     <title>MGKVP Department of Journalism and Mass Communication</title>
     <link rel="icon" href="https://image-static.collegedunia.com/public/college_data/images/appImage/25957_MGKASHI_APP.jpg?h=260&w=360&mode=crop" type="image/x-icon">
     <style>
-        body {
+      .youtube-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #fffb00;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #00e6e6, 0 0 30px #98ffff;
+    padding: 10px;
+    text-align: center;
+    z-index: 200;
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+    cursor: grab;
+}
+
+/* Title inside the popup */
+.youtube-popup h3 {
+    color: #e1ff00;
+    font-size: 1em;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px #130072;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 2.5em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    color: #f2ff00;
+    text-shadow: 0 0 10px #000000;
+}
+
+/* Draggable Handle */
+.drag-handle {
+    background: #ff0000;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    cursor: grab;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .youtube-popup {
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .youtube-popup iframe {
+        width: 100%;
+        height: 170px;
+    }
+
+    .youtube-popup h3 {
+        font-size: 0.9em;
+    }
+}
+body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
@@ -199,6 +281,8 @@
         .footer:hover {
             text-shadow: 0 0 20px #ffffff;
         }
+     
+
     </style>
 </head>
 
@@ -227,6 +311,20 @@
        <h1>JOURNALISM & MASS COMMUNICATION</h1>
        <h2>Providing the Digital Shift to Technology Learning—Tools, Apply for Job and Internship and Study from Notes in One Place.</h2>
 
+       <!-- YouTube Notification -->
+<div id="youtube-notification" class="youtube-popup">
+    <div id="drag-handle" class="drag-handle">🔍 Website Kaise Chalana Hai</div>
+    <span class="close-btn" onclick="closeNotification()">&times;</span>
+    <h3>Watch this Video</h3>
+    <iframe width="300" height="180" 
+        src="https://www.youtube.com/embed/T7Mv6SGimtc?si=Xb2ACVOzXYeIH5-c&autoplay=1" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+    </iframe>
+</div>
         <button class="glowing-button" onclick="redirectToJoin()">Click Here For Notes</button>
 
         <!-- Page Links with Glowing Effect -->
@@ -242,44 +340,120 @@
     <!-- Footer -->
     <div class="footer">
  <a href="https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==" target="_blank" style="color: #ffffff; text-decoration: none;">
-            Developed by: Uzair Ahmed @2024, B.A.(Hons) Mass Communication Student
+            Developed by: Uzair Ahmed @2024, B.A.(Hons) Mass Communication Student </a>
     </div>
 
     <script>
- // Toggle Sidebar Menu with Spin Effect
-        function toggleSidebar() {
-            var sidebarMenu = document.getElementById('sidebarMenu');
-            var sidebarIcon = document.querySelector('.sidebar');
+        // Toggle Sidebar Menu with Spin Effect
+               function toggleSidebar() {
+                   var sidebarMenu = document.getElementById('sidebarMenu');
+                   var sidebarIcon = document.querySelector('.sidebar');
+       
+                   if (sidebarMenu.style.display === 'block') {
+                       sidebarMenu.style.display = 'none';
+                       sidebarIcon.style.transform = 'rotate(-360deg)';
+                   } else {
+                       sidebarMenu.style.display = 'block';
+                       sidebarIcon.style.transform = 'rotate(360deg)';
+                   }
+               }
+       
+               // Spin Logo and Redirect
+               function spinLogoAndRedirect() {
+                   var logo = document.querySelector('.header');
+       
+                   logo.style.transform = 'rotate(360deg)';
+       
+                   setTimeout(function() {
+                       window.location.href = 'https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==';
+                       logo.style.transform = 'rotate(0deg)';
+                   }, 600); // Matches the transition duration
+               }
+       // Redirect to Join Link youtube
+               function redirectToJoin() {
+                   window.location.href = 'https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==';
+               }
+       
+               function redirectToJoin() {
+                   window.location.href = 'https://educationsimplified.github.io/universe';
+               }
+               function closeNotification() {
+        document.getElementById("youtube-notification").style.display = "none";
+    }
 
-            if (sidebarMenu.style.display === 'block') {
-                sidebarMenu.style.display = 'none';
-                sidebarIcon.style.transform = 'rotate(-360deg)';
-            } else {
-                sidebarMenu.style.display = 'block';
-                sidebarIcon.style.transform = 'rotate(360deg)';
+    // Show notification after 1 second
+    setTimeout(() => {
+        document.getElementById("youtube-notification").style.opacity = "1";
+    }, 1000);
+
+    function makeDraggable(element, handle) {
+        let isDragging = false;
+        let isActivated = false;
+        let offsetX, offsetY, timer;
+
+        // Double-click to activate dragging
+        handle.addEventListener("dblclick", () => {
+            isActivated = true;
+            handle.style.background = "#ffcc00"; // Highlight activation
+            setTimeout(() => {
+                handle.style.background = "#00e6e6"; // Revert color
+            }, 1000);
+        });
+
+        // Hold for 0.5s to activate dragging
+        handle.addEventListener("mousedown", (e) => {
+            timer = setTimeout(() => {
+                isActivated = true;
+                handle.style.background = "#ffcc00";
+                setTimeout(() => {
+                    handle.style.background = "#00e6e6";
+                }, 1000);
+            }, 500);
+        });
+
+        // Cancel activation if released before 0.5s
+        handle.addEventListener("mouseup", () => clearTimeout(timer));
+        handle.addEventListener("mouseleave", () => clearTimeout(timer));
+
+        // Drag start
+        handle.addEventListener("mousedown", (e) => {
+            if (!isActivated) return;
+            isDragging = true;
+            offsetX = e.clientX - element.getBoundingClientRect().left;
+            offsetY = e.clientY - element.getBoundingClientRect().top;
+            element.style.cursor = "grabbing";
+        });
+
+        // Drag movement
+        document.addEventListener("mousemove", (e) => {
+            if (isDragging) {
+                let x = e.clientX - offsetX;
+                let y = e.clientY - offsetY;
+                element.style.left = `${x}px`;
+                element.style.top = `${y}px`;
+                element.style.transform = "none"; // Remove center alignment
             }
-        }
+        });
 
-        // Spin Logo and Redirect
-        function spinLogoAndRedirect() {
-            var logo = document.querySelector('.header');
+        // Stop drag on mouse up
+        document.addEventListener("mouseup", () => {
+            isDragging = false;
+            element.style.cursor = "grab";
+        });
 
-            logo.style.transform = 'rotate(360deg)';
+        // Click outside to deactivate
+        document.addEventListener("click", (e) => {
+            if (!element.contains(e.target)) {
+                isActivated = false;
+            }
+        });
+    }
 
-            setTimeout(function() {
-                window.location.href = 'https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==';
-                logo.style.transform = 'rotate(0deg)';
-            }, 600); // Matches the transition duration
-        }
-// Redirect to Join Link
-        function redirectToJoin() {
-            window.location.href = 'https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==';
-        }
-
-        function redirectToJoin() {
-            window.location.href = 'https://educationsimplified.github.io/universe';
-        }
-    </script>
+    makeDraggable(
+        document.getElementById("youtube-notification"),
+        document.getElementById("drag-handle")
+    );    
+           </script>
 </body>
 
 </html>
