@@ -62,6 +62,40 @@ body {
     gap: 20px;
     padding: 20px;
 }
+    
+/* Image styling */
+.gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+    opacity: 0; /* For fade-in effect */
+}
+
+/* Fade-in animation */
+.gallery img.fade-in {
+    animation: fadeIn 1s forwards;
+}
+
+/* Hover effect */
+.gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Fade-in animation keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 .gallery video {
     width: 100%;
