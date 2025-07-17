@@ -199,52 +199,56 @@
             </div>
         </div>
 
-        <!DOCTYPE html>
+   
 
 <!-- Popup Overlay -->
-<div id="popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white w-full max-w-xl rounded-lg shadow-xl flex flex-col md:flex-row overflow-hidden relative">
+<div id="popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+  <div class="bg-white w-full max-w-3xl rounded-lg shadow-xl flex flex-col md:flex-row overflow-hidden relative">
 
     <!-- Close Button -->
     <button onclick="document.getElementById('popup').style.display='none'"
-            class="absolute top-2 right-3 text-gray-600 hover:text-red-600 text-3xl font-bold z-10">&times;</button>
+            class="absolute top-2 right-3 text-gray-600 hover:text-red-600 text-3xl font-bold z-10">
+      &times;
+    </button>
 
-    <!-- Left Side Image -->
+    <!-- Left Side Image and Text -->
     <div class="bg-cyan-100 p-4 flex items-center justify-center w-full md:w-1/2">
       <div class="text-center">
         <img src="https://cdn-icons-png.flaticon.com/512/4712/4712103.png" alt="Apply"
-             class="w-24 mx-auto mb-2">
-        <h2 class="text-lg font-bold text-cyan-800">Job / Internship Portal</h2>
-        <p class="text-xs text-cyan-700">Please fill in all the fields correctly and provide accurate information. <br>
-Make sure to upload your resume to Google Drive first and then share the accessible link in the form. <br>
-If you are selected or if a suitable job/internship opportunity is available, we will contact you directly using the phone number you provide. <br>
-So please ensure that your contact number is correct. Incomplete or incorrect submissions may be rejected without notice. <br><br>
+             class="w-20 sm:w-24 mx-auto mb-2">
+        <h2 class="text-base sm:text-lg font-bold text-cyan-800">Job / Internship Portal</h2>
+        <p class="text-xs sm:text-sm text-cyan-700 mt-2 overflow-y-auto max-h-[300px] sm:max-h-[none] text-left sm:text-center">
+          Please fill in all the fields correctly and provide accurate information. <br>
+          Make sure to upload your resume to Google Drive first and then share the accessible link in the form. <br>
+          If you are selected or if a suitable job/internship opportunity is available, we will contact you directly using the phone number you provide. <br>
+          So please ensure that your contact number is correct. Incomplete or incorrect submissions may be rejected without notice. <br><br>
 
-कृपया सभी जानकारी सही-सही भरें और सटीक जानकारी दें। <br>
-सबसे पहले अपना रिज़्यूमे Google Drive पर अपलोड करें, फिर उसका लिंक यहाँ शेयर करें। <br>
-यदि आप चयनित होते हैं या आपके लिए कोई जॉब/इंटर्नशिप का अवसर आता है, तो हम आपके द्वारा दिए गए मोबाइल नंबर पर आपसे संपर्क करेंगे। <br>
-इसलिए कृपया सही मोबाइल नंबर दर्ज करें। गलत या अधूरी जानकारी वाले फॉर्म को स्वीकार नहीं किया जाएगा।
-</p>
+          कृपया सभी जानकारी सही-सही भरें और सटीक जानकारी दें। <br>
+          सबसे पहले अपना रिज़्यूमे Google Drive पर अपलोड करें, फिर उसका लिंक यहाँ शेयर करें। <br>
+          यदि आप चयनित होते हैं या आपके लिए कोई जॉब/इंटर्नशिप का अवसर आता है, तो हम आपके द्वारा दिए गए मोबाइल नंबर पर आपसे संपर्क करेंगे। <br>
+          इसलिए कृपया सही मोबाइल नंबर दर्ज करें। गलत या अधूरी जानकारी वाले फॉर्म को स्वीकार नहीं किया जाएगा।
+        </p>
       </div>
     </div>
 
     <!-- Right Side Form Embed -->
     <div class="w-full md:w-1/2 p-3">
-      <iframe 
-        src="https://docs.google.com/forms/d/e/1FAIpQLScq-oW9hYb3MMPSMSYEL8Ofs8lOXvoAK7-iQLVfs8cXKBNTSA/viewform?embedded=true"
-        width="100%" 
-        height="420" 
-        frameborder="0"
-        class="rounded-md"
-        loading="lazy"
-      >
-        Loading…
-      </iframe>
+      <div class="aspect-w-1 aspect-h-1 md:aspect-auto">
+        <iframe 
+          src="https://docs.google.com/forms/d/e/1FAIpQLScq-oW9hYb3MMPSMSYEL8Ofs8lOXvoAK7-iQLVfs8cXKBNTSA/viewform?embedded=true"
+          width="100%" 
+          height="420" 
+          frameborder="0"
+          class="rounded-md w-full h-[400px] md:h-[420px]"
+          loading="lazy"
+        >
+          Loading…
+        </iframe>
+      </div>
     </div>
+
   </div>
 </div>
-
-
 
         <!-- Resume Creation Service Section -->
         <div class="section bg-lightCard dark:bg-darkCard p-6 mb-8 rounded-lg shadow-lg text-center">
