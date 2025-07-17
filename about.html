@@ -57,12 +57,13 @@
             border-radius: 0.5rem; /* rounded-lg */
             font-weight: 600; /* font-semibold */
             text-align: center;
-            white-space: nowrap; /* Prevent text wrapping */
+            white-space: normal; /* Allow text wrapping on smaller screens */
+            word-break: break-word; /* Break long words */
             transition: all 0.3s ease-in-out;
             border: 2px solid; /* For outline effect */
             text-decoration: none !important; /* Override default link underline */
-            /* Ensure buttons take full width of their container on smaller screens if desired, or limit their max-width */
-            max-width: 100%; /* Ensure they don't overflow on tiny screens */
+            width: 100%; /* Take full width within flex container */
+            max-width: 400px; /* Limit max width for all screen sizes */
         }
 
         /* Light mode button styles */
@@ -90,6 +91,12 @@
             border-color: #00e1ff;
             transform: translateY(-2px); /* Slight lift */
         }
+
+        /* Ensure the container of footer buttons always stacks them vertically */
+        .connect-buttons-container {
+            flex-direction: column; /* Always stack vertically */
+            align-items: center; /* Center them horizontally */
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-lightBg text-gray-900 transition-colors duration-300 dark:bg-darkBg dark:text-white">
@@ -114,13 +121,13 @@
 
     <div class="flex justify-center mt-8">
         <img src="20250125_115304.png" alt="UZAIR B2B Logo" class="w-36 h-36 rounded-full border-4 border-primary shadow-xl transition-all duration-500 cursor-pointer logo-spin-hover" onclick="spinLogoAndRedirect()">
-        </div>
+    </div>
 
     <div class="content flex flex-col items-center text-center p-6 bg-lightCard rounded-xl shadow-xl max-w-4xl mx-auto my-8 transition-colors duration-300 dark:bg-darkCard">
         <h1 class="text-4xl font-extrabold mb-6 text-gray-900 dark:text-white">About Uzair Ahmed</h1>
         <img class="profile-img w-56 h-56 rounded-xl border-5 border-primary mb-6 object-cover shadow-lg" src="Uzair2.jpg" alt="Uzair Ahmed Profile">
         <p class="text-lg mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">Hello! My name is Uzair Ahmed, a B.A. (Hons) Mass Communication student from the 2022-2025 batch. I am a passionate front-end web developer and have built a dedicated notes website for MGKVP students. In addition to my development skills, I am a professional video editor and graphic designer. As an educator in web development, I aim to help others learn and grow in this field.</p>
-        <p class="text-lg mb-8 text-gray-700 dark:text-gray-300 leading-relaxed">This website is designed to be a valuable resource, especially for journalism students, but also for students from all streams. Here, you can not only study but also explore job opportunities. Whether you're preparing for competitive exams like CAT, IIMC, UPSC, or simply seeking new learning tools, this platform has something for you. I like to think of it as the "Google" of education and job applications, particularly for students in Varanasi, especially those at MGKVP. However, it's open to all students from different colleges and schools, so feel free to explore and benefit from it!!!</p>
+        <p class="text-lg mb-8 text-gray-700 dark:text-gray-300 leading-relaxed">This website is designed to be a valuable resource, especially for journalism students, but also for students from all streams. Here, you can not only study but also explore job opportunities. Whether you're preparing for competitive exams like CAT, IIMC, UPSC, or simply new learning tools, this platform has something for you. I like to think of it as the "Google" of education and job applications, particularly for students in Varanasi, especially those at MGKVP. However, it's open to all students from different colleges and schools, so feel free to explore and benefit from it!!!</p>
 
         <h2 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Benefit of Choosing Us?</h2>
         <div class="cards grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-2xl">
@@ -132,7 +139,7 @@
 
     <div class="new-section-container bg-lightBg mx-auto my-8 p-6 rounded-xl shadow-lg max-w-4xl transition-colors duration-300 dark:bg-darkBg">
         <h3 class="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">Connect with Uzair</h3>
-        <div class="flex flex-col justify-center items-center gap-4">
+        <div class="connect-buttons-container flex flex-col justify-center items-center gap-4 px-4">
             <a href="https://techogies.com/" target="_blank" class="footer-button">MY CURRENT STATUS: EDUCATOR & FOUNDING MEMBER</a>
             <a href="https://educationsimplified.github.io/UzairAhmed/" target="_blank" class="footer-button">MY RESUME</a>
             <a href="https://wa.link/4jrun4" target="_blank" class="footer-button">CLICK HERE TO CONTACT ME FOR WEB DEVELOPMENT OR DIGITAL MARKETING SERVICES</a>
