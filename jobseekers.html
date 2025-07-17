@@ -135,13 +135,20 @@
             Click on a <strong class="text-primary">name</strong> to view full student details.
         </p>
 
+        <!-- Filter Buttons -->
+        <div id="filter-buttons" class="flex justify-center space-x-4 mb-8">
+            <button onclick="filterStudentsTable('All')" class="px-6 py-2 rounded-full bg-primary text-white font-semibold hover:bg-opacity-80 transition-colors duration-200">All</button>
+            <button onclick="filterStudentsTable('Technical')" class="px-6 py-2 rounded-full bg-gray-700 text-white font-semibold hover:bg-gray-600 transition-colors duration-200">Technical</button>
+            <button onclick="filterStudentsTable('Non Technical')" class="px-6 py-2 rounded-full bg-gray-700 text-white font-semibold hover:bg-gray-600 transition-colors duration-200">Non Technical</button>
+        </div>
+
         <div class="table-container max-w-4xl mx-auto overflow-x-auto bg-lightCard dark:bg-darkCard rounded-lg shadow-lg p-4">
             <table id="data-table" class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-50 dark:bg-gray-800">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Age</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Course</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Category</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Education Qualification</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Resume</th>
                     </tr>
                 </thead>
@@ -159,7 +166,8 @@
             <h2 id="modal-name" class="text-2xl font-bold mb-4 text-gray-900 dark:text-white"></h2>
             <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Age:</strong> <span id="modal-age"></span></p>
             <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>12th Pass:</strong> <span id="modal-pass"></span></p>
-            <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Course:</strong> <span id="modal-course"></span></p>
+            <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Education:</strong> <span id="modal-education"></span></p>
+            <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Category:</strong> <span id="modal-category"></span></p>
             <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Contact:</strong> <span id="modal-contact"></span></p>
             <p class="mb-4 text-gray-700 dark:text-gray-300"><strong>About:</strong> <span id="modal-about"></span></p>
             <p><a id="modal-resume" href="#" target="_blank" class="text-primary hover:underline font-semibold">View Resume</a></p>
@@ -180,6 +188,22 @@
 
     <script>
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRYH7Rlqwq1rupcx23cXSDMhtkijSWvS0tvdmuBwnWNlNkmwva54bAAEr59igvDXBncR9zGnAoY_lI6/pub?gid=1872451999&single=true&output=csv';
+
+        // Global variable to store all fetched student data
+        let allStudentsData = [];
+
+        // Define column indices for easier access to CSV data
+        const COLUMN_INDEX = {
+            TIMESTAMP: 0,
+            NAME: 1,
+            AGE: 2,
+            IS_12TH_PASS: 3,
+            EDUCATION: 4, // Education Qualification
+            JOB_TYPE: 5, // Are you looking For Technical or Non Technical Post (Category)
+            ABOUT: 6,    // Tell me about yourself
+            RESUME_LINK: 7,
+            WHATSAPP_NUMBER: 8
+        };
 
         document.addEventListener("DOMContentLoaded", function () {
             // Theme Toggle functionality
@@ -211,49 +235,83 @@
                 }
             });
 
-            // Fetch data and populate table
+            // Fetch data once and store it
             fetch(sheetUrl)
                 .then(response => response.text())
                 .then(csv => {
                     const rows = csv.split('\n').slice(1); // Skip header row
-                    const tableBody = document.querySelector('#data-table tbody');
-
-                    rows.forEach(row => {
+                    allStudentsData = rows.map(row => {
                         const cols = row.split(',');
-                        // Ensure there are enough columns to avoid errors
-                        if (cols.length < 8) return;
+                        // Ensure there are enough columns and the row is not empty
+                        if (cols.length < (COLUMN_INDEX.WHATSAPP_NUMBER + 1) || cols.every(col => col.trim() === '')) {
+                            return null; // Return null for invalid rows
+                        }
+                        // Create an object for each student for easier access
+                        return {
+                            name: cols[COLUMN_INDEX.NAME].trim(),
+                            age: cols[COLUMN_INDEX.AGE].trim(),
+                            is12thPass: cols[COLUMN_INDEX.IS_12TH_PASS].trim(),
+                            education: cols[COLUMN_INDEX.EDUCATION].trim(),
+                            jobType: cols[COLUMN_INDEX.JOB_TYPE].trim(),
+                            about: cols[COLUMN_INDEX.ABOUT].trim(),
+                            resumeLink: cols[COLUMN_INDEX.RESUME_LINK].trim(),
+                            contact: cols[COLUMN_INDEX.WHATSAPP_NUMBER].trim()
+                        };
+                    }).filter(student => student !== null); // Filter out any null entries
 
-                        const [timestamp, name, age, pass12, course, about, resumeLink, contact] = cols;
-
-                        // Check if 12th Pass is 'Yes' (case-insensitive and trimmed)
-                        if (pass12.trim().toLowerCase() !== 'yes') return;
-
-                        const tr = document.createElement('tr');
-                        // Use template literals for cleaner string interpolation
-                        tr.innerHTML = `
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                                <a href="#" onclick='showDetails(${JSON.stringify(name)}, ${JSON.stringify(age)}, ${JSON.stringify(pass12)}, ${JSON.stringify(course)}, ${JSON.stringify(contact)}, ${JSON.stringify(about)}, ${JSON.stringify(resumeLink)})' class="text-primary hover:underline">
-                                    ${name}
-                                </a>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">${age}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">${course}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-primary">
-                                <a href="${resumeLink}" target="_blank" class="hover:underline">Resume</a>
-                            </td>
-                        `;
-                        tableBody.appendChild(tr);
-                    });
+                    // Initially display all students
+                    filterStudentsTable('All');
                 })
-                .catch(error => console.error('Error fetching data:', error)); // Basic error handling
+                .catch(error => console.error('Error fetching data for main table:', error)); // Basic error handling
         });
 
+        // Function to filter and display students in the table
+        function filterStudentsTable(category) {
+            const tableBody = document.querySelector('#data-table tbody');
+            tableBody.innerHTML = ''; // Clear existing content
+
+            let filteredStudents = [];
+            if (category === 'All') {
+                filteredStudents = allStudentsData.filter(student => student.is12thPass.toLowerCase() === 'yes');
+            } else {
+                filteredStudents = allStudentsData.filter(student => 
+                    student.is12thPass.toLowerCase() === 'yes' && 
+                    student.jobType.toLowerCase() === category.toLowerCase()
+                );
+            }
+
+            if (filteredStudents.length === 0) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">No students found in this category.</td>`;
+                tableBody.appendChild(tr);
+                return;
+            }
+
+            filteredStudents.forEach(student => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                        <a href="#" onclick='showDetails(${JSON.stringify(student.name)}, ${JSON.stringify(student.age)}, ${JSON.stringify(student.is12thPass)}, ${JSON.stringify(student.education)}, ${JSON.stringify(student.jobType)}, ${JSON.stringify(student.about)}, ${JSON.stringify(student.resumeLink)}, ${JSON.stringify(student.contact)})' class="text-primary hover:underline">
+                            ${student.name}
+                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">${student.jobType}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">${student.education}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-primary">
+                        <a href="${student.resumeLink}" target="_blank" class="hover:underline">Resume</a>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
         // Modal functions (retained and adapted for new modal classes)
-        function showDetails(name, age, pass12, course, contact, about, resume) {
+        function showDetails(name, age, pass12, education, jobType, about, resume, contact) {
             document.getElementById('modal-name').textContent = name;
             document.getElementById('modal-age').textContent = age;
             document.getElementById('modal-pass').textContent = pass12;
-            document.getElementById('modal-course').textContent = course;
+            document.getElementById('modal-education').textContent = education;
+            document.getElementById('modal-category').textContent = jobType;
             document.getElementById('modal-contact').textContent = contact;
             document.getElementById('modal-about').textContent = about;
             document.getElementById('modal-resume').href = resume;
@@ -281,6 +339,5 @@
             }
         }
     </script>
-
 </body>
 </html>
