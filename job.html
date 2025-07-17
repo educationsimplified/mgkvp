@@ -199,48 +199,125 @@
             </div>
         </div>
 
+<style>
+  /* Overlay */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 1s ease-in-out;
+  }
 
-<!-- Google Form Modal -->
-<div id="googleFormModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
-  <div class="bg-white w-full max-w-4xl rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 
-    <!-- Left Content -->
-    <div class="bg-cyan-100 p-4 w-full md:w-1/2 overflow-y-auto">
-      <div class="text-sm text-cyan-800 space-y-2">
-        <h2 class="text-base font-bold">Job / Internship Portal</h2>
-        <p>
-          Please fill in all the fields correctly and provide accurate information.<br>
-          Upload your resume to Google Drive first and share the accessible link here.<br>
-          We will contact you directly using the phone number you provide.<br>
-          Ensure your number is correct. Incomplete or incorrect forms may be rejected.
-        </p>
-        <p class="text-xs text-cyan-700">
-          कृपया सभी जानकारी सही-सही भरें और सटीक जानकारी दें।<br>
-          सबसे पहले अपना रिज़्यूमे Google Drive पर अपलोड करें, फिर उसका लिंक यहाँ शेयर करें।<br>
-          गलत या अधूरी जानकारी वाले फॉर्म को स्वीकार नहीं किया जाएगा।
-        </p>
-      </div>
+  /* Popup box */
+  .popup {
+    background: #fff;
+    width: 800px;
+    max-width: 95%;
+    border-radius: 10px;
+    display: flex;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+    max-height: 90vh;
+  }
+
+  /* Close button */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #555;
+    z-index: 10000;
+    background: #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  }
+
+  /* Left side image */
+  .popup-image {
+    width: 35%;
+    background: url('https://thumbs.dreamstime.com/b/job-application-chart-keywords-icons-40691751.jpg') no-repeat center center;
+    background-size: cover;
+  }
+
+  /* Right side form */
+  .popup-form {
+    padding: 20px;
+    width: 65%;
+    overflow-y: auto;
+  }
+
+  .popup-form h2 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+  }
+
+  @media (max-width: 768px) {
+    .popup {
+      flex-direction: column;
+      width: 90%;
+      max-height: 95vh;
+    }
+
+    .popup-image {
+      width: 100%;
+      height: 150px;
+    }
+
+    .popup-form {
+      width: 100%;
+      padding: 15px;
+    }
+
+    .close-btn {
+      top: 5px;
+      right: 10px;
+    }
+
+    iframe {
+      height: 380px;
+    }
+  }
+</style>
+
+<div class="popup-overlay" id="popup">
+  <div class="popup">
+    <span class="close-btn" onclick="document.getElementById('popup').style.display='none'">&times;</span>
+    <div class="popup-image"></div>
+    <div class="popup-form">
+      <h2>Job Internship Portal</h2>
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScq-oW9hYb3MMPSMSYEL8Ofs8lOXvoAK7-iQLVfs8cXKBNTSA/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
-
-    <!-- Right Google Form -->
-    <div class="w-full md:w-1/2 p-3 overflow-y-auto">
-      <div class="relative pb-[150%] md:pb-0 h-96 md:h-[420px]">
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLScq-oW9hYb3MMPSMSYEL8Ofs8lOXvoAK7-iQLVfs8cXKBNTSA/viewform?embedded=true"
-          class="absolute top-0 left-0 w-full h-full rounded-md"
-          frameborder="0"
-          allowfullscreen
-        >Loading…</iframe>
-      </div>
-    </div>
-
-    <!-- Close Button -->
-    <button id="closeGoogleFormModal"
-      class="absolute top-2 right-3 text-gray-500 hover:text-red-600 text-3xl font-bold">&times;</button>
   </div>
-</div>
-
-        
+</div>        
         <!-- Resume Creation Service Section -->
         <div class="section bg-lightCard dark:bg-darkCard p-6 mb-8 rounded-lg shadow-lg text-center">
             <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">Professional Resume Creation Service</h2>
