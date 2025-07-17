@@ -1,121 +1,350 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- Google Site Verification & AdSense - Copied from GALLERY.HTML -->
+    <meta name="google-site-verification" content="l9l5QvjFSakUCbRz6lC-X-TfGQJOFxEbz-_iZQOJ35c" />
+    <meta name="google-adsense-account" content="ca-pub-4074130011096587">
+    <meta name="google-site-verification" content="qSZcROSBW4sFubwNpIYlMwvNYbQUA_2svJFPt3hfxls" />
     <title>Internship and Job Guidance</title>
+    <!-- Meta Description & Keywords - Adapted for JOB.HTML -->
+    <meta name="description" content="Comprehensive guidance for internships and jobs, resume preparation, and career resources.">
+    <meta name="keywords" content="internship, job, career guidance, resume, job search, career tips, Uzair B2B, professional development">
+
+    <!-- Favicon & Apple Touch Icon - Copied from GALLERY.HTML (assuming assets folder exists) -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind Configuration - Copied from GALLERY.HTML
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode with 'class' strategy
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00e1ff', // Light blue/cyan
+                        secondary: '#0032e6', // Darker blue
+                        darkBg: '#121212', // Very dark background
+                        darkCard: '#1a1a1a', // Slightly lighter dark card background
+                        lightBg: '#f0f2f5', // Light gray background
+                        lightCard: '#ffffff', // White card background
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
+        /* Custom styles for the theme toggle icon - Copied from GALLERY.HTML */
+        .theme-toggle-button {
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
         }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
+        .theme-toggle-button:hover {
+            transform: scale(1.1);
         }
-        h1, h2 {
-            margin-top: 0;
+
+        /* Styles for modal overlay and content */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Ensure it's on top */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
         }
-        .section {
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
         }
-        .section img {
-            max-width: 100%;
-            height: auto;
-            display: block; /* Centers the image */
-            margin: 20px auto; /* Centers the image with margin */
-            border-radius: 8px; /* Optional: Adds rounded corners to the image */
+
+        .modal-content-wrapper {
+            position: relative;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 95vh; /* Limit height for scrollability on small screens */
+            max-width: 95vw; /* Limit width for responsiveness */
+            overflow: hidden; /* Hide overflow from iframe */
+            border-radius: 0.75rem; /* rounded-lg */
+            box-shadow: 0 0 20px rgba(0, 225, 255, 0.6); /* Glowing effect */
+            border: 2px solid theme('colors.primary'); /* Border for glowing effect */
         }
-        .section a {
-            color: #007bff;
-            text-decoration: none;
+
+        .modal-overlay.show .modal-content-wrapper {
+            transform: translateY(0);
+            opacity: 1;
         }
-        .section a:hover {
-            text-decoration: underline;
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: theme('colors.darkBg'); /* Dark background for visibility */
+            color: theme('colors.white');
+            border: 2px solid theme('colors.primary');
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s, transform 0.2s;
+            z-index: 1010; /* Ensure close button is above iframe */
+            box-shadow: 0 0 8px rgba(0, 225, 255, 0.4); /* Subtle glow on button */
         }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #333;
-            color: white;
-            border-radius: 5px;
+
+        .close-button:hover {
+            background-color: theme('colors.primary');
+            color: theme('colors.darkBg');
+            transform: scale(1.1);
+            box-shadow: 0 0 12px rgba(0, 225, 255, 0.8);
         }
-        .footer a {
-            color: #007bff;
-            text-decoration: none;
+
+        /* Responsive iframe sizing */
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 100%; /* Take full height of parent */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .footer a:hover {
-            text-decoration: underline;
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 0.75rem; /* Match parent rounded corners */
         }
-        .header-img {
-            display: block;
-            margin: 20px auto; /* Centers the header image */
-            max-width: 100%; /* Ensures responsive design */
-            height: auto;
-            border-radius: 8px; /* Optional: Adds rounded corners to the image */
-        }
+
+        /* Adjust iframe size for smaller screens */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
+            .modal-content-wrapper {
+                max-height: 90vh; /* Adjust height for mobile */
+                max-width: 90vw; /* Adjust width for mobile */
             }
-            .section {
-                padding: 15px;
-            }
-            header {
-                padding: 15px 10px;
+            .iframe-container iframe {
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
             }
         }
     </style>
 </head>
-<body>
-    <header>
-        <h1>Internship and Job Guidance</h1>
-        <!-- Centered header image -->
-        <img src="Uzair2.jpg" alt="Uzair Ahmed" class="header-img">
-    </header>
 
-    <div class="section">
-        <h2>1) Prepare Your Resume</h2>
-        <p>Creating a well-structured resume is the first step towards landing an internship or job. Here's an example of a professional resume:</p>
-        <img src="https://i.pinimg.com/originals/5a/6b/1c/5a6b1ce73277413b71fc3e9331b2bd2e.png" alt="Resume Example">
+<body class="bg-lightBg text-gray-900 transition-colors duration-300 dark:bg-darkBg dark:text-white">
+    <!-- Navigation Bar - Copied and adapted from GALLERY.HTML -->
+    <nav class="bg-darkBg p-4 shadow-lg border-b-2 border-primary dark:bg-darkBg dark:border-primary">
+        <div class="container mx-auto flex justify-between items-center">
+            <a class="text-white text-2xl font-bold tracking-wide transition-colors duration-300 hover:text-primary" href="https://uzairb2b.github.io/home/index.html">JOURNALISM & MASS COMMUNICATION</a>
+            <button id="themeToggle" class="theme-toggle-button text-white text-2xl focus:outline-none">
+                ☀️ <!-- Initial state, updated by JS -->
+            </button>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb Navigation - Copied and adapted from GALLERY.HTML -->
+    <div class="container mx-auto mt-6 px-4">
+        <nav aria-label="breadcrumb">
+            <ol class="flex space-x-2 text-gray-600 dark:text-gray-300">
+                <li class="breadcrumb-item"><a href="index.html" class="text-blue-600 hover:underline dark:text-blue-400">Home</a></li>
+                <li class="breadcrumb-item active text-primary font-semibold" aria-current="page">Internship & Job Guidance</li>
+            </ol>
+        </nav>
     </div>
 
-    <div class="section">
-        <h2>What is a Resume?</h2>
-        <p>A resume is a formal document that provides an overview of your professional qualifications, including your education, work experience, skills, and achievements. It is used by employers to assess whether you are a suitable candidate for a job or internship.</p>
-        <p>रिज़्यूमे एक औपचारिक दस्तावेज़ है जो आपकी पेशेवर योग्यताओं का अवलोकन प्रदान करता है, जिसमें आपकी शिक्षा, कार्य अनुभव, कौशल और उपलब्धियाँ शामिल हैं। नियोक्ता इसका उपयोग यह आकलन करने के लिए करते हैं कि क्या आप किसी नौकरी या इंटर्नशिप के लिए उपयुक्त उम्मीदवार हैं।</p>
+    <!-- Main Content Area -->
+    <div class="container mx-auto mt-8 px-4">
+        <h1 class="text-4xl font-extrabold mb-4 text-gray-900 dark:text-white">Internship and Job Guidance</h1>
+        <div class="w-24 h-1 bg-primary mb-6 rounded"></div>
+        <p class="text-xl mb-8 text-gray-700 dark:text-gray-300">
+            Navigate your career path with our comprehensive resources for internships and jobs.
+        </p>
+
+        <!-- Header Image (updated URL) -->
+        <img src="https://educationsimplified.github.io/mgkvp/Uzair2.jpg" onerror="this.src='https://placehold.co/800x200/4CAF50/FFFFFF?text=Image+Not+Found'" alt="Uzair Ahmed" class="block mx-auto my-5 max-w-full h-auto rounded-lg shadow-md mb-10">
+
+        <!-- Prepare Resume Section -->
+        <div class="section bg-lightCard dark:bg-darkCard p-6 mb-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">1) Prepare Your Resume</h2>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">Creating a well-structured resume is the first step towards landing an internship or job. Here's an example of a professional resume:</p>
+            <img src="https://i.pinimg.com/originals/5a/6b/1c/5a6b1ce73277413b71fc3e9331b2bd2e.png" onerror="this.src='https://placehold.co/600x400/FF5733/FFFFFF?text=Resume+Example+Image'" alt="Resume Example" class="max-w-full h-auto block mx-auto my-5 rounded-lg shadow-md">
+        </div>
+
+        <!-- What is a Resume Section -->
+        <div class="section bg-lightCard dark:bg-darkCard p-6 mb-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">What is a Resume?</h2>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">A resume is a formal document that provides an overview of your professional qualifications, including your education, work experience, skills, and achievements. It is used by employers to assess whether you are a suitable candidate for a job or internship.</p>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed italic">रिज़्यूमे एक औपचारिक दस्तावेज़ है जो आपकी पेशेवर योग्यताओं का अवलोकन प्रदान करता है, जिसमें आपकी शिक्षा, कार्य अनुभव, कौशल और उपलब्धियाँ शामिल हैं। नियोक्ता इसका उपयोग यह आकलन करने के लिए करते हैं कि क्या आप किसी नौकरी या इंटर्नशिप के लिए उपयुक्त उम्मीदवार हैं।</p>
+        </div>
+
+        <!-- Suggested YouTube Videos Section -->
+        <div class="section bg-lightCard dark:bg-darkCard p-6 mb-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">Suggested YouTube Videos</h2>
+            <div class="video-links flex flex-col space-y-3">
+                <a href="https://youtu.be/UTPDqZM1v9k?si=hEhvlXMwClDpgGWG" target="_blank" class="text-primary hover:underline text-lg">Video 1: How to Create a Resume</a>
+                <a href="https://youtu.be/PWbWwHR_DFk?si=qnIUbS27nWtpqLyT" target="_blank" class="text-primary hover:underline text-lg">Video 2: Resume Writing Tips</a>
+                <a href="https://youtu.be/xviRYJFrB0g?si=43rxDF85-sX8VdmF" target="_blank" class="text-primary hover:underline text-lg">Video 3: Best Practices for Resume</a>
+            </div>
+        </div>
+
+        <!DOCTYPE html>
+
+<!-- Popup Overlay -->
+<div id="popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white w-full max-w-xl rounded-lg shadow-xl flex flex-col md:flex-row overflow-hidden relative">
+
+    <!-- Close Button -->
+    <button onclick="document.getElementById('popup').style.display='none'"
+            class="absolute top-2 right-3 text-gray-600 hover:text-red-600 text-3xl font-bold z-10">&times;</button>
+
+    <!-- Left Side Image -->
+    <div class="bg-cyan-100 p-4 flex items-center justify-center w-full md:w-1/2">
+      <div class="text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712103.png" alt="Apply"
+             class="w-24 mx-auto mb-2">
+        <h2 class="text-lg font-bold text-cyan-800">Job / Internship Portal</h2>
+        <p class="text-xs text-cyan-700">Please fill in all the fields correctly and provide accurate information. <br>
+Make sure to upload your resume to Google Drive first and then share the accessible link in the form. <br>
+If you are selected or if a suitable job/internship opportunity is available, we will contact you directly using the phone number you provide. <br>
+So please ensure that your contact number is correct. Incomplete or incorrect submissions may be rejected without notice. <br><br>
+
+कृपया सभी जानकारी सही-सही भरें और सटीक जानकारी दें। <br>
+सबसे पहले अपना रिज़्यूमे Google Drive पर अपलोड करें, फिर उसका लिंक यहाँ शेयर करें। <br>
+यदि आप चयनित होते हैं या आपके लिए कोई जॉब/इंटर्नशिप का अवसर आता है, तो हम आपके द्वारा दिए गए मोबाइल नंबर पर आपसे संपर्क करेंगे। <br>
+इसलिए कृपया सही मोबाइल नंबर दर्ज करें। गलत या अधूरी जानकारी वाले फॉर्म को स्वीकार नहीं किया जाएगा।
+</p>
+      </div>
     </div>
 
-    <div class="section">
-        <h2>Suggested YouTube Videos</h2>
-        <div class="video-links">
-            <a href="https://youtu.be/UTPDqZM1v9k?si=hEhvlXMwClDpgGWG" target="_blank">Video 1: How to Create a Resume</a><br>
-            <a href="https://youtu.be/PWbWwHR_DFk?si=qnIUbS27nWtpqLyT" target="_blank">Video 2: Resume Writing Tips</a><br>
-            <a href="https://youtu.be/xviRYJFrB0g?si=43rxDF85-sX8VdmF" target="_blank">Video 3: Best Practices for Resume</a>
+    <!-- Right Side Form Embed -->
+    <div class="w-full md:w-1/2 p-3">
+      <iframe 
+        src="https://docs.google.com/forms/d/e/1FAIpQLScq-oW9hYb3MMPSMSYEL8Ofs8lOXvoAK7-iQLVfs8cXKBNTSA/viewform?embedded=true"
+        width="100%" 
+        height="420" 
+        frameborder="0"
+        class="rounded-md"
+        loading="lazy"
+      >
+        Loading…
+      </iframe>
+    </div>
+  </div>
+</div>
+
+
+
+        <!-- Resume Creation Service Section -->
+        <div class="section bg-lightCard dark:bg-darkCard p-6 mb-8 rounded-lg shadow-lg text-center">
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">Professional Resume Creation Service</h2>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">If you want a professional resume made by our team, we offer this service for just <span class="text-xl font-bold text-primary">Rs 50</span>.</p>
+            <a href="https://wa.link/4jrun4" target="_blank" class="inline-block bg-primary hover:bg-secondary text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">Contact Us on WhatsApp</a>
+        </div>
+
+           <!-- Free Resume Creation Service Section -->
+        <div class="section bg-lightCard dark:bg-darkCard p-6 mb-8 rounded-lg shadow-lg text-center">
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">Free Resume Creation Using my Tool</h2>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">If you want a free resume, you made by our tool (UZAIR B2B RESUME CREATOR) Note it is good, you can share it, but it is limited to design, if you want cutom design contact our team<span class="text-xl font-bold text-primary">Rs Free</span>.</p>
+            <a href="https://uzairb2b.github.io/resume_maker/" target="_blank" class="inline-block bg-primary hover:bg-secondary text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">Click to Create</a>
+        </div>
+
+        <!-- Call to Action Section (opens embedded Google Form) -->
+        <div class="bg-secondary text-white p-6 mb-8 rounded-lg shadow-lg text-center">
+            <p class="text-xl md:text-2xl font-bold mb-6">If you have prepared your resume and completed all the steps, click below to send your resume and wait for our call:</p>
+            <button id="openGoogleFormModal" class="inline-block bg-primary hover:bg-white text-darkBg font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                Send Your Resume
+            </button>
         </div>
     </div>
 
-    <div class="section">
-        <h2>Resume Creation Service</h2>
-        <p>If you want a professional resume made by our team, we offer this service for just <span class="charges">Rs 50</span>.</p>
-        <a href="https://wa.link/4jrun4" class="contact-link" target="_blank">Contact Us on WhatsApp</a>
-    </div>
-
-    <div class="bold-section">
-        <p><strong>If you have prepared your resume and completed all the steps, click below to send your resume and wait for our call:</strong></p>
-        <a href="https://wa.link/424x5f" class="contact-link" target="_blank">Send Your Resume</a>
-    </div>
-
-    <footer class="footer">
-        <p>Thank you, and excel in your future!</p>
+    <!-- Footer Section - Copied from GALLERY.HTML -->
+    <footer id="footer" class="bg-darkBg py-6 text-center text-gray-300 mt-12 dark:bg-darkBg dark:text-gray-400">
+        <div class="container mx-auto px-4">
+            <div class="text-sm">
+                <p>&copy; <span>Copyright</span> <strong class="px-1 text-primary">Uzair Ahmed B.A.(hons) Student, MGKVP</strong> <span>All Rights Reserved</span></p>
+            </div>
+            <div class="mt-2 text-xs">
+                Designed by <a href="https://uzairb2b.blogspot.com/" class="text-primary hover:underline">Uzair Ahmed</a> Distributed by <a href="https://www.instagram.com/uzairvibes" class="text-primary hover:underline">Uzair B2B Services</a>
+            </div>
+        </div>
     </footer>
+
+    
+    <!-- Main JavaScript for Theme Toggle and Form Modal -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Theme Toggle functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const htmlTag = document.documentElement;
+
+            // Set initial theme based on localStorage or default to light
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                htmlTag.classList.remove('light', 'dark');
+                htmlTag.classList.add(currentTheme);
+                themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+            } else {
+                htmlTag.classList.add('light'); // Default to light theme
+                themeToggle.textContent = '🌙';
+            }
+
+            themeToggle.addEventListener('click', () => {
+                if (htmlTag.classList.contains('light')) {
+                    htmlTag.classList.remove('light');
+                    htmlTag.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.textContent = '☀️';
+                } else {
+                    htmlTag.classList.remove('dark');
+                    htmlTag.classList.add('light');
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.textContent = '🌙';
+                }
+            });
+
+            // Google Form Modal Elements
+            const openGoogleFormModalButton = document.getElementById('openGoogleFormModal');
+            const googleFormModal = document.getElementById('googleFormModal');
+            const closeGoogleFormModalButton = document.getElementById('closeGoogleFormModal');
+
+            // Function to show a modal
+            function showModal(modalElement) {
+                modalElement.classList.remove('hidden');
+                setTimeout(() => {
+                    modalElement.classList.add('show');
+                }, 10); // Small delay for transition to apply
+            }
+
+            // Function to hide a modal
+            function hideModal(modalElement) {
+                modalElement.classList.remove('show');
+                setTimeout(() => {
+                    modalElement.classList.add('hidden');
+                }, 300); // Wait for transition to complete
+            }
+
+            // Open Google Form modal when "Send Your Resume" button is clicked
+            openGoogleFormModalButton.addEventListener('click', () => {
+                showModal(googleFormModal);
+            });
+
+            // Close Google Form modal when 'X' button is clicked
+            closeGoogleFormModalButton.addEventListener('click', () => {
+                hideModal(googleFormModal);
+            });
+        });
+    </script>
 </body>
 </html>
