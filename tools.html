@@ -1,161 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Tools - Education Simplified</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind configuration for dark mode and custom colors
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode with 'class' strategy
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00e1ff', // Your custom primary color (light blue/cyan)
+                        secondary: '#0032e6', // Your custom secondary color (darker blue)
+                        darkBg: '#121212', // Dark mode background
+                        darkCard: '#1a1a1a', // Dark mode card background
+                        lightBg: '#f0f2f5', // Light mode background
+                        lightCard: '#ffffff', // Light mode card background
+                    },
+                    keyframes: {
+                        spin: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(-360deg)' },
+                        },
+                        glowing: { // Adapted glowing effect for buttons
+                            '0%': { boxShadow: '0 0 5px rgba(0, 225, 255, 0.4)' },
+                            '50%': { boxShadow: '0 0 20px rgba(0, 225, 255, 0.8)' },
+                            '100%': { boxShadow: '0 0 5px rgba(0, 225, 255, 0.4)' },
+                        }
+                    },
+                    animation: {
+                        spin: 'spin 1s linear infinite alternate',
+                        glowing: 'glowing 1s ease-in-out',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* General Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+        /* Custom styles for the theme toggle icon */
+        .theme-toggle-button {
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
         }
-        body {
-            background-image: url('https://img.freepik.com/free-photo/rendering-abstract-futuristic-background-with-glowing-neon-blue-orange-lights_181624-19807.jpg');
-            background-size: cover;
-            background-position: center;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-        }
-        header {
-            margin-bottom: 50px;
-        }
-        .logo {
-            width: 100px;
-            margin-bottom: 20px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            color: #fff;
-        }
-        h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-        .tagline {
-            font-size: 1.2rem;
-            color: #ccc;
-            margin-bottom: 40px;
+        .theme-toggle-button:hover {
+            transform: scale(1.1);
         }
 
-        /* Button Styles */
-        .buttons-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+        /* Ensure the logo spin animation works */
+        .logo-spin-hover:hover {
+            animation: spin 1s linear infinite alternate;
         }
-        .btn {
+
+        /* Custom button styling for tools */
+        .tool-btn {
             display: inline-block;
-            padding: 20px 40px;
+            padding: 1rem 2rem; /* py-4 px-8 */
             text-decoration: none;
-            color: white;
-            background-color: #ff7e00;
-            border-radius: 50px;
-            font-size: 1.2rem;
+            border-radius: 9999px; /* Tailwind's rounded-full */
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
             text-align: center;
             width: 80%;
             max-width: 400px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
+            transition: all 0.3s ease-in-out;
+            border: 2px solid transparent; /* For consistent border */
+            line-height: 1.4; /* For multi-line text */
         }
 
-        /* Glowing effect when button is clicked */
-        .btn:active {
-            box-shadow: 0 0 20px 10px rgba(255, 126, 0, 0.8);
-            transform: scale(1.05);
+        /* Light mode tool button styles - NOW TURQUOISE */
+        .light .tool-btn {
+            background-color: theme('colors.primary'); /* Turquoise */
+            color: theme('colors.darkBg'); /* Dark text for strong contrast */
+            border-color: theme('colors.primary');
         }
-        .btn:hover {
-            transform: scale(1.05);
+        .light .tool-btn:hover {
+            background-color: theme('colors.secondary'); /* Darker blue on hover */
+            color: theme('colors.white'); /* White text on hover */
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        .btn span {
-            font-weight: 600;
+            transform: scale(1.05);
         }
 
-        /* After click animation */
-        .glow {
-            animation: glowing 1s ease-in-out;
+        /* Dark mode tool button styles - NOW TURQUOISE */
+        .dark .tool-btn {
+            background-color: theme('colors.primary'); /* Turquoise */
+            color: theme('colors.darkBg'); /* Dark text for strong contrast */
+            border-color: theme('colors.primary');
         }
-        @keyframes glowing {
-            0% {
-                box-shadow: 0 0 5px rgba(255, 126, 0, 0.4);
-            }
-            50% {
-                box-shadow: 0 0 20px rgba(255, 126, 0, 0.8);
-            }
-            100% {
-                box-shadow: 0 0 5px rgba(255, 126, 0, 0.4);
-            }
+        .dark .tool-btn:hover {
+            background-color: theme('colors.secondary'); /* Darker blue on hover */
+            color: theme('colors.white'); /* White text on hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
         }
 
-        /* Footer */
-        footer {
-            margin-top: 50px;
-            font-size: 1rem;
-            color: #ccc;
-        }
-        footer a {
-            color: #00f7ff;
-            text-decoration: none;
-            margin-top: 10px;
-            display: inline-block;
-        }
-        footer a:hover {
-            color: #fff;
-            text-decoration: underline;
+        /* Active/Glow effect */
+        .tool-btn:active {
+            transform: scale(1.02); /* Slightly less scale on active to feel like a press */
+            animation: glowing 1s ease-in-out; /* Apply glow animation */
         }
     </style>
 </head>
-<body>
-    <header>
-        <img src="20250125_115304.png" alt="UZAIR B2B SERVICES Logo" class="logo">
-        <h1>Business & Advertising Tools</h1>
-        <h2>Created by Uzair - For Digital Advertising</h2>
-        <p class="tagline">Your Gateway to Digital Excellence.</p>
-    </header>
+<body class="min-h-screen flex flex-col bg-lightBg text-gray-900 transition-colors duration-300 dark:bg-darkBg dark:text-white">
 
-    <div class="buttons-container">
-        <a href="https://educationsimplified.github.io/barcode/" class="btn">
-            <span>Free Barcode Creator</span><br>
-            No ads, no paid membership. Create and download.
-        </a>
-        <a href="https://educationsimplified.github.io/qr/" class="btn">
-            <span>Free QR Code Creator</span><br>
-            No ads, no paid membership. QR code is the future of advertising.
-        </a>
-        <a href="https://educationsimplified.github.io/linkshortner/" class="btn">
-            <span>Link Shortener</span><br>
-            No ads, no paid membership. Transform long, ugly links to short ones.
-        </a>
-        <a href="https://educationsimplified.github.io/whatsapp-message/" class="btn">
-            <span>WhatsApp Bulk Message Sender</span><br>
-            No ads, no paid membership. Send bulk WhatsApp messages without the cost of API.
-        </a>
-        <a href="https://educationsimplified.github.io/writingpad/" class="btn">
-            <span>Digital Signature Writing Pad</span><br>
-            No ads, no paid membership. Sign on the board and download your signature.
-        </a>
+    <nav class="bg-darkBg p-4 shadow-lg border-b-2 border-primary dark:bg-darkBg dark:border-primary">
+        <div class="container mx-auto flex justify-between items-center">
+            <a class="text-white text-2xl font-bold tracking-wide transition-colors duration-300 hover:text-primary" href="https://educationsimplified.github.io/mgkvp/index.html">JOURNALISM & MASS COMMUNICATION</a>
+            <button id="themeToggle" class="theme-toggle-button text-white text-2xl focus:outline-none">
+                ☀️
+            </button>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-6 px-4">
+        <nav aria-label="breadcrumb">
+            <ol class="flex space-x-2 text-gray-600 dark:text-gray-300">
+                <li class="breadcrumb-item"><a href="index.html" class="text-blue-600 hover:underline dark:text-blue-400">Home</a></li>
+                <li class="breadcrumb-item active text-primary font-semibold" aria-current="page">Business Tools</li>
+            </ol>
+        </nav>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Education Simplified by Uzair. Website developed by Uzair - B2B Services.</p>
-        <a href="https://www.instagram.com/uzairvibes?igsh=MXEwczdtd290aXl0Zw==" target="_blank">Follow Uzair on Instagram</a>
+    <div class="flex justify-center mt-8">
+        <img src="20250125_115304.png" alt="UZAIR B2B Logo" class="w-36 h-36 rounded-full border-4 border-primary shadow-xl transition-all duration-500 cursor-pointer logo-spin-hover" onclick="spinLogoAndRedirect()">
+        </div>
+
+    <div class="content flex flex-col items-center text-center p-6 bg-lightCard rounded-xl shadow-xl max-w-4xl mx-auto my-8 transition-colors duration-300 dark:bg-darkCard">
+        <h1 class="text-4xl font-extrabold mb-4 text-gray-900 dark:text-white">Business & Advertising Tools</h1>
+        <h2 class="text-xl font-semibold mb-2 text-gray-700 dark:text-gray-300">Created by Uzair - For Digital Advertising</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">Your Gateway to Digital Excellence.</p>
+
+        <div id="typing-text" class="text-lg md:text-xl font-medium text-gray-900 dark:text-white mb-8 min-h-[2.5rem] px-4"></div>
+
+        <div class="buttons-container flex flex-col items-center gap-6 w-full px-4">
+            <a href="https://educationsimplified.github.io/barcode/" class="tool-btn">
+                <span>Free Barcode Creator</span><br>
+                <span class="text-sm font-normal opacity-80">No ads, no paid membership. Create and download.</span>
+            </a>
+            <a href="https://educationsimplified.github.io/qr/" class="tool-btn">
+                <span>Free QR Code Creator</span><br>
+                <span class="text-sm font-normal opacity-80">No ads, no paid membership. QR code is the future of advertising.</span>
+            </a>
+            <a href="https://educationsimplified.github.io/linkshortner/" class="tool-btn">
+                <span>Link Shortener</span><br>
+                <span class="text-sm font-normal opacity-80">No ads, no paid membership. Transform long, ugly links to short ones.</span>
+            </a>
+            <a href="https://educationsimplified.github.io/whatsapp-message/" class="tool-btn">
+                <span>WhatsApp Bulk Message Sender</span><br>
+                <span class="text-sm font-normal opacity-80">No ads, no paid membership. Send bulk WhatsApp messages without the cost of API.</span>
+            </a>
+            <a href="https://educationsimplified.github.io/writingpad/" class="tool-btn">
+                <span>Digital Signature Writing Pad</span><br>
+                <span class="text-sm font-normal opacity-80">No ads, no paid membership. Sign on the board and download your signature.</span>
+            </a>
+        </div>
+    </div>
+
+    <footer id="footer" class="bg-darkBg py-6 text-center text-gray-300 mt-12 dark:bg-darkBg dark:text-gray-400">
+        <div class="container mx-auto px-4">
+            <div class="text-sm">
+                <p>&copy; <span>Copyright</span> <strong class="px-1 text-primary">Uzair Ahmed B.A.(hons) Student, MGKVP</strong> <span>All Rights Reserved</span></p>
+            </div>
+            <div class="mt-2 text-xs">
+                Designed by <a href="https://uzairb2b.blogspot.com/" class="text-primary hover:underline">Uzair Ahmed</a> Distributed by <a href="https://www.instagram.com/uzairvibes" class="text-primary hover:underline">Uzair B2B Services</a>
+            </div>
+        </div>
     </footer>
 
     <script>
-        document.querySelectorAll('.btn').forEach(button => {
+        // Theme Toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlTag = document.documentElement;
+
+        // Set initial theme based on localStorage or default to light
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            htmlTag.classList.remove('light', 'dark');
+            htmlTag.classList.add(currentTheme);
+            themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        } else {
+            htmlTag.classList.add('light'); // Default to light theme
+            themeToggle.textContent = '🌙';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (htmlTag.classList.contains('light')) {
+                htmlTag.classList.remove('light');
+                htmlTag.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️';
+            } else {
+                htmlTag.classList.remove('dark');
+                htmlTag.classList.add('light');
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙';
+            }
+        });
+
+        // Spin Logo Function (from ABOUT.HTML)
+        function spinLogoAndRedirect() {
+            setTimeout(function() {
+                window.location.href = 'https://educationsimplified.github.io/india/';
+            }, 300); // Shorter delay for a snappier feel
+        }
+
+        // Tool button glowing effect
+        document.querySelectorAll('.tool-btn').forEach(button => {
             button.addEventListener('click', function() {
-                this.classList.add('glow');
-                setTimeout(() => {
-                    this.classList.remove('glow');
-                }, 1000);  // Remove the glow effect after 1 second
+                // Ensure the animation resets by removing and re-adding
+                this.classList.remove('glowing');
+                void this.offsetWidth; // Trigger reflow to restart animation
+                this.classList.add('glowing');
             });
+        });
+
+        // Typing Text functionality
+        const typingTextElement = document.getElementById('typing-text');
+        const phrase = 'ACCESS OF TOOLS LIKE: ("FREE BARCODE FOR FREE, CREATE QR CODE FOR FREE FOR BUSINESS, USE LINK SHORTENER TOOL FOR SHORT LINK, SEND BULK MSG ON WHATSAPP FOR FREE, USE DIGITAL SIGN BOARD FOR DIGITAL SIGNATURE")';
+        let charIndex = 0;
+        let typingSpeed = 40; // Milliseconds per character
+
+        function typeWriter() {
+            if (charIndex < phrase.length) {
+                typingTextElement.textContent += phrase.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, typingSpeed);
+            }
+        }
+
+        // Start the typing effect when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(typeWriter, 500); // Small delay before starting
         });
     </script>
 </body>
