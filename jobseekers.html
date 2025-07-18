@@ -185,158 +185,142 @@
         </div>
     </footer>
 
-    <script>
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRYH7Rlqwq1rupcx23cXSDMhtkijSWvS0tvdmuBwnWNlNkmwva54bAAEr59igvDXBncR9zGnAoY_lI6/pub?gid=1872451999&single=true&output=csv';
+<script>
+    const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRYH7Rlqwq1rupcx23cXSDMhtkijSWvS0tvdmuBwnWNlNkmwva54bAAEr59igvDXBncR9zGnAoY_lI6/pub?gid=1872451999&single=true&output=csv';
 
-        // Global variable to store all fetched student data
-        let allStudentsData = [];
+    let allStudentsData = [];
 
-        // Define column indices for easier access to CSV data
-        const COLUMN_INDEX = {
-            TIMESTAMP: 0,
-            NAME: 1,
-            AGE: 2,
-            IS_12TH_PASS: 3,
-            EDUCATION: 4, // Education Qualification
-            JOB_TYPE: 5, // Are you looking For Technical or Non Technical Post (Category)
-            ABOUT: 6,    // Tell me about yourself
-            RESUME_LINK: 7,
-            WHATSAPP_NUMBER: 8
-        };
+    const COLUMN_INDEX = {
+        TIMESTAMP: 0,
+        NAME: 1,
+        AGE: 2,
+        IS_12TH_PASS: 3,
+        EDUCATION: 4,
+        JOB_TYPE: 5,
+        ABOUT: 6,
+        RESUME_LINK: 7,
+        WHATSAPP_NUMBER: 8 // No longer used
+    };
 
-        document.addEventListener("DOMContentLoaded", function () {
-            // Theme Toggle functionality
-            const themeToggle = document.getElementById('themeToggle');
-            const htmlTag = document.documentElement;
+    document.addEventListener("DOMContentLoaded", function () {
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlTag = document.documentElement;
 
-            // Set initial theme based on localStorage or default to light
-            const currentTheme = localStorage.getItem('theme');
-            if (currentTheme) {
-                htmlTag.classList.remove('light', 'dark');
-                htmlTag.classList.add(currentTheme);
-                themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            htmlTag.classList.remove('light', 'dark');
+            htmlTag.classList.add(currentTheme);
+            themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        } else {
+            htmlTag.classList.add('light');
+            themeToggle.textContent = '🌙';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (htmlTag.classList.contains('light')) {
+                htmlTag.classList.remove('light');
+                htmlTag.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️';
             } else {
-                htmlTag.classList.add('light'); // Default to light theme
+                htmlTag.classList.remove('dark');
+                htmlTag.classList.add('light');
+                localStorage.setItem('theme', 'light');
                 themeToggle.textContent = '🌙';
             }
-
-            themeToggle.addEventListener('click', () => {
-                if (htmlTag.classList.contains('light')) {
-                    htmlTag.classList.remove('light');
-                    htmlTag.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
-                    themeToggle.textContent = '☀️';
-                } else {
-                    htmlTag.classList.remove('dark');
-                    htmlTag.classList.add('light');
-                    localStorage.setItem('theme', 'light');
-                    themeToggle.textContent = '🌙';
-                }
-            });
-
-            // Fetch data once and store it
-            fetch(sheetUrl)
-                .then(response => response.text())
-                .then(csv => {
-                    const rows = csv.split('\n').slice(1); // Skip header row
-                    allStudentsData = rows.map(row => {
-                        const cols = row.split(',');
-                        // Ensure there are enough columns and the row is not empty
-                        if (cols.length < (COLUMN_INDEX.WHATSAPP_NUMBER + 1) || cols.every(col => col.trim() === '')) {
-                            return null; // Return null for invalid rows
-                        }
-                        // Create an object for each student for easier access
-                        return {
-                            name: cols[COLUMN_INDEX.NAME].trim(),
-                            age: cols[COLUMN_INDEX.AGE].trim(),
-                            is12thPass: cols[COLUMN_INDEX.IS_12TH_PASS].trim(),
-                            education: cols[COLUMN_INDEX.EDUCATION].trim(),
-                            jobType: cols[COLUMN_INDEX.JOB_TYPE].trim(),
-                            about: cols[COLUMN_INDEX.ABOUT].trim(),
-                            resumeLink: cols[COLUMN_INDEX.RESUME_LINK].trim(),
-                            contact: cols[COLUMN_INDEX.WHATSAPP_NUMBER].trim()
-                        };
-                    }).filter(student => student !== null); // Filter out any null entries
-
-                    // Initially display all students
-                    filterStudentsTable('All');
-                })
-                .catch(error => console.error('Error fetching data for main table:', error)); // Basic error handling
         });
 
-        // Function to filter and display students in the table
-        function filterStudentsTable(category) {
-            const tableBody = document.querySelector('#data-table tbody');
-            tableBody.innerHTML = ''; // Clear existing content
+        fetch(sheetUrl)
+            .then(response => response.text())
+            .then(csv => {
+                const rows = csv.split('\n').slice(1);
+                allStudentsData = rows.map(row => {
+                    const cols = row.split(',');
+                    if (cols.length < (COLUMN_INDEX.RESUME_LINK + 1) || cols.every(col => col.trim() === '')) {
+                        return null;
+                    }
+                    return {
+                        name: cols[COLUMN_INDEX.NAME].trim(),
+                        age: cols[COLUMN_INDEX.AGE].trim(),
+                        is12thPass: cols[COLUMN_INDEX.IS_12TH_PASS].trim(),
+                        education: cols[COLUMN_INDEX.EDUCATION].trim(),
+                        jobType: cols[COLUMN_INDEX.JOB_TYPE].trim(),
+                        about: cols[COLUMN_INDEX.ABOUT].trim(),
+                        resumeLink: cols[COLUMN_INDEX.RESUME_LINK].trim()
+                    };
+                }).filter(student => student !== null);
 
-            let filteredStudents = [];
-            if (category === 'All') {
-                filteredStudents = allStudentsData.filter(student => student.is12thPass.toLowerCase() === 'yes');
-            } else {
-                filteredStudents = allStudentsData.filter(student => 
-                    student.is12thPass.toLowerCase() === 'yes' && 
-                    student.jobType.toLowerCase() === category.toLowerCase()
-                );
-            }
+                filterStudentsTable('All');
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
 
-            if (filteredStudents.length === 0) {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `<td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">No students found in this category.</td>`;
-                tableBody.appendChild(tr);
-                return;
-            }
+    function filterStudentsTable(category) {
+        const tableBody = document.querySelector('#data-table tbody');
+        tableBody.innerHTML = '';
 
-            filteredStudents.forEach(student => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                        <a href="#" onclick='showDetails(${JSON.stringify(student.name)}, ${JSON.stringify(student.age)}, ${JSON.stringify(student.is12thPass)}, ${JSON.stringify(student.education)}, ${JSON.stringify(student.jobType)}, ${JSON.stringify(student.about)}, ${JSON.stringify(student.resumeLink)}, ${JSON.stringify(student.contact)})' class="text-primary hover:underline">
-                            ${student.name}
-                        </a>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">${student.jobType}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">${student.education}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-primary">
-                        <a href="${student.resumeLink}" target="_blank" class="hover:underline">Resume</a>
-                    </td>
-                `;
-                tableBody.appendChild(tr);
-            });
+        let filteredStudents = category === 'All'
+            ? allStudentsData.filter(student => student.is12thPass.toLowerCase() === 'yes')
+            : allStudentsData.filter(student =>
+                student.is12thPass.toLowerCase() === 'yes' &&
+                student.jobType.toLowerCase() === category.toLowerCase()
+            );
+
+        if (filteredStudents.length === 0) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">No students found in this category.</td>`;
+            tableBody.appendChild(tr);
+            return;
         }
 
-        // Modal functions (retained and adapted for new modal classes)
-        function showDetails(name, age, pass12, education, jobType, about, resume, contact) {
-            document.getElementById('modal-name').textContent = name;
-            document.getElementById('modal-age').textContent = age;
-            document.getElementById('modal-pass').textContent = pass12;
-            document.getElementById('modal-education').textContent = education;
-            document.getElementById('modal-category').textContent = jobType;
-            document.getElementById('modal-contact').textContent = contact;
-            document.getElementById('modal-about').textContent = about;
-            document.getElementById('modal-resume').href = resume;
+        filteredStudents.forEach(student => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                    <a href="#" onclick='showDetails(${JSON.stringify(student.name)}, ${JSON.stringify(student.age)}, ${JSON.stringify(student.is12thPass)}, ${JSON.stringify(student.education)}, ${JSON.stringify(student.jobType)}, ${JSON.stringify(student.about)}, ${JSON.stringify(student.resumeLink)})' class="text-primary hover:underline">
+                        ${student.name}
+                    </a>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">${student.jobType}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">${student.education}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-primary">
+                    <a href="${student.resumeLink}" target="_blank" class="hover:underline">Resume</a>
+                </td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    }
 
-            const modal = document.getElementById('myModal');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.add('show');
-            }, 10); // Small delay for transition
-        }
+    function showDetails(name, age, pass12, education, jobType, about, resume) {
+        document.getElementById('modal-name').textContent = name;
+        document.getElementById('modal-age').textContent = age;
+        document.getElementById('modal-pass').textContent = pass12;
+        document.getElementById('modal-education').textContent = education;
+        document.getElementById('modal-category').textContent = jobType;
+        document.getElementById('modal-about').textContent = about;
+        document.getElementById('modal-resume').href = resume;
 
-        function closeModal() {
-            const modal = document.getElementById('myModal');
-            modal.classList.remove('show');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300); // Wait for transition
-        }
+        const modal = document.getElementById('myModal');
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.add('show');
+        }, 10);
+    }
 
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('myModal');
-            if (event.target === modal) {
-                closeModal();
-            }
+    function closeModal() {
+        const modal = document.getElementById('myModal');
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+
+    window.onclick = function (event) {
+        const modal = document.getElementById('myModal');
+        if (event.target === modal) {
+            closeModal();
         }
-    </script>
+    };
+</script>
 </body>
 </html>
