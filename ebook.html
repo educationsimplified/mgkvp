@@ -5,99 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CASE STUDY BOOKS FROM (IIMs, ISB and More..)</title>
   <meta name="description" content="Private e‑book reader for case study PDFs embedded from Google Drive" />
-  <style>
-    :root{
-      --bg:#0b0d12; --card:#121622; --muted:#7e8aa7; --text:#e8ecf8; --brand:#4f7cff; --brand-2:#6ce4ff;
-      --radius:18px;
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bg': '#0b0d12',
+            'card': '#121622',
+            'muted': '#7e8aa7',
+            'text': '#e8ecf8',
+            'brand': '#4f7cff',
+            'brand-2': '#6ce4ff',
+          }
+        }
+      }
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;background:radial-gradient(1200px 600px at 10% -10%, rgba(79,124,255,.25), transparent 60%),
-                       radial-gradient(900px 500px at 90% -20%, rgba(108,228,255,.18), transparent 60%),
-                       var(--bg);color:var(--text);font:500 16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
-
-    .wrap{max-width:1200px;margin:0 auto;padding:32px}
-
-    header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:20px}
-    .title{font-size:clamp(22px,3.3vw,38px);line-height:1.15;margin:0}
-    .subtitle{margin:6px 0 0;color:var(--muted);font-weight:500}
-
-    .actions{display:flex;gap:10px;align-items:center}
-    select#bookSelect{min-width:min(68vw,420px);padding:12px 14px;border-radius:12px;border:1px solid #27304a;background:#0f1320;color:var(--text);outline:none}
-    .open-select{padding:10px 12px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#081020;font-weight:800;cursor:pointer}
-
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:18px}
-
-    .card{background:linear-gradient(180deg,#151a2a,#0f1320);border:1px solid #1e2742;border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:transform .12s ease, box-shadow .12s ease}
-    .card:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.35)}
-    .tag{font-size:12px;color:#a8b3cf;background:#0a0d17;border:1px solid #1e2742;border-radius:999px;padding:4px 8px;width:max-content}
-    .card h3{margin:0;font-size:17px}
-    .card p{margin:0;color:#93a0bf;font-size:14px}
-    .card button{margin-top:auto;padding:10px 12px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#081020;font-weight:800;cursor:pointer}
-
-    /* Fullscreen Reader */
-    .overlay{position:fixed;inset:0;display:none;background:#02050bbf;backdrop-filter:blur(3px);z-index:50}
-    .reader{position:fixed;inset:20px;display:flex;flex-direction:column;background:#0b0f1b;border:1px solid #1e2742;border-radius:20px;overflow:hidden;z-index:60;box-shadow:0 30px 80px rgba(0,0,0,.5)}
-    .reader.hidden{display:none}
-    .reader .bar{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:10px 12px;background:#0e1322;border-bottom:1px solid #1e2742}
-    .reader .bar .left{display:flex;gap:10px;align-items:center}
-    .reader .bar .right{display:flex;gap:8px;align-items:center}
-    .btn{padding:8px 11px;border:1px solid #27304a;background:#12172a;color:#dbe2ff;border-radius:12px;cursor:pointer}
-    .btn.primary{border:0;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#081020;font-weight:800}
-    .btn.ghost{background:transparent}
-    .reader iframe{flex:1;width:100%;height:100%;border:0;background:#0b0f1b}
-
-    footer{margin-top:28px;color:#a7b2cf;font-size:14px;display:flex;justify-content:center;gap:8px;align-items:center;border-top:1px solid #1e2742;padding-top:16px}
-
-    @media (max-width:640px){
-      .reader{inset:10px}
-      select#bookSelect{min-width:66vw}
+  </script>
+  <style>
+    body {
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(79,124,255,.25), transparent 60%),
+                  radial-gradient(900px 500px at 90% -20%, rgba(108,228,255,.18), transparent 60%),
+                  #0b0d12;
     }
   </style>
 </head>
-<body>
-  <div class="wrap">
-    <header>
-      <div>
-        <h1 class="title">CASE STUDY BOOKS FROM (IIMs, ISB and More..)</h1>
-        <p class="subtitle">Private reader (embedded PDFs from Google Drive). Choose from dropdown or click a card to read in fullscreen.</p>
+<body class="font-sans text-text antialiased">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <header class="flex flex-col sm:flex-row items-center justify-between mb-5">
+      <div class="text-center sm:text-left">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-1">CASE STUDY BOOKS FROM (IIMs, ISB and More..)</h1>
+        <p class="text-sm sm:text-base text-muted font-medium mb-4 sm:mb-0">Private reader (embedded PDFs from Google Drive). Choose from dropdown or click a card to read in fullscreen.</p>
       </div>
-      <div class="actions">
-        <select id="bookSelect" aria-label="Select a book">
+      <div class="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto mt-4 sm:mt-0">
+        <select id="bookSelect" aria-label="Select a book" class="min-w-[150px] sm:min-w-[420px] p-3 rounded-xl border border-[#27304a] bg-[#0f1320] text-text outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-colors duration-200">
           <option value="">— Select a book —</option>
         </select>
-        <button class="open-select" id="openSelected">Open</button>
+        <button class="open-select px-4 py-3 rounded-xl bg-gradient-to-r from-brand to-brand-2 text-[#081020] font-extrabold cursor-pointer w-full sm:w-auto hover:opacity-90 transition-opacity duration-200" id="openSelected">Open</button>
       </div>
     </header>
 
-    <section class="grid" id="grid" aria-live="polite"></section>
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-5" id="grid" aria-live="polite"></section>
 
-    <footer>
+    <footer class="mt-7 text-muted text-sm flex flex-col sm:flex-row justify-center items-center gap-2 pt-4 border-t border-[#1e2742] text-center">
       <span>Journalism Wallah 2025</span>
-      <span>•</span>
+      <span class="hidden sm:inline">•</span>
       <span>Made by Uzair B2B Services</span>
     </footer>
   </div>
 
-  <!-- Overlaid Reader -->
-  <div class="overlay" id="overlay"></div>
-  <div class="reader hidden" id="reader" role="dialog" aria-modal="true" aria-label="Book reader">
-    <div class="bar">
-      <div class="left">
-        <button class="btn" id="backBtn" title="Back to library">⟵ Library</button>
-        <span id="bookTitle" style="opacity:.9"></span>
+  <div class="overlay fixed inset-0 hidden bg-[#02050bbf] backdrop-blur-sm z-50" id="overlay"></div>
+  <div class="reader fixed inset-5 sm:inset-10 hidden flex-col bg-[#0b0f1b] border border-[#1e2742] rounded-[20px] overflow-hidden z-[60] shadow-2xl shadow-black/50" id="reader" role="dialog" aria-modal="true" aria-label="Book reader">
+    <div class="bar flex items-center justify-between p-3 bg-[#0e1322] border-b border-[#1e2742]">
+      <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-4">
+        <button class="btn px-3 py-2 border border-[#27304a] bg-[#12172a] text-[#dbe2ff] rounded-xl cursor-pointer hover:bg-[#1a1f33] transition-colors duration-200" id="backBtn" title="Back to library">⟵ Library</button>
+        <span id="bookTitle" class="text-sm sm:text-base opacity-90 truncate max-w-[200px] sm:max-w-none"></span>
       </div>
-      <div class="right">
-        <button class="btn" id="prevBtn" title="Previous book">Prev</button>
-        <button class="btn" id="nextBtn" title="Next book">Next</button>
-        <button class="btn" id="fsBtn" title="Toggle Fullscreen">⤢ Fullscreen</button>
-        <button class="btn primary" id="closeBtn" title="Close">Close</button>
+      <div class="flex items-center gap-2">
+        <button class="btn px-3 py-2 border border-[#27304a] bg-[#12172a] text-[#dbe2ff] rounded-xl cursor-pointer hover:bg-[#1a1f33] transition-colors duration-200 hidden sm:block" id="prevBtn" title="Previous book">Prev</button>
+        <button class="btn px-3 py-2 border border-[#27304a] bg-[#12172a] text-[#dbe2ff] rounded-xl cursor-pointer hover:bg-[#1a1f33] transition-colors duration-200 hidden sm:block" id="nextBtn" title="Next book">Next</button>
+        <button class="btn px-3 py-2 border border-[#27304a] bg-[#12172a] text-[#dbe2ff] rounded-xl cursor-pointer hover:bg-[#1a1f33] transition-colors duration-200" id="fsBtn" title="Toggle Fullscreen">⤢ Fullscreen</button>
+        <button class="btn primary px-3 py-2 border-0 bg-gradient-to-r from-brand to-brand-2 text-[#081020] font-extrabold rounded-xl cursor-pointer hover:opacity-90 transition-opacity duration-200" id="closeBtn" title="Close">Close</button>
       </div>
     </div>
-    <iframe id="viewer" allow="fullscreen" referrerpolicy="no-referrer"></iframe>
+    <iframe id="viewer" allow="fullscreen" referrerpolicy="no-referrer" class="flex-1 w-full h-full border-0 bg-[#0b0f1b]"></iframe>
   </div>
 
-  <!-- CSV parser -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script>
     // ====== CONFIG: Google Sheets CSV (Published) ======
@@ -109,8 +82,8 @@
     const drivePreview = (id) => `https://drive.google.com/file/d/${id}/preview`;
 
     // Robust fileId extractor from Drive links
-    function extractIdFromUrl(url){
-      if(!url) return null;
+    function extractIdFromUrl(url) {
+      if (!url) return null;
       const m = String(url).match(/\/(?:file)?\/d\/([\w-]+)/);
       return m ? m[1] : null;
     }
@@ -121,16 +94,16 @@
     const openSelectedBtn = document.getElementById('openSelected');
 
     // ====== Renderers ======
-    function renderGrid(list){
+    function renderGrid(list) {
       grid.innerHTML = '';
       list.forEach((b, idx) => {
         const card = document.createElement('article');
-        card.className = 'card';
+        card.className = 'card bg-gradient-to-b from-[#151a2a] to-[#0f1320] border border-[#1e2742] rounded-[18px] p-4 flex flex-col gap-2 shadow-lg hover:-translate-y-0.5 hover:shadow-xl transition-all duration-150 ease-in-out';
         card.innerHTML = `
-          <span class="tag">Case Book</span>
-          <h3>${b.title}</h3>
-          <p>Click to read in fullscreen</p>
-          <button data-idx="${idx}">Open</button>
+          <span class="tag text-xs text-[#a8b3cf] bg-[#0a0d17] border border-[#1e2742] rounded-full px-2 py-1 w-max">Case Book</span>
+          <h3 class="mt-0 mb-0 font-medium text-lg">${b.title}</h3>
+          <p class="mt-0 mb-0 text-sm text-[#93a0bf]">Click to read in fullscreen</p>
+          <button class="mt-auto px-4 py-3 border-0 rounded-xl bg-gradient-to-r from-brand to-brand-2 text-[#081020] font-extrabold cursor-pointer hover:opacity-90 transition-opacity duration-200" data-idx="${idx}">Open</button>
         `;
         card.querySelector('button').addEventListener('click', () => openReader(idx));
         card.addEventListener('dblclick', () => openReader(idx));
@@ -138,7 +111,7 @@
       });
     }
 
-    function renderSelect(list){
+    function renderSelect(list) {
       // Clear existing except placeholder
       select.innerHTML = '<option value="">— Select a book —</option>';
       list.forEach((b, idx) => {
@@ -151,11 +124,11 @@
 
     openSelectedBtn.addEventListener('click', () => {
       const idx = parseInt(select.value, 10);
-      if(!Number.isNaN(idx)) openReader(idx);
+      if (!Number.isNaN(idx)) openReader(idx);
     });
     select.addEventListener('change', () => {
       const idx = parseInt(select.value, 10);
-      if(!Number.isNaN(idx)) openReader(idx);
+      if (!Number.isNaN(idx)) openReader(idx);
     });
 
     // ====== Load CSV dynamically ======
@@ -178,56 +151,65 @@
 
     // ====== Reader Overlay Logic ======
     const overlay = document.getElementById('overlay');
-    const reader  = document.getElementById('reader');
-    const viewer  = document.getElementById('viewer');
+    const reader = document.getElementById('reader');
+    const viewer = document.getElementById('viewer');
     const bookTitleEl = document.getElementById('bookTitle');
     const closeBtn = document.getElementById('closeBtn');
-    const backBtn  = document.getElementById('backBtn');
-    const fsBtn    = document.getElementById('fsBtn');
-    const prevBtn  = document.getElementById('prevBtn');
-    const nextBtn  = document.getElementById('nextBtn');
+    const backBtn = document.getElementById('backBtn');
+    const fsBtn = document.getElementById('fsBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
 
     let currentIndex = -1;
 
-    function openReader(idx){
+    function openReader(idx) {
       currentIndex = idx;
       const book = BOOKS[idx];
-      if(!book) return;
+      if (!book) return;
       bookTitleEl.textContent = book.title;
       viewer.src = drivePreview(book.fileId);
-      overlay.style.display = 'block';
+      overlay.classList.remove('hidden');
       reader.classList.remove('hidden');
       requestFs(reader);
       localStorage.setItem('lastOpenBook', String(idx));
     }
 
-    function closeReader(){
+    function closeReader() {
       viewer.src = '';
-      overlay.style.display = 'none';
+      overlay.classList.add('hidden');
       reader.classList.add('hidden');
       exitFs();
     }
 
-    function requestFs(el){
+    function requestFs(el) {
       const fn = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
-      if(fn) try{ fn.call(el); }catch(e){}
+      if (fn) try {
+        fn.call(el);
+      } catch (e) {}
     }
-    function exitFs(){
+
+    function exitFs() {
       const fn = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
-      if(fn) try{ fn.call(document); }catch(e){}
+      if (fn) try {
+        fn.call(document);
+      } catch (e) {}
     }
 
     closeBtn.addEventListener('click', closeReader);
-    backBtn .addEventListener('click', closeReader);
-    fsBtn   .addEventListener('click', () => {
-      if(!document.fullscreenElement){ requestFs(reader); }
-      else{ exitFs(); }
+    backBtn.addEventListener('click', closeReader);
+    fsBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        requestFs(reader);
+      } else {
+        exitFs();
+      }
     });
 
     prevBtn.addEventListener('click', () => navigate(-1));
     nextBtn.addEventListener('click', () => navigate(1));
-    function navigate(delta){
-      if(currentIndex < 0) return;
+
+    function navigate(delta) {
+      if (currentIndex < 0) return;
       let i = (currentIndex + delta + BOOKS.length) % BOOKS.length;
       openReader(i);
       select.value = String(i);
