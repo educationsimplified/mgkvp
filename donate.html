@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Us - EDUCATION SIMPLIFIED</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+        .light-mode {
+            background-color: #f7fafc;
+            color: #2d3748;
+        }
+        .moon-icon, .sun-icon {
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .moon-icon:hover, .sun-icon:hover {
+            transform: scale(1.1);
+        }
+        .pro-razorpay-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 9999px; /* Fully rounded */
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            gap: 0.5rem;
+        }
+        .pro-razorpay-btn:hover {
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+            transform: translateY(-3px);
+            background-position: right center;
+        }
+    </style>
+</head>
+<body class="light-mode">
+
+    <!-- Header -->
+    <header class="bg-gray-800 text-white shadow-lg py-4 px-6 flex justify-between items-center rounded-b-lg">
+        <div class="text-2xl font-bold">EDUCATION SIMPLIFIED</div>
+        <div class="flex items-center space-x-6">
+            <nav>
+                <a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-200">Home</a>
+            </nav>
+            <div id="theme-toggle" class="moon-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-16 max-w-4xl">
+        <section class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold mb-4">Support Our Mission</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400">
+                EDUCATION SIMPLIFIED is dedicated to making quality education accessible to all. Your contribution directly funds resources, technology, and programs that empower students to achieve their full potential.
+            </p>
+        </section>
+
+        <!-- Image Gallery Section -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-center mb-6">Our Impact in Action</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Image 1 -->
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuFEQ3detNoxmVWlgCnoS49dC_s_61V0gRDQ&s" 
+                         alt="Uzair Sir with students" class="w-full h-auto object-cover rounded-t-xl"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/000000/FFFFFF?text=Image+Not+Found'">
+                    <div class="p-4">
+                        <p class="text-sm text-gray-500 dark:text-gray-300">A session with students, bridging the gap between theory and practice.</p>
+                    </div>
+                </div>
+                <!-- Image 2 -->
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden">
+                    <img src="https://educationsimplified.github.io/mgkvpjournalism/image%20asset/techogies%20session%20jaunpur/3.jpg" 
+                         alt="Technology session" class="w-full h-auto object-cover rounded-t-xl"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/000000/FFFFFF?text=Image+Not+Found'">
+                    <div class="p-4">
+                        <p class="text-sm text-gray-500 dark:text-gray-300">Hands-on learning session in Jaunpur.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donation Section -->
+        <section class="text-center bg-gray-100 dark:bg-gray-800 p-8 rounded-2xl shadow-xl">
+            <h2 class="text-3xl font-bold mb-4">Make a Donation</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">
+                Your support fuels our work. Click the button below to donate securely through Razorpay.
+            </p>
+            <a href="https://razorpay.me/@ahmedsireducation" target="_blank" class="pro-razorpay-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                Donate Now
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 px-6 mt-12 text-center rounded-t-lg">
+        <div class="max-w-4xl mx-auto">
+            <p>&copy; <span id="current-year"></span> EDUCATION SIMPLIFIED- UZAIR SIR. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in the footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        body.classList.add(currentTheme + '-mode');
+        if (currentTheme === 'dark') {
+            themeToggle.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            `;
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                `;
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
