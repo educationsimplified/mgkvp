@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Education Learning Course Viewer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    :root {
+        --udemy-purple: #a435f0;
+        --udemy-text-black: #1c1d1f;
+        --udemy-bg-gray: #f7f9fa;
+        --udemy-border-gray: #d1d7dc;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--udemy-bg-gray);
+    }
+    .udemy-header {
+      background-color: var(--udemy-text-black);
+      color: white;
+      padding: 10px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .udemy-header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .udemy-header-logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: white;
+      text-decoration: none;
+    }
+    .udemy-btn-admin {
+      background-color: var(--udemy-purple);
+      border-color: var(--udemy-purple);
+      color: white;
+      font-weight: bold;
+    }
+    .udemy-btn-admin:hover {
+      background-color: #8c26c9;
+      border-color: #8c26c9;
+      color: white;
+    }
+    .course-jumbotron {
+      background: linear-gradient(90deg, #1c1d1f 0%, #303235 100%);
+      color: white;
+      padding: 60px 0;
+      margin-bottom: 40px;
+    }
+    .course-jumbotron h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    .course-jumbotron p {
+      font-size: 1.2rem;
+    }
+    .playlist-card {
+      background-color: white;
+      border: 1px solid var(--udemy-border-gray);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+    .playlist-header {
+      padding: 1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .playlist-header:hover {
+      background-color: #f0f2f5;
+    }
+    .playlist-header .collapse-icon {
+      transition: transform 0.3s ease;
+    }
+    .playlist-header[aria-expanded="true"] .collapse-icon {
+      transform: rotate(180deg);
+    }
+    .playlist-videos .list-group-item {
+      cursor: pointer;
+      border: none;
+      border-top: 1px solid var(--udemy-border-gray);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+    }
+    .playlist-videos .list-group-item:hover {
+      background-color: #f0f2f5;
+      color: var(--udemy-purple);
+    }
+    .video-player-container {
+      background-color: var(--udemy-text-black);
+      padding: 20px 0;
+    }
+    .video-player-frame {
+      border: 5px solid var(--udemy-text-black);
+      border-radius: 8px;
+    }
+    .udemy-footer {
+      background-color: var(--udemy-text-black);
+      color: white;
+      padding: 40px 0;
+      margin-top: 60px;
+      border-top: 1px solid #3e4143;
+    }
+    .udemy-footer p {
+      margin-bottom: 0;
+      color: #d1d7dc;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="udemy-header">
+    <div class="container">
+      <a href="#" class="udemy-header-logo">EDUCATION SIMPLIFIED</a>
+      <a href="index.html" class="btn udemy-btn-admin">HOME</a>
+    </div>
+  </nav>
+
+  <div class="course-jumbotron">
+    <div class="container">
+      <h1 class="display-4">EDUCATION SIMPLIFIED Video Course Viewer</h1>
+      <p class="lead">Learn smarter with structured videos / playlists</p>
+    </div>
+  </div>
+
+  <div class="container video-player-container text-center py-4 d-none" id="videoPlayerSection">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10">
+        <div class="ratio ratio-16x9">
+       <iframe 
+    id="videoFrame" 
+    class="w-full aspect-video" 
+    frameborder="0" 
+    allow="fullscreen" 
+    allowfullscreen>
+</iframe>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5" id="playlists"></div>
+
+  <footer class="udemy-footer text-center">
+    <div class="container">
+      <p>&copy; Made by Uzair B2B Services • 2025</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB5D3QHMbpg2XZ4RnxmClmlyz694xKGNliEBKPvQtQyYC_rdfhdAzeME-sFAwo4-iSsf2otCISyfbE/pub?gid=0&single=true&output=csv';
+
+    async function fetchCSV(url) {
+      const response = await fetch(url);
+      const data = await response.text();
+      return data.split('\n').slice(1).map(row => {
+        const cols = row.split(',');
+        return {
+          playlist: cols[0]?.trim(),
+          title: cols[1]?.trim(),
+          link: cols[2]?.trim()
+        };
+      });
+    }
+
+    function createPlaylistStructure(data) {
+      const playlists = {};
+      data.forEach(item => {
+        if (!playlists[item.playlist]) playlists[item.playlist] = [];
+        playlists[item.playlist].push(item);
+      });
+      return playlists;
+    }
+
+    function renderPlaylists(playlists) {
+      const container = document.getElementById('playlists');
+      Object.entries(playlists).forEach(([playlistName, videos], index) => {
+        const playlistCard = document.createElement('div');
+        playlistCard.className = 'playlist-card';
+
+        const playlistHeader = document.createElement('div');
+        playlistHeader.className = 'playlist-header';
+        playlistHeader.setAttribute('data-bs-toggle', 'collapse');
+        playlistHeader.setAttribute('data-bs-target', `#collapse-${index}`);
+        playlistHeader.setAttribute('aria-expanded', 'false');
+        playlistHeader.setAttribute('aria-controls', `collapse-${index}`);
+
+        const headerText = document.createElement('span');
+        headerText.textContent = playlistName;
+        playlistHeader.appendChild(headerText);
+
+        const icon = document.createElement('span');
+        icon.className = 'collapse-icon';
+        icon.innerHTML = '&#9660;'; // Downward arrow
+        playlistHeader.appendChild(icon);
+        
+        const videoList = document.createElement('div');
+        videoList.id = `collapse-${index}`;
+        videoList.className = 'collapse playlist-videos';
+
+        const ul = document.createElement('ul');
+        ul.className = 'list-group list-group-flush';
+
+        videos.forEach(video => {
+          const videoItem = document.createElement('li');
+          videoItem.className = 'list-group-item';
+          videoItem.textContent = video.title;
+          videoItem.addEventListener('click', () => {
+            document.getElementById('videoPlayerSection').classList.remove('d-none');
+            const videoID = new URL(video.link).pathname.split('/').pop().split('?')[0];
+            document.getElementById('videoFrame').src = `https://www.youtube.com/embed/${videoID}?autoplay=1`;
+            window.scrollTo({
+              top: document.getElementById('videoPlayerSection').offsetTop - 20,
+              behavior: 'smooth'
+            });
+          });
+          ul.appendChild(videoItem);
+        });
+
+        videoList.appendChild(ul);
+        playlistCard.appendChild(playlistHeader);
+        playlistCard.appendChild(videoList);
+        container.appendChild(playlistCard);
+      });
+    }
+
+    async function init() {
+      const rawData = await fetchCSV(csvUrl);
+      const playlists = createPlaylistStructure(rawData);
+      renderPlaylists(playlists);
+    }
+
+    init();
+  </script>
+
+</body>
+</html>
