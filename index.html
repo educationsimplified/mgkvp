@@ -957,12 +957,25 @@
     gap: 6px;
   }
   .wa-input {
-    flex: 1;
-    border: 1px solid #e5e7eb;
-    border-radius: 999px;
-    padding: 8px 12px;
-    font-size: 13px;
-  }
+  flex: 1;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 13px;
+  background: #fff;          /* Ensure white background */
+  color: #000 !important;    /* Force text to be black */
+}
+
+.wa-input::placeholder {
+  color: #555 !important;    /* Make placeholder dark gray */
+}
+
+.wa-input:focus {
+  outline: none;
+  border-color: #25D366;
+  box-shadow: 0 0 4px #25D36666;
+}
+
   .wa-send {
     border: none;
     background: #25D366;
