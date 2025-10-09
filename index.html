@@ -405,92 +405,7 @@
         }
     </style>
 
-    <style>
-      
-      .youtube-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 320px;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid #00e1ff;
-    border-radius: 10px;
-    box-shadow: 0 0 20px #0032e6, 0 0 30px #98ffff;
-    padding: 10px;
-    text-align: center;
-    z-index: 200;
-    opacity: 0;
-    animation: fadeIn 0.8s forwards;
-    cursor: grab;
-}
-
-/* Title inside the popup */
-.youtube-popup h3 {
-    color: #ffffff;
-    font-size: 1em;
-    margin-bottom: 5px;
-    text-shadow: 0 0 10px #130072;
-}
-
-/* Close button */
-.close-btn {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    color: rgb(255, 255, 0);
-    font-size: 2.5em;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.close-btn:hover {
-    color: #f2ff00;
-    text-shadow: 0 0 10px #000000;
-}
-
-/* Draggable Handle */
-.drag-handle {
-    background: #ff0000;
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    padding: 5px;
-    text-align: center;
-    cursor: grab;
-    border-radius: 5px;
-    margin-bottom: 5px;
-}
-
-/* Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translate(-50%, -60%);
-    }
-    to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .youtube-popup {
-        width: 90%;
-        max-width: 300px;
-    }
-
-    .youtube-popup iframe {
-        width: 100%;
-        height: 170px;
-    }
-
-    .youtube-popup h3 {
-        font-size: 0.9em;
-    }
-}
-
-</style>
+    
 
 </head>
 
@@ -548,20 +463,106 @@
     </header>
 
 
-     <!-- YouTube Notification -->
-   <div id="youtube-notification" class="youtube-popup">
-    <div id="drag-handle" class="drag-handle">🔍 Website Kaise Chalana Hai</div>
-    <span class="close-btn" onclick="closeNotification()">&times;</span>
-    <h3>Watch this Video</h3>
-    <iframe width="300" height="180" 
-        src="https://www.youtube.com/embed/T7Mv6SGimtc?si=Xb2ACVOzXYeIH5-c&autoplay=1" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen>
-    </iframe>
+    <!-- ==================== YOUTUBE POPUP (ISOLATED STYLE) ==================== -->
+<style>
+  /* Scope all styles under #youtube-notification to prevent interference */
+  #youtube-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00e1ff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #0032e6, 0 0 30px #98ffff;
+    padding: 10px;
+    text-align: center;
+    z-index: 200;
+    opacity: 0;
+    animation: youtubeFadeIn 0.8s forwards;
+    cursor: grab;
+  }
+
+  #youtube-notification h3 {
+    color: #ffffff;
+    font-size: 1em;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px #130072;
+  }
+
+  #youtube-notification .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: rgb(255, 255, 0);
+    font-size: 2.5em;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  #youtube-notification .close-btn:hover {
+    color: #f2ff00;
+    text-shadow: 0 0 10px #000000;
+  }
+
+  #youtube-notification .drag-handle {
+    background: #ff0000;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    cursor: grab;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+
+  @keyframes youtubeFadeIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    #youtube-notification {
+      width: 90%;
+      max-width: 300px;
+    }
+
+    #youtube-notification iframe {
+      width: 100%;
+      height: 170px;
+    }
+
+    #youtube-notification h3 {
+      font-size: 0.9em;
+    }
+  }
+</style>
+
+<!-- ==================== YOUTUBE POPUP SECTION ==================== -->
+<div id="youtube-notification">
+  <div class="drag-handle">🔍 Website Kaise Chalana Hai</div>
+  <span class="close-btn" onclick="closeNotification()">&times;</span>
+  <h3>Watch this Video</h3>
+  <iframe
+    width="300"
+    height="180"
+    src="https://www.youtube.com/embed/T7Mv6SGimtc?si=Xb2ACVOzXYeIH5-c&autoplay=1"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
 </div>
+
  
 <body class="bg-darkBg text-white"> <!-- वेबसाइट का मुख्य बैकग्राउंड डार्क और टेक्स्ट सफेद रहेगा -->
 
@@ -855,9 +856,362 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="https://static.elfsight.com/platform/platform.js" async></script>
-    <script defer src="https://static.getbutton.io/widget/bundle.js?id=U3DId"></script>
+    
+
+
+<!-- WhatsApp Chat Widget - Professional Sleek Version -->
+<style>
+  .whatsapp-widget {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; /* changed from right to left */
+    z-index: 99999;
+    font-family: 'Inter', sans-serif;
+  }
+  .wa-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .wa-btn:hover { transform: scale(1.05); }
+  .wa-panel {
+    position: absolute;
+    bottom: 75px;
+    left: 0; /* changed from right: 0; */
+    width: 320px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transform-origin: bottom left; /* changed from bottom right */
+    animation: fadeIn 0.25s ease-out;
+    display: none;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .wa-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+  }
+  .wa-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .wa-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .wa-name {
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .wa-status {
+    font-size: 12px;
+    opacity: 0.9;
+  }
+  .wa-body {
+    padding: 14px;
+    font-size: 14px;
+    color: #333;
+  }
+  .wa-body p {
+    margin-bottom: 8px;
+  }
+  .wa-quick {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .wa-quick button {
+    border: none;
+    background: #f3f4f6;
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #111827;
+  }
+  .wa-quick button:hover { background: #e5e7eb; }
+  .wa-footer {
+    padding: 10px 14px;
+    border-top: 1px solid #f3f4f6;
+    display: flex;
+    gap: 6px;
+  }
+  .wa-input {
+    flex: 1;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .wa-send {
+    border: none;
+    background: #25D366;
+    color: white;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .wa-send:hover { background: #128C7E; }
+</style>
+
+<div class="whatsapp-widget">
+  <!-- Floating Button -->
+  <div class="wa-btn" id="waOpenBtn" title="Chat with us on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" width="28" height="28">
+      <path d="M12.04 2.002a9.89 9.89 0 00-9.88 9.88 9.84 9.84 0 001.36 5.06L2 22l5.22-1.49a9.9 9.9 0 004.82 1.25h.01a9.88 9.88 0 009.88-9.88 9.84 9.84 0 00-2.9-7.02 9.86 9.86 0 00-7-2.88zM12 20.16h-.01a8.13 8.13 0 01-4.15-1.13l-.3-.18-3.1.88.88-3.02-.19-.31A8.1 8.1 0 013.84 12a8.15 8.15 0 018.16-8.17 8.1 8.1 0 015.78 2.39 8.12 8.12 0 012.39 5.78A8.15 8.15 0 0112 20.16zm4.48-6.1c-.25-.13-1.49-.74-1.72-.82-.23-.09-.4-.13-.57.13-.17.25-.66.82-.8.99-.15.17-.29.19-.54.06-.25-.13-1.05-.39-2-1.24a7.55 7.55 0 01-1.4-1.74c-.15-.25 0-.38.11-.51.11-.12.25-.31.37-.46.12-.15.16-.25.24-.42.08-.17.04-.32-.02-.45-.06-.13-.57-1.37-.78-1.88-.21-.5-.42-.43-.57-.44h-.49c-.17 0-.45.06-.68.31-.23.25-.89.87-.89 2.12 0 1.25.91 2.45 1.04 2.62.13.17 1.77 2.7 4.28 3.78.6.26 1.06.41 1.42.52.6.19 1.15.16 1.59.1.49-.07 1.49-.6 1.7-1.19.21-.59.21-1.1.15-1.19-.06-.1-.23-.16-.48-.29z"/>
+    </svg>
+  </div>
+
+  <!-- Chat Panel -->
+  <div class="wa-panel" id="waPanel">
+    <div class="wa-header">
+      <div class="wa-avatar">
+        <img src="https://educationsimplified.github.io/mgkvp/20250125_115304.png" alt="Support">
+      </div>
+      <div>
+        <div class="wa-name">Uzair B2B Services</div>
+        <div class="wa-status">Online — typically replies in 1h</div>
+      </div>
+      <div style="margin-left:auto; cursor:pointer;" id="waCloseBtn">✕</div>
+    </div>
+
+    <div class="wa-body">
+      <p>👋 Hello! Kaise Main Aapki Help Kr skta Hu?</p>
+      <div class="wa-quick">
+          <button data-msg="Hello! I wanted Journalism Notes.">Journalism</button>
+          <button data-msg="Hello! I wanted MBA Notes.">MBA</button>
+          <button data-msg="Hello! I wanted Know About MGKVP.">Mahatma Gandhi Kashi Vidhyapeeth</button>
+        <button data-msg="Hello! I wanted to talk to you.">Talk to you</button>
+        <button data-msg="Hello! I wanted Web Development Services.">Web Development</button>
+        <button data-msg="Hello! I wanted A.I. Chat Bot Services.">A.I. Chat Bot</button>
+        <button data-msg="Hello! I wanted Business Automation Services.">Business Automation</button>
+      </div>
+    </div>
+
+    <div class="wa-footer">
+      <input id="waMsg" class="wa-input" type="text" placeholder="Type your message..." />
+      <button id="waSend" class="wa-send">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const waOpenBtn = document.getElementById('waOpenBtn');
+  const waPanel = document.getElementById('waPanel');
+  const waCloseBtn = document.getElementById('waCloseBtn');
+  const waSend = document.getElementById('waSend');
+  const waMsg = document.getElementById('waMsg');
+  const quickBtns = document.querySelectorAll('.wa-quick button');
+  const phone = '919335723334';
+
+  waOpenBtn.addEventListener('click', () => {
+    waPanel.style.display = waPanel.style.display === 'block' ? 'none' : 'block';
+  });
+
+  waCloseBtn.addEventListener('click', () => {
+    waPanel.style.display = 'none';
+  });
+
+  quickBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      waMsg.value = btn.getAttribute('data-msg');
+      waMsg.focus();
+    });
+  });
+
+  waSend.addEventListener('click', () => {
+    const msg = encodeURIComponent(waMsg.value.trim() || "Hi! I’d like to know more about your products.");
+    window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+  });
+</script>
+
+  
+  <!-- ===================== AI DOUBT WIDGET (Responsive for PC + Mobile) ===================== -->
+<style>
+  /* Widget Container */
+  #ai-widget {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: "Poppins", sans-serif;
+  }
+
+  /* Floating Button */
+  #ai-button {
+    background: linear-gradient(135deg, #007bff, #00c2ff);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    font-size: 26px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 123, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  #ai-button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.5);
+  }
+
+  /* Chat Window (Default for PC) */
+  #ai-chat-box {
+    width: 360px;
+    height: 480px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    position: relative;
+    animation: fadeInUp 0.4s ease;
+  }
+
+  /* Header */
+  #ai-chat-header {
+    background: linear-gradient(135deg, #007bff, #00c2ff);
+    color: white;
+    padding: 12px 15px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+  }
+
+  #close-chat {
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  /* Iframe content */
+  #ai-chat-frame {
+    border: none;
+    width: 100%;
+    height: calc(100% - 48px);
+  }
+
+  /* Animation */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(25px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Tablet View */
+  @media (max-width: 1024px) {
+    #ai-chat-box {
+      width: 300px;
+      height: 460px;
+    }
+
+    #ai-button {
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+    }
+  }
+
+  /* Mobile View */
+  @media (max-width: 600px) {
+    #ai-widget {
+      bottom: 15px;
+      right: 15px;
+      align-items: center;
+    }
+
+    #ai-chat-box {
+      width: 85vw; /* responsive width */
+      height: 70vh; /* phone ratio */
+      border-radius: 18px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    #ai-button {
+      width: 55px;
+      height: 55px;
+      font-size: 22px;
+    }
+
+    #ai-chat-header {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+
+    #close-chat {
+      font-size: 16px;
+    }
+  }
+</style>
+<div id='ai-widget'>
+<div id='ai-chat-box'>
+<div id='ai-chat-header'>
+<span>UZAIR B2B AI</span>
+<button id='close-chat'>&#10005;</button>
+</div>
+<iframe id='ai-chat-frame' loading='lazy' src='https://uzairaiservices.blogspot.com/' title='AI Doubt Widget'>
+</iframe>
+</div>
+<button id='ai-button' title='Ask AI'>💬</button>
+</div>
+<script>
+  const aiButton = document.getElementById("ai-button");
+  const chatBox = document.getElementById("ai-chat-box");
+  const closeChat = document.getElementById("close-chat");
+
+  aiButton.addEventListener("click", () => {
+    chatBox.style.display = "flex";
+    aiButton.style.display = "none";
+  });
+
+  closeChat.addEventListener("click", () => {
+    chatBox.style.display = "none";
+    aiButton.style.display = "block";
+  });
+</script>
+
+
+
+
+    
 </body>
 </html>
+
 
 
 
