@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -178,9 +179,9 @@
             --text-heading: hsl(198, 100%, 24%); /* More vibrant, inviting teal */
             --text-accent: hsl(40, 95%, 70%); /* Richer gold/yellow accent */
             --button-main-bg: hsl(0, 70%, 50%);
-            --button-main-hover: hsl(19, 100%, 61%);
+            --button-main-hover: hsl(250, 100%, 32%);
             --button-secondary-bg: hsl(250, 100%, 32%); /* More intense purple */
-            --button-secondary-hover: hsl(250, 75%, 52%);
+            --button-secondary-hover: hsl(0, 70%, 50%);
             --border-color: hsl(0, 0%, 0%); /* Subtle border */
             --card-bg: hsl(0, 0%, 0%); /* Slightly lighter than primary for contrast */
             --shadow-color: rgba(33, 0, 0, 0.5); /* Deeper shadow */
@@ -483,11 +484,48 @@
             </div>
         </div>
 
+<hr class="w-full h-px my-16 bg-amber-500 border-0 shadow-xl" />
 
+
+<div class="flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8 bg-gray-50">
+  <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center text-stone-900 mb-12 font-serif tracking-wide">
+    Useful Links
+  </h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl w-full">
+    
+    <a href="https://educationsimplified.github.io/mgkvp" 
+       class="primary-edu-btn">
+      MGKVP JOURNALISM STUDENTS
+      <i class="fas fa-graduation-cap ml-3"></i>
+    </a>
+    
+    <a href="https://educationsimplified.github.io/mgkvpmba" 
+       class="primary-edu-btn">
+      MGKVP MBA STUDENTS
+      <i class="fas fa-graduation-cap ml-3"></i>
+    </a>
+
+    <a href="https://educationsimplified.github.io/mgkvpcomputerscience" 
+       class="secondary-edu-btn">
+      MGKVP BCA STUDENTS
+      <i class="fas fa-desktop ml-3"></i>
+    </a>
+
+    <a href="ai.html" 
+       class="secondary-edu-btn">
+      A.I STUDY TOOL FOR MGKVP
+      <i class="fas fa-brain ml-3"></i>
+    </a>
+
+  </div>
+</div>
+
+<hr class="w-full h-px my-16 bg-amber-500 border-0 shadow-xl" />
           </header>
 
 
-<hr class="w-full h-px my-16 bg-amber-500 border-0 shadow-xl" />
+
 
 
 
@@ -597,6 +635,75 @@
 
  
 <body class="bg-darkBg text-white"> <!-- वेबसाइट का मुख्य बैकग्राउंड डार्क और टेक्स्ट सफेद रहेगा -->
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+  /* --- Primary Button Styles --- */
+  .primary-edu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    background-color: #3900c8;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: background-color 300ms, box-shadow 300ms, transform 300ms;
+    will-change: transform;
+  }
+
+  .primary-edu-btn:hover {
+    background-color: #ae0000;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transform: scale(1.05);
+  }
+
+  /* --- Secondary Button Styles --- */
+  .secondary-edu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border-width: 2px;
+    border-color: #818cf8;
+    color: #ffffff;
+    background-color: #ae0000;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+                0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transition: background-color 300ms, transform 300ms;
+    will-change: transform;
+  }
+
+  .secondary-edu-btn:hover {
+    background-color: #3900c8;
+    transform: scale(1.05);
+  }
+</style>
+
+
+
 
 <div class="max-w-3xl mx-auto my-10 bg-yellow-400 p-6 rounded-lg shadow-lg border border-primary/20">
 
