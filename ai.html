@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" class="dark"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI for MGKVP Students</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'ai-accent-red': '#FF3366', 
+                        'ai-accent-purple': '#A78BFA', 
+                        'ai-dark-bg': '#000000', 
+                    },
+                    boxShadow: {
+                        'neon-red': '0 0 15px rgba(255, 51, 102, 0.7)', 
+                        'neon-purple': '0 0 15px rgba(167, 139, 250, 0.7)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body.dark {
+            background-color: theme('colors.ai-dark-bg');
+        }
+        .ai-grid {
+            background-image: linear-gradient(to right, rgba(255,255,255,0.08) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col ai-grid font-sans transition-colors duration-500 dark:bg-ai-dark-bg">
+
+    <header class="w-full border-b dark:border-red-500/50 border-purple-800/20 py-4 px-6 sticky top-0 bg-white dark:bg-black/90 backdrop-blur-sm z-10 transition-colors duration-500">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold tracking-wider dark:text-ai-accent-red text-purple-800 transition-colors duration-500">
+                <i class="fas fa-microchip mr-2"></i> AI-MGKVP
+            </a>
+            
+            <button id="theme-toggle" class="p-2 rounded-full text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-red-500/10 transition-colors duration-300 focus:outline-none">
+                <i class="fas fa-sun text-xl dark:hidden"></i>
+                <i class="fas fa-moon text-xl hidden dark:inline-block"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center justify-center p-8 text-center">
+        
+        <h1 class="text-6xl sm:text-7xl lg:text-8xl font-extrabold mb-4 tracking-tighter 
+                   dark:text-white text-gray-900 transition-colors duration-500">
+            AI for MGKVP Students
+        </h1>
+        
+        <p class="text-2xl sm:text-3xl font-mono mb-16 px-4 py-2 inline-block border-b-2 dark:border-fuchsia-400 border-red-600 
+                  dark:text-fuchsia-400 text-red-600 shadow-neon-red transition-all duration-500">
+            AI Studying Tools
+        </p>
+
+        <div class="flex flex-col md:flex-row gap-8 max-w-4xl w-full px-4">
+
+            <a href="https://bamasscommai.blogspot.com/" target="_blank"
+               class="flex-1 inline-flex items-center justify-center px-8 py-5 rounded-lg text-lg sm:text-xl font-bold uppercase 
+                      dark:bg-ai-accent-red dark:text-white dark:shadow-neon-red 
+                      bg-purple-800 text-white shadow-lg 
+                      hover:scale-[1.03] transform transition duration-300 
+                      dark:hover:bg-red-400 dark:hover:text-black dark:hover:shadow-lg
+                      hover:bg-purple-900">
+                <i class="fas fa-code mr-3 text-2xl"></i>
+                AI for BA HONS MASS COMM STUDENTS (2025 Onward)
+            </a>
+            
+            <a href="https://mgkvpmba.blogspot.com/" target="_blank"
+               class="flex-1 inline-flex items-center justify-center px-8 py-5 rounded-lg text-lg sm:text-xl font-bold uppercase 
+                      dark:bg-fuchsia-600 dark:text-white dark:shadow-neon-purple 
+                      bg-red-600 text-white shadow-lg
+                      hover:scale-[1.03] transform transition duration-300 
+                      dark:hover:bg-fuchsia-500 dark:hover:text-black dark:hover:shadow-lg
+                      hover:bg-red-700">
+                <i class="fas fa-robot mr-3 text-2xl"></i>
+                AI Tool for MGKVP MBA STUDENTS
+            </a>
+        </div>
+    </main>
+
+    <footer class="w-full mt-auto py-4 px-6 border-t dark:border-fuchsia-400/50 border-gray-300 bg-white dark:bg-black text-center text-sm text-gray-600 dark:text-gray-400 transition-colors duration-500">
+        <p>
+            &copy; 2025 AI for MGKVP Students. | Developed by Uzair Ahmed @2024: B.A.(Hons) Mass Communication Student (2022-2025) & M.B.A (2025–2027).
+        </p>
+    </footer>
+
+    <script>
+        const toggleButton = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        toggleButton.addEventListener('click', () => {
+            // This is the essential part: just toggle the 'dark' class.
+            htmlElement.classList.toggle('dark'); 
+        });
+    </script>
+</body>
+</html>
