@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    
+    <meta name="google-site-verification" content="l9l5QvjFSakUCbRz6lC-X-TfGQJOFxEbz-_iZQOJ35c" />
+    <meta name="google-adsense-account" content="ca-pub-4074130011096587">
+    <meta name="google-site-verification" content="qSZcROSBW4sFubwNpIYlMwvNYbQUA_2svJFPt3hfxls" />
+    <title>Alumni Data Portal</title>
+    
+    <meta name="description" content="Access a portal of registered alumni from the Journalism and Mass Communication department. Connect with former students and view their details.">
+    <meta name="keywords" content="alumni, data portal, journalism, mass communication, MGKVP, former students, network, Uzair B2B">
+
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind Configuration - Copied from GALLERY.HTML
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode with 'class' strategy
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00e1ff', // Light blue/cyan
+                        secondary: '#0032e6', // Darker blue
+                        darkBg: '#121212', // Very dark background
+                        darkCard: '#1a1a1a', // Slightly lighter dark card background
+                        lightBg: '#f0f2f5', // Light gray background
+                        lightCard: '#ffffff', // White card background
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for the theme toggle icon - Copied from GALLERY.HTML */
+        .theme-toggle-button {
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .theme-toggle-button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal specific styles for responsiveness and theme */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content-wrapper {
+            position: relative;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 90vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            /* Added max-width for better responsiveness */
+            max-width: 90%; 
+        }
+
+        .modal-overlay.show .modal-content-wrapper {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: theme('colors.gray.700');
+            transition: color 0.2s;
+            z-index: 1010;
+        }
+
+        .dark .close-button {
+            color: theme('colors.gray.300');
+        }
+
+        .close-button:hover {
+            color: theme('colors.primary');
+        }
+    </style>
+</head>
+
+<body class="bg-lightBg text-gray-900 transition-colors duration-300 dark:bg-darkBg dark:text-white">
+    <nav class="bg-darkBg p-4 shadow-lg border-b-2 border-primary dark:bg-darkBg dark:border-primary">
+        <div class="container mx-auto flex justify-between items-center">
+            <a class="text-white text-2xl font-bold tracking-wide transition-colors duration-300 hover:text-primary" href="https://educationsimplified.github.io/mgkvp/index.html">EDUCATION SIMPLIFIED</a>
+            <button id="themeToggle" class="theme-toggle-button text-white text-2xl focus:outline-none">
+                ☀️ </button>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-6 px-4">
+        <nav aria-label="breadcrumb">
+            <ol class="flex space-x-2 text-gray-600 dark:text-gray-300">
+                <li class="breadcrumb-item"><a href="index.html" class="text-blue-600 hover:underline dark:text-blue-400">Home</a></li>
+                <li class="breadcrumb-item active text-primary font-semibold" aria-current="page">Alumni Data Portal</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="container mx-auto mt-8 px-4">
+        <h1 class="text-4xl font-extrabold mb-4 text-gray-900 dark:text-white text-center">Registered Alumni Data</h1>
+        <div class="w-24 h-1 bg-primary mb-6 rounded mx-auto"></div>
+        <p class="text-xl mb-8 text-gray-700 dark:text-gray-300 text-center">
+            Click on a <strong class="text-primary">name</strong> to view full alumni details.
+        </p>
+
+        <div id="filter-buttons" class="flex flex-wrap justify-center gap-4 mb-8">
+            <button onclick="filterAlumniTable('All')" data-course="All" class="px-6 py-2 rounded-full bg-primary text-white font-semibold hover:bg-opacity-80 transition-colors duration-200">All Courses</button>
+        </div>
+
+        <div class="table-container max-w-4xl mx-auto overflow-x-auto bg-lightCard dark:bg-darkCard rounded-lg shadow-lg p-4">
+            <table id="data-table" class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-800">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Course</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Year/Sem</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Link</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white dark:bg-darkCard divide-y divide-gray-200 dark:divide-gray-700">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal-overlay hidden">
+        <div class="modal-content-wrapper bg-lightCard dark:bg-darkCard p-8 rounded-lg shadow-xl w-full max-w-md border border-gray-200 dark:border-gray-700">
+            <button class="close-button" onclick="closeModal()">&times;</button>
+            <h2 id="modal-name" class="text-2xl font-bold mb-4 text-gray-900 dark:text-white"></h2>
+            
+            <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Course:</strong> <span id="modal-course"></span></p>
+            <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Year/Semester:</strong> <span id="modal-year-sem"></span></p>
+            <p class="mb-4 text-gray-700 dark:text-gray-300"><strong>Description:</strong> <span id="modal-about"></span></p>
+            <p><a id="modal-link" href="#" target="_blank" class="text-primary hover:underline font-semibold">Visit Shared Link</a></p>
+        </div>
+    </div>
+
+    <footer id="footer" class="bg-darkBg py-6 text-center text-gray-300 mt-12 dark:bg-darkBg dark:text-gray-400">
+        <div class="container mx-auto px-4">
+            <div class="text-sm">
+                <p>&copy; <span>Copyright</span> <strong class="px-1 text-primary">Uzair Ahmed B.A.(hons) Student, MGKVP</strong> <span>All Rights Reserved</span></p>
+            </div>
+            <div class="mt-2 text-xs">
+                Designed by <a href="https://uzairb2b.blogspot.com/" class="text-primary hover:underline">Uzair Ahmed</a> Distributed by <a href="https://www.instagram.com/uzairvibes" class="text-primary hover:underline">Uzair B2B Services</a>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    // UPDATED SHEET URL AND GID
+    const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRYH7Rlqwq1rupcx23cXSDMhtkijSWvS0tvdmuBwnWNlNkmwva54bAAEr59igvDXBncR9zGnAoY_lI6/pub?gid=1166453234&single=true&output=csv';
+
+    let allAlumniData = [];
+
+    // COLUMN INDEX MAPPING based on your image
+    const COLUMN_INDEX = {
+        TIMESTAMP: 0,
+        NAME: 1,
+        YEAR_SEM: 2, 
+        COURSE: 3, 
+        ABOUT: 4, 
+        SHARED_LINK: 5 
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlTag = document.documentElement;
+
+        // Theme Toggle Logic
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            htmlTag.classList.remove('light', 'dark');
+            htmlTag.classList.add(currentTheme);
+            themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        } else {
+            htmlTag.classList.add('light');
+            themeToggle.textContent = '🌙';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (htmlTag.classList.contains('light')) {
+                htmlTag.classList.remove('light');
+                htmlTag.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️';
+            } else {
+                htmlTag.classList.remove('dark');
+                htmlTag.classList.add('light');
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙';
+            }
+        });
+
+        // Data Fetching and Processing
+        fetch(sheetUrl)
+            .then(response => response.text())
+            .then(csv => {
+                const rows = csv.split('\n').slice(1);
+                allAlumniData = rows.map(row => {
+                    // This handles commas within quoted fields in a simple way, but may break with complex CSV structure.
+                    // For safety, assuming no complex quotes in your data.
+                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); 
+                    
+                    if (cols.length < (COLUMN_INDEX.SHARED_LINK + 1) || cols[COLUMN_INDEX.NAME].trim() === '') {
+                        return null;
+                    }
+
+                    // Remove quotes and trim whitespace from all extracted values
+                    const cleanValue = (val) => val ? val.trim().replace(/^"|"$/g, '') : '';
+
+                    return {
+                        name: cleanValue(cols[COLUMN_INDEX.NAME]),
+                        yearSem: cleanValue(cols[COLUMN_INDEX.YEAR_SEM]),
+                        course: cleanValue(cols[COLUMN_INDEX.COURSE]),
+                        about: cleanValue(cols[COLUMN_INDEX.ABOUT]),
+                        sharedLink: cleanValue(cols[COLUMN_INDEX.SHARED_LINK])
+                    };
+                }).filter(alumnus => alumnus !== null);
+
+                
+                // --- DYNAMIC FILTER LOGIC ---
+                // 1. Get unique courses, filter out empty/null ones, and sort them alphabetically
+                const courseSet = new Set(allAlumniData.map(alumnus => alumnus.course).filter(course => course && course.trim() !== ''));
+                const uniqueCourses = Array.from(courseSet).sort();
+
+                // 2. Render buttons for the unique courses
+                renderFilterButtons(uniqueCourses);
+                // --- END DYNAMIC FILTER LOGIC ---
+                
+                // 3. Initial load with 'All' filter
+                filterAlumniTable('All');
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+
+    /**
+     * Creates and inserts a filter button for each unique course.
+     * @param {string[]} courses - An array of unique course names.
+     */
+    function renderFilterButtons(courses) {
+        const filterContainer = document.getElementById('filter-buttons');
+        
+        courses.forEach(course => {
+            const button = document.createElement('button');
+            
+            // Sanitize course name to ensure it works correctly as a string argument in the onclick handler
+            const sanitizedCourse = course.replace(/'/g, "\\'"); 
+            
+            button.setAttribute('onclick', `filterAlumniTable('${sanitizedCourse}')`);
+            button.setAttribute('data-course', course); // For active state tracking
+            // Use the non-active state for dynamic buttons initially
+            button.className = 'px-6 py-2 rounded-full bg-gray-700 text-white font-semibold hover:bg-gray-600 transition-colors duration-200 course-filter-button';
+            button.textContent = course;
+            
+            filterContainer.appendChild(button);
+        });
+    }
+
+    /**
+     * Filters the table based on the selected course category and updates button active state.
+     * @param {string} category - The course name or 'All'.
+     */
+    function filterAlumniTable(category) {
+        const tableBody = document.querySelector('#data-table tbody');
+        tableBody.innerHTML = '';
+
+        // --- Active Button State Management ---
+        document.querySelectorAll('#filter-buttons button').forEach(button => {
+            const buttonCourse = button.getAttribute('data-course');
+            // Remove all specific color classes
+            button.classList.remove('bg-primary', 'bg-gray-700', 'hover:bg-opacity-80', 'hover:bg-gray-600');
+
+            if (buttonCourse && buttonCourse.toLowerCase() === category.toLowerCase()) {
+                // Set active style
+                button.classList.add('bg-primary', 'hover:bg-opacity-80');
+            } else {
+                // Set inactive style
+                button.classList.add('bg-gray-700', 'hover:bg-gray-600');
+            }
+        });
+        // --- End Active Button State Management ---
+
+        let filteredAlumni = category === 'All'
+            ? allAlumniData
+            : allAlumniData.filter(alumnus => alumnus.course.toLowerCase() === category.toLowerCase());
+
+        if (filteredAlumni.length === 0) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">No alumni found for this course.</td>`;
+            tableBody.appendChild(tr);
+            return;
+        }
+
+        filteredAlumni.forEach(alumnus => {
+            const tr = document.createElement('tr');
+            const alumnusJson = JSON.stringify(alumnus);
+
+            tr.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                    <a href="#" onclick='showDetails(${alumnusJson})' class="text-primary hover:underline">
+                        ${alumnus.name}
+                    </a>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">${alumnus.course}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">${alumnus.yearSem}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-primary">
+                    <a href="${alumnus.sharedLink}" target="_blank" class="hover:underline">View Link</a>
+                </td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    }
+
+    function showDetails(alumnus) {
+        document.getElementById('modal-name').textContent = alumnus.name;
+        document.getElementById('modal-course').textContent = alumnus.course;
+        document.getElementById('modal-year-sem').textContent = alumnus.yearSem;
+        document.getElementById('modal-about').textContent = alumnus.about;
+        
+        // Ensure link starts with http:// or https:// for it to work correctly
+        const linkHref = alumnus.sharedLink.startsWith('http://') || alumnus.sharedLink.startsWith('https://') 
+            ? alumnus.sharedLink 
+            : `http://${alumnus.sharedLink}`;
+            
+        document.getElementById('modal-link').href = linkHref; 
+
+        const modal = document.getElementById('myModal');
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.add('show');
+        }, 10);
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('myModal');
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+
+    window.onclick = function (event) {
+        const modal = document.getElementById('myModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+</script>
+</body>
+</html>
