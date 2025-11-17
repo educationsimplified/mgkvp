@@ -486,27 +486,60 @@
 
 <hr class="w-full h-px my-16 bg-amber-500 border-0 shadow-xl" />
 
+<style>
+.primary-edu-btn,
+.secondary-edu-btn {
+  display: block;
+  padding: 14px 20px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  transition: 0.3s ease-in-out;
+}
 
-<div class="flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8 bg-gray-50">
+/* BLUE button → RED hover */
+.primary-edu-btn {
+  background-color: #1d4ed8; /* Blue-600 */
+  color: white;
+}
+.primary-edu-btn:hover {
+  background-color: #dc2626; /* Red-600 */
+  color: white;
+}
+
+/* RED button → BLUE hover */
+.secondary-edu-btn {
+  background-color: #dc2626; /* Red-600 */
+  color: white;
+}
+.secondary-edu-btn:hover {
+  background-color: #1d4ed8; /* Blue-600 */
+  color: white;
+}
+</style>
+
+
+        <div class="flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8 bg-gray-50">
   <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center text-stone-900 mb-12 font-serif tracking-wide">
     Useful Links
   </h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl w-full">
-    
+
     <a href="https://educationsimplified.github.io/mgkvp" 
        class="primary-edu-btn">
       MGKVP JOURNALISM STUDENTS
       <i class="fas fa-graduation-cap ml-3"></i>
     </a>
-    
+
     <a href="https://educationsimplified.github.io/mgkvpmba" 
        class="primary-edu-btn">
       MGKVP MBA STUDENTS
       <i class="fas fa-graduation-cap ml-3"></i>
     </a>
 
-    <a href="https://educationsimplified.github.io/mgkvpcomputerscience" 
+    <a href="https://educationssimplified.github.io/mgkvpcomputerscience" 
        class="secondary-edu-btn">
       MGKVP BCA STUDENTS
       <i class="fas fa-desktop ml-3"></i>
@@ -640,8 +673,6 @@
 
 
 
-
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <!-- ============ MGKVP ALUMNI SECTION (NO EXTERNAL CSS) ============ -->
@@ -669,7 +700,7 @@
   </div>
 
 </div>
-
+<hr class="w-full h-px my-16 bg-amber-500 border-0 shadow-xl" />
 <script>
 /* ===== PURE JS - NO CSS OUTSIDE - NO CONFLICTS ===== */
 
@@ -989,20 +1020,18 @@
             </a>
             <a href="https://educationsimplified.github.io/mgkvp/job.html" class="grid-card">
                 <i class="fas fa-briefcase"></i>
-                <span>Internships & Jobs</span>
+                <span>Apply For Internships & Jobs</span>
             </a>
+            
             <a href="https://uzairb2b.github.io/resume_maker/" class="grid-card">
                 <i class="fas fa-id-card"></i>
                 <span>Create Resume (FREE)</span>
             </a>
             <a href="https://educationsimplified.github.io/mgkvp/jobseekers.html" class="grid-card">
                 <i class="fas fa-briefcase"></i>
-                <span>Job Seeker Data Portal</span>
+                <span>Job Seeker Data</span>
             </a>
             
-            <a href="https://educationsimplified.github.io/mgkvp/alumni.html" class="grid-card">
-                <i class="fas fa-briefcase"></i>
-                <span>Alumni Data Portal</span>
             </a>
             <a href="https://uzairb2b.github.io/certificate/" class="grid-card">
                 <i class="fas fa-award"></i>
@@ -1015,7 +1044,16 @@
             <a href="https://uzairb2b.github.io/Bookmark/" class="grid-card">
                 <i class="fas fa-qrcode"></i>
                 <span>Download Website QR</span>
+            </a><a href="https://educationsimplified.github.io/mgkvp/alumniregester.html" class="grid-card">
+                <i class="fas fa-user-graduate"></i>
+                <span>Register For Alumni</span>
+                </a>
+
+            <a href="https://educationsimplified.github.io/mgkvp/alumni.html" class="grid-card">
+                <i class="fas fa-users"></i>
+            <span>Alumni Data</span>
             </a>
+
             <a href="https://educationsimplified.github.io/mgkvp/filepage.html" class="grid-card">
                 <i class="fas fa-file-alt"></i>
                 <span>Create Project File Front Page</span>
@@ -1840,6 +1878,7 @@ postEl.innerHTML = `
     
 </body>
 </html>
+
 
 
 
