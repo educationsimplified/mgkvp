@@ -644,66 +644,154 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<style>
-  /* --- Primary Button Styles --- */
-  .primary-edu-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.75rem;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    background-color: #3900c8;
-    color: white;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-                0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    transition: background-color 300ms, box-shadow 300ms, transform 300ms;
-    will-change: transform;
-  }
+<!-- ============ MGKVP ALUMNI SECTION (NO EXTERNAL CSS) ============ -->
 
-  .primary-edu-btn:hover {
-    background-color: #ae0000;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-                0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    transform: scale(1.05);
-  }
+<div class="max-w-3xl mx-auto my-10 bg-yellow-400 p-6 rounded-lg shadow-lg border border-primary/20">
 
-  /* --- Secondary Button Styles --- */
-  .secondary-edu-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.75rem;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    border-width: 2px;
-    border-color: #818cf8;
-    color: #ffffff;
-    background-color: #ae0000;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-                0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    transition: background-color 300ms, transform 300ms;
-    will-change: transform;
-  }
+  <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-16 text-stone-900"
+      style="font-family: 'Playfair Display', serif;">
+      MGKVP Alumni Data Stream
+  </h2>
 
-  .secondary-edu-btn:hover {
-    background-color: #3900c8;
-    transform: scale(1.05);
-  }
-</style>
+  <div id="mgkvp-container"
+       class="overflow-hidden h-[500px] relative bg-gray-200 rounded-lg p-4 shadow-lg border border-gray-300">
+
+      <div id="mgkvp-scroll"
+           class="space-y-4 absolute w-full text-gray-900"></div>
+
+      <div id="mgkvp-scroll-clone"
+           class="space-y-4 absolute w-full text-gray-900"></div>
+
+  </div>
+
+  <div id="mgkvp-loading" class="text-center mt-4 text-gray-600">
+      Loading data...
+  </div>
+
+</div>
+
+<script>
+/* ===== PURE JS - NO CSS OUTSIDE - NO CONFLICTS ===== */
+
+(function () {
+
+    const CSV_URL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vRYH7Rlqwq1rupcx23cXSDMhtkijSWvS0tvdmuBwnWNlNkmwva54bAAEr59igvDXBncR9zGnAoY_lI6/pub?gid=1166453234&single=true&output=csv";
+
+    // Parse CSV rows safely
+    function parseRow(t) {
+        let r = [], c = "", q = false;
+        for (let i = 0; i < t.length; i++) {
+            let ch = t[i];
+            if (ch === '"') {
+                if (t[i + 1] === '"') { c += '"'; i++; }
+                else q = !q;
+            } else if (ch === "," && !q) {
+                r.push(c.trim()); c = "";
+            } else c += ch;
+        }
+        r.push(c.trim());
+        return r.map(s => s.replace(/^"|"$/g, ""));
+    }
+
+    function normalize(s) {
+        return s.toLowerCase().trim().replace(/\s+/g, " ");
+    }
+
+    async function loadData() {
+        const list = document.getElementById("mgkvp-scroll");
+        const clone = document.getElementById("mgkvp-scroll-clone");
+        const loading = document.getElementById("mgkvp-loading");
+
+        try {
+            const res = await fetch(CSV_URL);
+            const text = await res.text();
+            const rows = text.split("\n").slice(1);
+
+            list.innerHTML = "";
+            clone.innerHTML = "";
+            loading.classList.add("hidden");
+
+            const seen = new Set();
+            const fragment = document.createDocumentFragment();
+
+            rows.forEach(row => {
+                if (!row.trim()) return;
+                const col = parseRow(row);
+                if (col.length < 6) return;
+
+                const [ts, name, year, course, about, link] = col;
+
+                const key = [normalize(name), normalize(course), normalize(year), normalize(about)].join("|");
+                if (seen.has(key)) return;
+                seen.add(key);
+
+                const item = document.createElement("div");
+                item.className = "bg-white p-4 rounded-lg shadow border border-gray-300";
+
+                const href = link.startsWith("http") ? link : "mailto:" + link;
+
+                item.innerHTML = `
+                    <p class="text-lg font-bold text-gray-900">${name}</p>
+                    <p class="text-sm text-gray-700"><strong>🎓 Course:</strong> ${course}</p>
+                    <p class="text-sm text-gray-700"><strong>📅 Year/Sem:</strong> ${year}</p>
+                    <p class="mt-2 italic text-gray-800">"${about}"</p>
+                    <a href="${href}" target="_blank"
+                       class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
+                       View Profile / Contact
+                    </a>
+                `;
+
+                fragment.appendChild(item);
+            });
+
+            list.appendChild(fragment);
+            clone.innerHTML = list.innerHTML;
+
+            if (list.children.length > 0) startScroll(list, clone);
+
+        } catch (e) {
+            loading.innerHTML = `<p class="text-red-600">⚠️ Error loading data.</p>`;
+        }
+    }
+
+    function startScroll(list, clone) {
+        const wrap = document.getElementById("mgkvp-container");
+        const wrapH = wrap.clientHeight;
+        const listH = list.offsetHeight + 50;
+
+        let p1 = wrapH;
+        let p2 = wrapH + listH;
+        const speed = -0.4;
+
+        list.style.top = p1 + "px";
+        clone.style.top = p2 + "px";
+
+        function run() {
+            p1 += speed;
+            p2 += speed;
+
+            if (p1 <= -listH) p1 += listH * 2;
+            if (p2 <= -listH) p2 += listH * 2;
+
+            list.style.top = p1 + "px";
+            clone.style.top = p2 + "px";
+
+            requestAnimationFrame(run);
+        }
+        run();
+    }
+
+    window.addEventListener("load", loadData);
+
+})();
+</script>
 
 
 
+
+
+    
 
 <div class="max-w-3xl mx-auto my-10 bg-yellow-400 p-6 rounded-lg shadow-lg border border-primary/20">
 
@@ -910,6 +998,11 @@
             <a href="https://educationsimplified.github.io/mgkvp/jobseekers.html" class="grid-card">
                 <i class="fas fa-briefcase"></i>
                 <span>Job Seeker Data Portal</span>
+            </a>
+            
+            <a href="https://educationsimplified.github.io/mgkvp/alumni.html" class="grid-card">
+                <i class="fas fa-briefcase"></i>
+                <span>Alumni Data Portal</span>
             </a>
             <a href="https://uzairb2b.github.io/certificate/" class="grid-card">
                 <i class="fas fa-award"></i>
@@ -1747,6 +1840,7 @@ postEl.innerHTML = `
     
 </body>
 </html>
+
 
 
 
