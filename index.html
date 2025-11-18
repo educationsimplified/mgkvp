@@ -471,16 +471,23 @@
 
             <div class="flex flex-col md:flex-row justify-center items-center gap-4">
                
-                  <a href="https://educationsimplified.github.io/universe" 
+                <a href="https://educationsimplified.github.io/universe" 
+   target="_blank" 
+   rel="noopener noreferrer"
    class="main-btn inline-flex items-center px-8 py-4 rounded-full text-lg shadow-xl 
           bg-red-600 text-white hover:bg-red-700 hover:scale-105 transition duration-300">
    Study Material 
    <i class="fas fa-book-open ml-3"></i>
 </a>
 
-                <a href="https://www.mgkvponline.com/" class="secondary-btn inline-flex items-center px-8 py-4 rounded-full text-lg shadow-xl hover:scale-105">
-                    Previous Year Questions <i class="fas fa-question-circle ml-3"></i>
-                </a>
+<a href="https://www.mgkvponline.com/" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="secondary-btn inline-flex items-center px-8 py-4 rounded-full text-lg shadow-xl hover:scale-105">
+   Previous Year Questions 
+   <i class="fas fa-question-circle ml-3"></i>
+</a>
+
             </div>
         </div>
 
@@ -681,7 +688,7 @@
 
   <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-16 text-stone-900"
       style="font-family: 'Playfair Display', serif;">
-      MGKVP Alumni Data Stream
+      MGKVP Alumni & Current Students
   </h2>
 
   <div id="mgkvp-container"
@@ -765,11 +772,11 @@
                 item.innerHTML = `
                     <p class="text-lg font-bold text-gray-900">${name}</p>
                     <p class="text-sm text-gray-700"><strong>🎓 Course:</strong> ${course}</p>
-                    <p class="text-sm text-gray-700"><strong>📅 Year/Sem:</strong> ${year}</p>
+                    <p class="text-sm text-gray-700"><strong>📅 Batch:</strong> ${year}</p>
                     <p class="mt-2 italic text-gray-800">"${about}"</p>
                     <a href="${href}" target="_blank"
                        class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
-                       View Profile / Contact
+                       View LinkedIn Profile / Contact
                     </a>
                 `;
 
@@ -827,7 +834,7 @@
 <div class="max-w-3xl mx-auto my-10 bg-yellow-400 p-6 rounded-lg shadow-lg border border-primary/20">
 
   <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-16 text-stone-900" style="font-family: 'Playfair Display', serif;">
-            Students Looking For Intership / Job
+            MGKVP Students Looking For Intership / Job
         </h2>
 <div id="data-container" class="overflow-hidden h-[500px] relative bg-gray-200 rounded-lg p-4 shadow-lg border border-gray-300">
             <!-- यहां 'text-white' को 'text-gray-900' में बदल दिया गया है ताकि स्क्रॉल होने वाले बॉक्स के अंदर का टेक्स्ट काला हो जाए -->
@@ -1046,12 +1053,12 @@
                 <span>Download Website QR</span>
             </a><a href="https://educationsimplified.github.io/mgkvp/alumniregester.html" class="grid-card">
                 <i class="fas fa-user-graduate"></i>
-                <span>Register For Alumni</span>
+                <span>Register For MGKVP Alumni & Current Student</span>
                 </a>
 
             <a href="https://educationsimplified.github.io/mgkvp/alumni.html" class="grid-card">
                 <i class="fas fa-users"></i>
-            <span>Alumni Data</span>
+            <span>MGKVP Alumni & Current Student Data</span>
             </a>
 
             <a href="https://educationsimplified.github.io/mgkvp/filepage.html" class="grid-card">
@@ -1878,6 +1885,7 @@ postEl.innerHTML = `
     
 </body>
 </html>
+
 
 
 
