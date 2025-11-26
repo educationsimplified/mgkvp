@@ -3,20 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <!-- Google Site Verification & AdSense - Copied from GALLERY.HTML -->
     <meta name="google-site-verification" content="l9l5QvjFSakUCbRz6lC-X-TfGQJOFxEbz-_iZQOJ35c" />
     <meta name="google-adsense-account" content="ca-pub-4074130011096587">
     <meta name="google-site-verification" content="qSZcROSBW4sFubwNpIYlMwvNYbQUA_2svJFPt3hfxls" />
-    <title>Resgistered Company Data Portal</title>
-    <!-- Meta Description & Keywords - Adapted for Alumni Portal -->
+    <title>Registered Company Data Portal</title>
     <meta name="description" content="Access a portal of registered job seekers from the Journalism and Mass Communication department. Connect with alumni for career opportunities.">
     <meta name="keywords" content="alumni, job seekers, data portal, journalism, mass communication, MGKVP, career, jobs, Uzair B2B">
 
-    <!-- Favicon & Apple Touch Icon - Copied from GALLERY.HTML (assuming assets folder exists) -->
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         // Tailwind Configuration - Copied from GALLERY.HTML
@@ -107,17 +103,14 @@
 </head>
 
 <body class="bg-lightBg text-gray-900 transition-colors duration-300 dark:bg-darkBg dark:text-white">
-    <!-- Navigation Bar - Copied and adapted from GALLERY.HTML -->
     <nav class="bg-darkBg p-4 shadow-lg border-b-2 border-primary dark:bg-darkBg dark:border-primary">
         <div class="container mx-auto flex justify-between items-center">
             <a class="text-white text-2xl font-bold tracking-wide transition-colors duration-300 hover:text-primary" href="https://educationsimplified.github.io/mgkvp/index.html">EDUCATION SIMPLIFIED</a>
             <button id="themeToggle" class="theme-toggle-button text-white text-2xl focus:outline-none">
-                ☀️ <!-- Initial state, updated by JS -->
-            </button>
+                ☀️ </button>
         </div>
     </nav>
 
-    <!-- Breadcrumb Navigation - Copied and adapted from GALLERY.HTML -->
     <div class="container mx-auto mt-6 px-4">
         <nav aria-label="breadcrumb">
             <ol class="flex space-x-2 text-gray-600 dark:text-gray-300">
@@ -127,15 +120,13 @@
         </nav>
     </div>
 
-    <!-- Main Content Area -->
     <div class="container mx-auto mt-8 px-4">
         <h1 class="text-4xl font-extrabold mb-4 text-gray-900 dark:text-white text-center">Registered Companies</h1>
         <div class="w-24 h-1 bg-primary mb-6 rounded mx-auto"></div>
         <p class="text-xl mb-8 text-gray-700 dark:text-gray-300 text-center">
-            Click on a <strong class="text-primary">name</strong> to view full Company details.
+            Click on a <strong class="text-primary">row</strong> to view full Company details.
         </p>
 
-        <!-- Filter Buttons -->
         <div id="filter-buttons" class="flex justify-center flex-wrap gap-4 mb-8"></div>
 
 
@@ -144,33 +135,30 @@
                 <thead class="bg-gray-50 dark:bg-gray-800">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Company Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Hiring Status</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Work Nature</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Qualification Required</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Link</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Contact Link</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white dark:bg-darkCard divide-y divide-gray-200 dark:divide-gray-700">
-                    <!-- Data will be loaded here by JavaScript -->
-                </tbody>
+                    </tbody>
             </table>
         </div>
     </div>
 
-    <!-- Modal -->
     <div id="myModal" class="modal-overlay hidden">
         <div class="modal-content-wrapper bg-lightCard dark:bg-darkCard p-8 rounded-lg shadow-xl w-full max-w-md border border-gray-200 dark:border-gray-700">
             <button class="close-button" onclick="closeModal()">&times;</button>
             <h2 id="modal-name" class="text-2xl font-bold mb-4 text-gray-900 dark:text-white"></h2>
-            <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Established in:</strong> <span id="modal-age"></span></p>
-            <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Hiring:</strong> <span id="modal-pass"></span></p>
+            <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Established in:</strong> <span id="modal-year"></span></p>
+            <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Hiring:</strong> <span id="modal-hiring"></span></p>
             <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Education Required:</strong> <span id="modal-education"></span></p>
-            <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Work Nature:</strong> <span id="modal-category"></span></p>
-            <p class="mb-4 text-gray-700 dark:text-gray-300"><strong>About:</strong> <span id="modal-about"></span></p>
-            <p><a id="modal-resume" href="#" target="_blank" class="text-primary hover:underline font-semibold">Contact Us</a></p>
+            <p class="mb-2 text-gray-700 dark:text-gray-300"><strong>Work Nature:</strong> <span id="modal-nature"></span></p>
+            <p class="mb-4 text-gray-700 dark:text-gray-300"><strong>Focus Word:</strong> <span id="modal-about"></span></p>
+            <p><a id="modal-link" href="#" target="_blank" class="text-primary hover:underline font-semibold">View Company Profile / Contact</a></p>
         </div>
     </div>
 
-    <!-- Footer Section - Copied from GALLERY.HTML -->
     <footer id="footer" class="bg-darkBg py-6 text-center text-gray-300 mt-12 dark:bg-darkBg dark:text-gray-400">
         <div class="container mx-auto px-4">
             <div class="text-sm">
@@ -184,205 +172,250 @@
 <script>
 const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRYH7Rlqwq1rupcx23cXSDMhtkijSWvS0tvdmuBwnWNlNkmwva54bAAEr59igvDXBncR9zGnAoY_lI6/pub?gid=468287746&single=true&output=csv';
 
-let allStudentsData = [];
+let allCompaniesData = [];
 
-const COLUMN_INDEX = {
-  TIMESTAMP: 0,
-  NAME: 1,
-  AGE: 2,
-  IS_12TH_PASS: 3,
-  EDUCATION: 4,
-  JOB_TYPE: 5,
-  ABOUT: 6,
-  RESUME_LINK: 7,
-  WHATSAPP_NUMBER: 8
+// Column Indices based on the Company Sheet (Timestamp to Link)
+const COL = {
+    TIMESTAMP: 0,
+    COMPANY: 1,
+    YEAR: 2,
+    HIRING: 3,
+    EDUCATION: 4,
+    NATURE: 5,
+    ABOUT: 6,
+    LINK: 7
 };
 
-document.addEventListener("DOMContentLoaded", function () {
+/**
+ * Robust CSV parser that correctly handles quoted commas.
+ * Replaced the unsafe row.split(',')
+ */
+function parseCSVLine(row) {
+    const result = [];
+    let insideQuotes = false;
+    let value = "";
 
-  // ✅ THEME SYSTEM (UNCHANGED)
-  const themeToggle = document.getElementById('themeToggle');
-  const htmlTag = document.documentElement;
-  const currentTheme = localStorage.getItem('theme');
+    for (let i = 0; i < row.length; i++) {
+        const char = row[i];
 
-  if (currentTheme) {
-    htmlTag.classList.remove('light', 'dark');
-    htmlTag.classList.add(currentTheme);
-    themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
-  } else {
-    htmlTag.classList.add('light');
-    themeToggle.textContent = '🌙';
-  }
-
-  themeToggle.addEventListener('click', () => {
-    if (htmlTag.classList.contains('light')) {
-      htmlTag.classList.replace('light', 'dark');
-      localStorage.setItem('theme', 'dark');
-      themeToggle.textContent = '☀️';
-    } else {
-      htmlTag.classList.replace('dark', 'light');
-      localStorage.setItem('theme', 'light');
-      themeToggle.textContent = '🌙';
+        if (char === '"') {
+            // Handle escaped quotes inside field
+            if (insideQuotes && row[i + 1] === '"') {
+                value += '"';
+                i++;
+                continue;
+            }
+            insideQuotes = !insideQuotes;
+        } else if (char === ',' && !insideQuotes) {
+            result.push(value.trim());
+            value = "";
+        } else {
+            value += char;
+        }
     }
-  });
 
-  // ✅ LOAD CSV
-  fetch(sheetUrl)
-    .then(res => res.text())
-    .then(csv => {
+    result.push(value.trim());
+    
+    // Ensure 8 columns and clean up quotes
+    while (result.length < 8) result.push("");
+    return result.map(s => s.replace(/^"|"$/g, ""));
+}
 
-      const rows = csv.split('\n').slice(1);
+document.addEventListener("DOMContentLoaded", function () {
+    // ... (Theme Toggle logic remains unchanged) ...
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlTag = document.documentElement;
+    const currentTheme = localStorage.getItem('theme');
 
-      allStudentsData = rows.map(row => {
+    if (currentTheme) {
+        htmlTag.classList.remove('light', 'dark');
+        htmlTag.classList.add(currentTheme);
+        themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    } else {
+        htmlTag.classList.add('light');
+        themeToggle.textContent = '🌙';
+    }
 
-        const cols = row.split(',');
+    themeToggle.addEventListener('click', () => {
+        if (htmlTag.classList.contains('light')) {
+            htmlTag.classList.replace('light', 'dark');
+            localStorage.setItem('theme', 'dark');
+            themeToggle.textContent = '☀️';
+        } else {
+            htmlTag.classList.replace('dark', 'light');
+            localStorage.setItem('theme', 'light');
+            themeToggle.textContent = '🌙';
+        }
+    });
+    // END Theme Toggle
 
-        if (cols.length < 8 || cols.every(val => val.trim() === '')) return null;
+    // ✅ LOAD CSV (Data extraction updated to use robust parser and Company structure)
+    fetch(sheetUrl)
+        .then(res => res.text())
+        .then(csv => {
 
-        return {
-          name: cols[COLUMN_INDEX.NAME].trim(),
-          age: cols[COLUMN_INDEX.AGE].trim(),
-          is12thPass: cols[COLUMN_INDEX.IS_12TH_PASS].trim(),
-          education: cols[COLUMN_INDEX.EDUCATION].trim(),
-          jobType: cols[COLUMN_INDEX.JOB_TYPE].trim(),
-          about: cols[COLUMN_INDEX.ABOUT].trim(),
-          resumeLink: cols[COLUMN_INDEX.RESUME_LINK].trim()
-        };
+            const rows = csv.split('\n').slice(1);
 
-      }).filter(Boolean);
+            allCompaniesData = rows.map(row => {
+                if (!row.trim()) return null;
 
-      // ✅ CREATE FILTER BUTTONS DYNAMICALLY
-      generateFilterButtons();
-      filterStudentsTable("All");
+                const cols = parseCSVLine(row);
+                
+                // CRITICAL FILTER: Skip if company name is empty
+                if (!cols[COL.COMPANY].trim()) return null;
 
-    })
-    .catch(error => console.error("CSV Error:", error));
+                const data = {
+                    name: cols[COL.COMPANY].trim(),
+                    year: cols[COL.YEAR].trim(),
+                    hiring: cols[COL.HIRING].trim(),
+                    education: cols[COL.EDUCATION].trim(),
+                    nature: cols[COL.NATURE].trim(),
+                    about: cols[COL.ABOUT].trim(),
+                    link: cols[COL.LINK].trim()
+                };
+
+                // Add a formatted hiring status for display purposes
+                data.statusBadge = data.hiring.toLowerCase().includes("yes") || data.hiring.toLowerCase().includes("job")
+                    ? `<span class="text-green-600 font-bold">✅ Hiring</span>`
+                    : `<span class="text-red-600 font-bold">🔴 Not Hiring</span>`;
+                    
+                // Add safe link for display
+                data.safeLink = data.link.startsWith('http') ? data.link : (data.link ? 'https://' + data.link : '#');
+
+                return data;
+
+            }).filter(Boolean);
+
+            // ✅ CREATE FILTER BUTTONS DYNAMICALLY based on Work Nature
+            generateFilterButtons();
+            filterCompaniesTable("All");
+
+        })
+        .catch(error => console.error("CSV Error:", error));
 });
 
 
-// ✅ CREATE FILTER BUTTONS BASED ON CSV
+// ✅ CREATE FILTER BUTTONS BASED ON CSV (Using NATURE column)
 function generateFilterButtons() {
+    const filterBox = document.getElementById("filter-buttons");
+    filterBox.innerHTML = "";
 
-  const filterBox = document.getElementById("filter-buttons");
-  filterBox.innerHTML = "";
+    const allBtn = createFilterButton("All");
+    filterBox.appendChild(allBtn);
 
-  const allBtn = createFilterButton("All");
-  filterBox.appendChild(allBtn);
+    // Filter by nature of work (Index 5)
+    const uniqueTypes = [...new Set(allCompaniesData.map(s => s.nature))].filter(t => t);
 
-  const uniqueTypes = [...new Set(allStudentsData.map(s => s.jobType))];
-
-  uniqueTypes.forEach(type => {
-    const btn = createFilterButton(type);
-    filterBox.appendChild(btn);
-  });
+    uniqueTypes.forEach(type => {
+        const btn = createFilterButton(type);
+        filterBox.appendChild(btn);
+    });
 }
 
 
-// ✅ BUTTON BUILDER
+// ✅ BUTTON BUILDER (UNCHANGED)
 function createFilterButton(label) {
-
-  const btn = document.createElement("button");
-  btn.textContent = label;
-
-  btn.className = "px-6 py-2 rounded-full bg-gray-700 text-white font-semibold hover:bg-gray-600 transition-all duration-200";
-
-  btn.onclick = () => filterStudentsTable(label);
-
-  return btn;
+    const btn = document.createElement("button");
+    btn.textContent = label;
+    btn.className = "px-6 py-2 rounded-full bg-gray-700 text-white font-semibold hover:bg-gray-600 transition-all duration-200";
+    btn.onclick = () => filterCompaniesTable(label);
+    return btn;
 }
 
 
-// ✅ FILTER TABLE (UNCHANGED FUNCTIONALITY + DYNAMIC FILTER)
-function filterStudentsTable(category) {
+// ✅ FILTER TABLE (Updated to use Company data and attach click listener dynamically)
+function filterCompaniesTable(category) {
+    const tableBody = document.querySelector('#data-table tbody');
+    tableBody.innerHTML = '';
 
-  const tableBody = document.querySelector('#data-table tbody');
-  tableBody.innerHTML = '';
+    let filteredCompanies = category === 'All'
+        ? allCompaniesData
+        : allCompaniesData.filter(company => company.nature === category);
 
-  let filteredStudents = category === 'All'
-    ? allStudentsData.filter(student => student.is12thPass.toLowerCase() === 'yes')
-    : allStudentsData.filter(student =>
-        student.is12thPass.toLowerCase() === 'yes' &&
-        student.jobType === category
-      );
+    if (filteredCompanies.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+                No companies found in this category.
+            </td>`;
+        tableBody.appendChild(tr);
+        return;
+    }
 
-  if (filteredStudents.length === 0) {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td colspan="4" class="px-6 py-4 text-center text-gray-500">
-        No students found in this category.
-      </td>`;
-    tableBody.appendChild(tr);
-    return;
-  }
+    filteredCompanies.forEach(company => {
 
-  filteredStudents.forEach(student => {
+        const tr = document.createElement('tr');
+        // Add a class for hover effect and clickability
+        tr.className = "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150";
+        const hiringStatus = company.statusBadge; 
 
-    const tr = document.createElement('tr');
+        // 1. Attach the click event listener directly to the row element
+        tr.addEventListener('click', () => {
+             // Pass the company object directly to the showDetails function
+            showDetails(company);
+        });
+        
+        // 2. Build the inner HTML without the problematic inline onclick
+        tr.innerHTML = `
+            <td class="px-6 py-4 font-medium">
+                <span class="text-primary hover:underline">
+                    ${company.name}
+                </span>
+            </td>
 
-    tr.innerHTML = `
-      <td class="px-6 py-4 font-medium">
-        <a href="#" onclick='showDetails(
-          ${JSON.stringify(student.name)},
-          ${JSON.stringify(student.age)},
-          ${JSON.stringify(student.is12thPass)},
-          ${JSON.stringify(student.education)},
-          ${JSON.stringify(student.jobType)},
-          ${JSON.stringify(student.about)},
-          ${JSON.stringify(student.resumeLink)}
-        )' class="text-primary hover:underline">
-          ${student.name}
-        </a>
-      </td>
+            <td class="px-6 py-4">${hiringStatus}</td>
+            <td class="px-6 py-4">${company.nature}</td>
 
-      <td class="px-6 py-4">${student.jobType}</td>
-      <td class="px-6 py-4">${student.education}</td>
+            <td class="px-6 py-4">
+                <a href="${company.safeLink}" target="_blank" 
+                   class="text-blue-600 hover:underline"
+                   onclick="event.stopPropagation();"> 
+                    ${company.link ? 'Contact/Apply' : 'N/A'}
+                </a>
+            </td>
+        `;
 
-      <td class="px-6 py-4">
-        <a href="${student.resumeLink}" target="_blank" class="text-primary hover:underline">
-          Contact Us
-        </a>
-      </td>
-    `;
-
-    tableBody.appendChild(tr);
-
-  });
+        tableBody.appendChild(tr);
+    });
 }
 
 
-// ✅ MODAL SYSTEM (UNCHANGED)
-function showDetails(name, age, pass12, education, jobType, about, resume) {
+// ✅ MODAL SYSTEM (Updated to use a single JSON object and Company data fields)
+function showDetails(companyData) {
 
-  document.getElementById('modal-name').textContent = name;
-  document.getElementById('modal-age').textContent = age;
-  document.getElementById('modal-pass').textContent = pass12;
-  document.getElementById('modal-education').textContent = education;
-  document.getElementById('modal-category').textContent = jobType;
-  document.getElementById('modal-about').textContent = about;
-  document.getElementById('modal-resume').href = resume;
+    // Correct modal elements to match new structure
+    document.getElementById('modal-name').textContent = companyData.name;
+    document.getElementById('modal-year').textContent = companyData.year || 'N/A';
+    document.getElementById('modal-hiring').innerHTML = companyData.statusBadge; // Use innerHTML for badge
+    document.getElementById('modal-education').textContent = companyData.education || 'N/A';
+    document.getElementById('modal-nature').textContent = companyData.nature || 'N/A';
+    document.getElementById('modal-about').textContent = companyData.about || 'No description provided';
+    
+    // Set the link
+    document.getElementById('modal-link').href = companyData.safeLink;
+    
+    const modal = document.getElementById('myModal');
+    modal.classList.remove('hidden');
 
-  const modal = document.getElementById('myModal');
-  modal.classList.remove('hidden');
-
-  setTimeout(() => {
-    modal.classList.add('show');
-  }, 10);
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
 }
 
 
 function closeModal() {
-  const modal = document.getElementById('myModal');
-  modal.classList.remove('show');
+    const modal = document.getElementById('myModal');
+    modal.classList.remove('show');
 
-  setTimeout(() => {
-    modal.classList.add('hidden');
-  }, 300);
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 300);
 }
 
 
 window.onclick = function (event) {
-  const modal = document.getElementById('myModal');
-  if (event.target === modal) closeModal();
+    const modal = document.getElementById('myModal');
+    if (event.target === modal) closeModal();
 };
 </script>
 
