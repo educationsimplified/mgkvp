@@ -1323,60 +1323,114 @@ postEl.innerHTML = `
   </div>
 </footer>
 
-
 <script>
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRYH7Rlqwq1rupcx23cXSDMhtkijSWvS0tvdmuBwnWNlNkmwva54bAAEr59igvDXBncR9zGnAoY_lI6/pub?gid=468287746&single=true&output=csv';
 
+/**
+ * CSV parser that correctly handles quoted commas by iterating through the row.
+ */
+function parseCSVLine(row) {
+    const result = [];
+    let insideQuotes = false;
+    let value = "";
+
+    for (let i = 0; i < row.length; i++) {
+        const char = row[i];
+
+        if (char === '"') {
+            // Handle escaped double quotes inside a quoted field ("" becomes ")
+            if (insideQuotes && row[i + 1] === '"') {
+                value += '"';
+                i++;
+                continue;
+            }
+            insideQuotes = !insideQuotes;
+        } else if (char === ',' && !insideQuotes) {
+            result.push(value.trim());
+            value = "";
+        } else {
+            value += char;
+        }
+    }
+
+    result.push(value.trim());
+    
+    // Clean up leading/trailing quotes from the final trimmed values
+    return result.map(s => s.replace(/^"|"$/g, ""));
+}
+
 async function loadCSVData() {
-  try {
-    const res = await fetch(SHEET_URL);
-    const csvText = await res.text();
-    const rows = csvText.split('\n').slice(1);
+    const container = document.getElementById("scroll-box");
 
-    const container = document.getElementById('scroll-box');
-    container.innerHTML = "";
+    try {
+        const res = await fetch(SHEET_URL);
+        const csv = await res.text();
 
-    rows.forEach(row => {
-      const cols = row.split(',');
+        const rows = csv.split("\n").slice(1); // skip header
+        container.innerHTML = "";
 
-      if (cols.length < 8) return;   // ✅ Now matches your sheet
+        rows.forEach(row => {
+            if (!row.trim()) return;
 
-      const [
-        timestamp,
-        companyName,
-        year,
-        lookingFor,
-        qualification,
-        nature,
-        about,
-        linkedin
-      ] = cols;
+            const cols = parseCSVLine(row);
 
-      const statusBadge = lookingFor.toLowerCase().includes("yes")
-        ? "✅ Hiring"
-        : "🔴 Not Hiring";
+            // Force minimum 8 columns (A to H)
+            while (cols.length < 8) cols.push("");
+            
+            // Trim values again after parsing to be safe
+            const trimmedCols = cols.map(c => c.trim());
 
-      const box = document.createElement("div");
-      box.className = "bg-white p-4 shadow-lg rounded-xl border border-gray-200";
+            // ✅ Correct Mapping and Filtering
+            const timestamp   = trimmedCols[0];
+            const company     = trimmedCols[1];
+            const year        = trimmedCols[2];
+            const hiring      = trimmedCols[3];
+            const education   = trimmedCols[4];
+            const nature      = trimmedCols[5];
+            const about       = trimmedCols[6];
+            const linkedin    = trimmedCols[7];
+            
+            // CRITICAL FILTER: Skip card if the Company Name is empty, reducing "N/A" cards.
+            if (!company) return; 
 
-      box.innerHTML = `
-        <p class="font-semibold text-lg">🏢 ${companyName}</p>
-        <p>📅 Established: ${year}</p>
-        <p>📌 Status: ${statusBadge}</p>
-        <p>🎓 Requirement: ${qualification}</p>
-        <p>💼 Internship Type: ${nature}</p>
-        <p>✍️ ${about}</p>
-        <p>🔗 <a href="${linkedin}" target="_blank" class="text-blue-600 underline">View Link</a></p>
-      `;
+            // ✅ Hiring Badge Logic and styling fix
+            const isHiring = hiring.toLowerCase().includes("yes") || hiring.toLowerCase().includes("job");
+            const statusText = isHiring ? "✅ Hiring" : "🔴 Not Hiring";
+            const statusBadge = `<span class="${isHiring ? 'text-green-600' : 'text-red-600'} font-bold">${statusText}</span>`;
 
-      container.appendChild(box);
-    });
+            // ✅ Safe Link Fix
+            let link = "#";
+            let linkText = "N/A";
 
-  } catch (error) {
-    document.getElementById('scroll-box').innerHTML =
-      '<p class="text-red-600 text-center">❌ Failed to load company data.</p>';
-    console.error(error);
-  }
+            if (linkedin) {
+                // Ensure URL starts with http(s)
+                link = linkedin.startsWith("http") ? linkedin : "https://" + linkedin;
+                linkText = "View Link";
+            }
+
+            const box = document.createElement("div");
+            // Used Tailwind classes for better display
+            box.className = "bg-white p-4 rounded-xl shadow border border-gray-200 mb-4";
+
+            // ✅ FINAL DISPLAY LABELS AND STRUCTURE
+            box.innerHTML = `
+                <p class="font-bold text-lg text-gray-800">🏢 ${company || "N/A"}</p>
+                <p class="text-sm text-gray-500">📅 <b>Established:</b> ${year || "N/A"}</p>
+                <p class="text-sm">📌 <b>Status:</b> ${statusBadge}</p>
+                <p class="text-sm">🎓 <b>Requirement:</b> ${education || "N/A"}</p>
+                <p class="text-sm">💼 <b>Internship/Job Nature:</b> ${nature || "N/A"}</p>
+                <p class="text-sm mt-2"><b>✨ Company Focus Word:</b> ${about || "No description provided."}</p>
+                <p class="text-sm mt-2">🔗 <a href="${link}" target="_blank" class="text-blue-600 hover:text-blue-800 underline transition duration-150">${linkText}</a></p>
+                <p class="text-xs text-gray-400 mt-2">🕒 ${timestamp}</p>
+            `;
+
+            container.appendChild(box);
+        });
+
+    } catch (err) {
+        console.error("Data loading error:", err);
+        document.getElementById("scroll-box").innerHTML = `<p class="text-red-600 text-center p-4">❌ Failed to load company data.</p>`;
+    }
 }
 
 loadCSVData();
