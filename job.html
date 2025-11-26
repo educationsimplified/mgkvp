@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="google-site-verification" content="l9l5QvjFSakUCbRz6lC-X-TfGQJOFxEbz-_iZQOJ35c" />
+    <meta name="google-adsense-account" content="ca-pub-4074130011096587">
+    <meta name="google-site-verification" content="qSZcROSBW4sFubwNpIYlMwvNYbQUA_2svJFPt3hfxls" />
+    <title>MGKVP Alumni & Current Registration Portal</title> 
+    <meta name="description" content="Official registration and application portal for registered alumni of MGKVP. Stay connected and access resources."> 
+    <meta name="keywords" content="alumni, MGKVP, registration, application, portal, former students, network, Uzair B2B"> 
+
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind Configuration - Copied from GALLERY.HTML
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode with 'class' strategy
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00e1ff', // Light blue/cyan
+                        secondary: '#0032e6', // Darker blue
+                        darkBg: '#121212', // Very dark background
+                        darkCard: '#1a1a1a', // Slightly lighter dark card background
+                        lightBg: '#f0f2f5', // Light gray background
+                        lightCard: '#ffffff', // White card background
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for the theme toggle icon */
+        .theme-toggle-button {
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .theme-toggle-button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal Styles for Automatic Fade-in/Fade-out */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            /* Starts hidden in layout, but ready for transition */
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            
+            /* Transition properties */
+            opacity: 0; /* Starts hidden */
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        
+        /* Class applied by JS for fade-in effect */
+        .popup-overlay.show-modal { 
+            opacity: 1;
+            visibility: visible;
+            display: flex; /* Ensures visibility during transition */
+        }
+
+        .popup {
+            background: #fff;
+            width: 800px;
+            max-width: 95%;
+            border-radius: 10px;
+            display: flex;
+            box-shadow: 0 0 20px rgba(0, 225, 255, 0.6);
+            border: 2px solid theme('colors.primary');
+            overflow: hidden;
+            position: relative;
+            max-height: 90vh;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 22px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #555;
+            z-index: 10000;
+            background: #fff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        .close-btn:hover {
+            background-color: theme('colors.primary');
+            color: theme('colors.darkBg');
+            transform: scale(1.1);
+            box-shadow: 0 0 12px rgba(0, 225, 255, 0.8);
+        }
+
+        /* Left side image */
+        .popup-image {
+            width: 35%;
+            background: url('https://leintelligensiaipr.com/wp-content/uploads/2021/12/black-head-1.png') no-repeat center center;
+            background-size: cover;
+        }
+        /* Right side form */
+        .popup-form {
+            padding: 20px;
+            width: 65%;
+            overflow-y: auto;
+        }
+        .popup-form h2 {
+            margin-top: 0;
+            text-align: center;
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+        /* Style for the logo container */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .logo-container img {
+            max-height: 60px; /* Standardize logo height */
+            width: auto;
+            border-radius: 50%; 
+        }
+        /* *** MODIFIED SECTION FOR BIGGER AND SQUARE IMAGE ***
+        The max-height and max-width are increased to 150px 
+        (or any desired larger value), and object-fit: cover 
+        is added to ensure the image fills the square area 
+        while maintaining its aspect ratio and cropping if necessary.
+        */
+        /* Specific sizing for the student image (made bigger and square) */
+.student-image {
+    max-height: 200px; /* Increased size to 200px */
+    max-width: 200px; /* Increased size to 200px */
+    height: 200px; /* Forces square shape */
+    width: 200px; /* Forces square shape */
+    object-fit: cover; /* Ensures the image covers the square area */
+    border-radius: 20px; /* Adjusted border-radius for the larger image */
+}
+        .mgkvp-logo {
+            border-radius: 0 !important; /* Keep MGKVP logo square/original shape */
+        }
+
+        @media (max-width: 768px) {
+            .popup {
+                flex-direction: column;
+                width: 90%;
+                max-height: 95vh;
+            }
+            .popup-image {
+                width: 100%;
+                height: 150px;
+            }
+            .popup-form {
+                width: 100%;
+                padding: 15px;
+            }
+            .close-btn {
+                top: 5px;
+                right: 10px;
+            }
+            iframe {
+                height: 380px;
+            }
+            .logo-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            /* Adjust the student image size for mobile if necessary, though 150px is often fine */
+            
+        }
+    </style>
+</head>
+
+<body class="bg-lightBg text-gray-900 transition-colors duration-300 dark:bg-darkBg dark:text-white">
+    <nav class="bg-darkBg p-4 shadow-lg border-b-2 border-primary dark:bg-darkBg dark:border-primary">
+        <div class="container mx-auto flex justify-between items-center">
+            <a class="text-white text-2xl font-bold tracking-wide transition-colors duration-300 hover:text-primary" href="https://uzairb2b.github.io/home/index.html">EDUCATION SIMPLIFIED</a>
+            <button id="themeToggle" class="theme-toggle-button text-white text-2xl focus:outline-none">
+                ☀️ </button>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-6 px-4">
+        <nav aria-label="breadcrumb">
+            <ol class="flex space-x-2 text-gray-600 dark:text-gray-300">
+                <li class="breadcrumb-item"><a href="index.html" class="text-blue-600 hover:underline dark:text-blue-400">Home</a></li>
+                <li class="breadcrumb-item active text-primary font-semibold" aria-current="page">Company Registration Portal</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="container mx-auto mt-8 px-4">
+        
+        <h1 class="text-4xl font-extrabold mb-4 text-gray-900 dark:text-white text-center">Company Registration Portal</h1>
+        <div class="w-24 h-1 bg-primary mb-6 rounded mx-auto"></div>
+        
+        <div class="logo-container">
+            <img src="https://upload.wikimedia.org/wikipedia/en/d/d3/Mahatma_Gandhi_Kashi_Vidyapith_logo.png" alt="MGKVP Logo" class="mgkvp-logo shadow-lg">
+            
+        </div>
+      
+       <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white text-center mb-6">
+  Rahul & Uzair (MGKVP IMS)
+</h1>
+
+<!-- Photo Frame -->
+<div class="flex justify-center">
+  <div class="relative bg-white rounded-3xl shadow-2xl border-4 border-yellow-400 p-3 hover:scale-105 transition-transform duration-500 inline-block">
+    <img src="https://educationsimplified.github.io/mgkvpjournalism/assets/img/hero-bg.jpg" 
+         alt="Class Photo 2022–2025" 
+         class="rounded-2xl object-cover w-auto max-w-full shadow-lg">
+    
+    <!-- Soft glow -->
+    <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-yellow-400/20 to-transparent blur-2xl -z-10"></div>
+  </div>
+</div>
+
+<!-- Caption -->
+<p class="mt-4 text-base md:text-lg text-gray-600 italic text-center">
+  <b>Uzair Ahmed</b> | Development, Growth & Technology <br>
+  <b>Rahul Patel</b> | Marketing & P.R.
+</p>
+
+<br>        
+        <div class="mb-8 p-4 rounded-lg bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700">
+            <p class="text-sm font-semibold text-red-700 dark:text-red-300 text-center">
+                ⚠️ <b>Disclaimer:</b> The logos used above are for <b>demonstrative purposes</b> only. This portal is an independent effort by a student of MGKVP and is <b>not affiliated with or officially authorized</b> by Mahatma Gandhi Kashi Vidyapith (MGKVP).
+            </p>
+        </div>
+        <hr class="mb-8 bord.htmler-gray-300 dark:border-gray-700">
+
+        <p class="text-xl mb-8 text-gray-700 dark:text-gray-300 text-center">
+            Register Your Company, to Hire Interns or jobs through LinkedIn or any Communication link. 
+        </p>
+        
+      <div class="section bg-lightCard dark:bg-darkCard p-6 mb-8 rounded-lg shadow-lg">
+    <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">
+        Recruiter Registration: Access the MGKVP Talent Pipeline 🚀
+    </h2>
+
+    <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+        Register your company to gain <b>direct access</b> to a focused pool of high-potential MGKVP students and alumni. This portal acts as your exclusive <b>Talent Pipeline</b>, streamlining the process of filling <b>internships</b> and <b>entry-level jobs</b>.
+    </p>
+
+    <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+        When your company registers, you enable students to approach you directly through the provided link, sharing their:
+        <ul class="list-disc ml-6 mt-2">
+            <li><b>Curriculum Vitae (CV)</b> and academic details</li>
+            <li>Detailed <b>Projects</b> and portfolio work</li>
+            <li>Skills, interests, and career goals</li>
+        </ul>
+        This system provides you with a constant source of pre-aligned candidates, turning recruitment into a predictable, year-round process.
+    </p>
+
+    <p class="text-gray-600 dark:text-gray-400 leading-relaxed italic">
+        अपनी कंपनी को पंजीकृत करें और MGKVP के सर्वश्रेष्ठ छात्रों को सीधे अपने टैलेंट पूल में शामिल करें। छात्र सीधे लिंक के माध्यम से अपना <b>CV</b> और <b>प्रोजेक्ट्स</b> साझा कर सकते हैं, जिससे आपकी भर्ती प्रक्रिया (रिक्रूटमेंट) बहुत सरल और कुशल हो जाएगी।
+    </p>
+</div>
+        <div class="bg-secondary text-white p-6 mb-8 rounded-lg shadow-lg text-center">
+            <p class="text-xl md:text-2xl font-bold mb-6">If the form disappeared (गलती से बंद हो गया), click here to re-open the application form:</p>
+            
+            <button onclick="manualShowFormModal()" class="inline-block bg-primary hover:bg-white text-darkBg font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                Re-open Application Form
+            </button>
+        </div>
+        </div>
+
+    <div class="popup-overlay" id="popup">
+        <div class="popup">
+            <span class="close-btn" onclick="hideFormModal()">&times;</span>
+            <div class="popup-image"></div>
+            <div class="popup-form">
+                <h2>Company Registeration Form</h2>
+                <iframe src="https://forms.gle/19QNsWAWPUzrRniXA" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer" class="bg-darkBg py-6 text-center text-gray-300 mt-12 dark:bg-darkBg dark:text-gray-400">
+        <div class="container mx-auto px-4">
+            <div class="text-sm">
+                <p>&copy; <span>Copyright</span> <b class="px-1 text-primary">Uzair Ahmed B.A.(hons) Student, MGKVP</b> <span>All Rights Reserved</span></p>
+            </div>
+            <div class="mt-2 text-xs">
+                Designed by <a href="https://uzairb2b.blogspot.com/" class="text-primary hover:underline">Uzair Ahmed</a> Distributed by <a href="https://www.instagram.com/uzairvibes" class="text-primary hover:underline">Uzair B2B Services</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Function to show the modal (manual use, without the initial delay)
+        function manualShowFormModal() {
+            const modal = document.getElementById('popup');
+            modal.style.display = 'flex';
+            // Use a small timeout to ensure 'display:flex' is applied before changing opacity for the fade-in effect
+            setTimeout(() => {
+                modal.classList.add('show-modal');
+            }, 10);
+        }
+
+        // Function to hide the modal with fade-out
+        function hideFormModal() {
+            const modal = document.getElementById('popup');
+            modal.classList.remove('show-modal'); // Start fade-out transition
+            // Hide display only after the transition (0.3s defined in CSS)
+            setTimeout(() => {
+                modal.style.display = 'none'; // Set display to 'none' after transition
+            }, 300);
+        }
+
+        // Function to automatically show the modal on page load (with a delay)
+        function autoShowFormModal() {
+            const modal = document.getElementById('popup');
+            // 1. Set display:flex immediately so the modal is in the document flow
+            modal.style.display = 'flex'; 
+            // 2. Use a delay before starting the fade-in transition
+            setTimeout(() => {
+                modal.classList.add('show-modal');
+            }, 500); // 500ms delay for a smooth, non-instantaneous entrance
+        }
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Theme Toggle functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const htmlTag = document.documentElement;
+
+            // Set initial theme based on localStorage or default to light
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                htmlTag.classList.remove('light', 'dark');
+                htmlTag.classList.add(currentTheme);
+                themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+            } else {
+                htmlTag.classList.add('light'); // Default to light theme
+                themeToggle.textContent = '🌙';
+            }
+
+            themeToggle.addEventListener('click', () => {
+                if (htmlTag.classList.contains('light')) {
+                    htmlTag.classList.remove('light');
+                    htmlTag.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.textContent = '☀️';
+                } else {
+                    htmlTag.classList.remove('dark');
+                    htmlTag.classList.add('light');
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.textContent = '🌙';
+                }
+            });
+            
+            // Call the function to automatically show the form modal when the document is ready
+            autoShowFormModal();
+
+            // Add global click listener to close modal when clicking outside
+            window.onclick = function(event) {
+                const modal = document.getElementById('popup');
+                if (event.target === modal && modal.classList.contains('show-modal')) {
+                    hideFormModal();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
