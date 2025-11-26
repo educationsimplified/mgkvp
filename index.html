@@ -835,7 +835,7 @@
 <div class="max-w-3xl mx-auto my-10 bg-yellow-400 p-6 rounded-lg shadow-lg border border-primary/20">
 
   <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-16 text-stone-900" style="font-family: 'Playfair Display', serif;">
-            Companies / Startup Looking For Students for Insternships & Jobs 
+            MGKVP Students Looking For Intership / Job
         </h2>
 <div id="data-container" class="overflow-hidden h-[500px] relative bg-gray-200 rounded-lg p-4 shadow-lg border border-gray-300">
             <!-- यहां 'text-white' को 'text-gray-900' में बदल दिया गया है ताकि स्क्रॉल होने वाले बॉक्स के अंदर का टेक्स्ट काला हो जाए -->
@@ -846,6 +846,115 @@
 
 <hr class="w-full h-px my-16 bg-amber-500 border-0 shadow-xl" />
 
+  
+  
+  
+  <section style="padding: 50px 20px; text-align: center; background-color: #f9f9f9;">
+  <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center text-stone-900 mb-12 font-serif tracking-wide">
+      Our Team
+    </h2>
+  <div id="teamContainer" class="team-members-container-inline" style="
+      display: flex; 
+      justify-content: center; 
+      gap: 30px; 
+      flex-wrap: wrap;
+  "></div>
+</section>
+
+<style>
+  .team-card-inline {
+    background-color: #6a1b9a;
+    border: 1px solid #4a148c;
+    border-radius: 8px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateX(100px);
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+  }
+
+  .team-card-inline.animate-in {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+  }
+
+  @media (max-width: 600px) {
+    .team-card-inline {
+      width: 80%;
+    }
+  }
+</style>
+
+<script>
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRYH7Rlqwq1rupcx23cXSDMhtkijSWvS0tvdmuBwnWNlNkmwva54bAAEr59igvDXBncR9zGnAoY_lI6/pub?gid=1155279810&single=true&output=csv";
+
+fetch(SHEET_URL)
+  .then(res => res.text())
+  .then(csv => {
+    const rows = csv.trim().split("\n").slice(1); // Skip header
+    const container = document.getElementById("teamContainer");
+
+    rows.forEach((row, index) => {
+      const columns = row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
+      if (!columns || columns.length < 4) return;
+
+      const [img, name, role, linkedin] = columns.map(col => col.replace(/"/g, "").trim());
+
+      const card = document.createElement("div");
+      card.className = "team-card-inline";
+      card.setAttribute("data-card-index", index);
+
+      card.innerHTML = `
+        <div style="
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px auto;
+            border: 5px solid #ff9800;
+        ">
+            <img src="${img}" alt="${name}" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <h3 style="font-size: 18px; color: #ffffff; margin-bottom: 5px;">${name.toUpperCase()}</h3>
+        <p style="font-size: 14px; color: #e0e0e0; margin-bottom: 15px;">${role}</p>
+        <a href="${linkedin}" target="_blank" style="color: #ffeb3b; text-decoration: none; font-size: 14px;">
+          LinkedIn profile
+        </a>
+      `;
+
+      container.appendChild(card);
+    });
+
+    animateTeamCards();
+  });
+
+
+function animateTeamCards() {
+  const cards = document.querySelectorAll(".team-card-inline");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const index = entry.target.getAttribute("data-card-index");
+        setTimeout(() => {
+          entry.target.classList.add("animate-in");
+        }, index * 200);
+        
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  cards.forEach(card => observer.observe(card));
+}
+</script>
+
+  
+  
+  <hr class="w-full h-px my-16 bg-amber-500 border-0 shadow-xl" />
+
+  
 
 <section id="socialmedia" class="w-full py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white via-yellow-50 to-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1004,7 +1113,7 @@
             </a>
             <a href="https://educationsimplified.github.io/mgkvp/documentry.html" class="grid-card" title="Documentry Made By Us">
                 <i class="fas fa-film text-blue-600 text-2xl" aria-hidden="true"></i>
-                <span class="font-semibold text-red-700">Documentry</span>
+                <span class="font-semibold text-red-700">Documentry Made By Us</span>
             </a>
             <a href="https://educationsimplified.github.io/mgkvp/ebook.html" class="grid-card" title="E-Book Library">
                 <i class="fas fa-book-open text-red-600 text-2xl" aria-hidden="true"></i>
@@ -1027,18 +1136,17 @@
                 <span>EK Soch</span>
             </a>
             <a href="https://educationsimplified.github.io/mgkvp/job.html" class="grid-card">
-             <i class="fas fa-building"></i>
-                <span>Register Your Company to Hire Interns</span>
-                </a>
-
+                <i class="fas fa-briefcase"></i>
+                <span>Apply For Internships & Jobs</span>
+            </a>
             
             <a href="https://uzairb2b.github.io/resume_maker/" class="grid-card">
                 <i class="fas fa-id-card"></i>
                 <span>Create Resume (FREE)</span>
             </a>
             <a href="https://educationsimplified.github.io/mgkvp/jobseekers.html" class="grid-card">
-                <i class="fas fa-city"></i>
-                <span>Companies Data</span>
+                <i class="fas fa-briefcase"></i>
+                <span>Job Seeker Data</span>
             </a>
             
             </a>
@@ -1323,118 +1431,57 @@ postEl.innerHTML = `
   </div>
 </footer>
 
-<script>
-const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRYH7Rlqwq1rupcx23cXSDMhtkijSWvS0tvdmuBwnWNlNkmwva54bAAEr59igvDXBncR9zGnAoY_lI6/pub?gid=468287746&single=true&output=csv';
 
-/**
- * CSV parser that correctly handles quoted commas by iterating through the row.
- */
-function parseCSVLine(row) {
-    const result = [];
-    let insideQuotes = false;
-    let value = "";
+     <script>
+    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRYH7Rlqwq1rupcx23cXSDMhtkijSWvS0tvdmuBwnWNlNkmwva54bAAEr59igvDXBncR9zGnAoY_lI6/pub?gid=468287746&single=true&output=csv';
 
-    for (let i = 0; i < row.length; i++) {
-        const char = row[i];
-
-        if (char === '"') {
-            // Handle escaped double quotes inside a quoted field ("" becomes ")
-            if (insideQuotes && row[i + 1] === '"') {
-                value += '"';
-                i++;
-                continue;
-            }
-            insideQuotes = !insideQuotes;
-        } else if (char === ',' && !insideQuotes) {
-            result.push(value.trim());
-            value = "";
-        } else {
-            value += char;
-        }
-    }
-
-    result.push(value.trim());
-    
-    // Clean up leading/trailing quotes from the final trimmed values
-    return result.map(s => s.replace(/^"|"$/g, ""));
-}
-
-async function loadCSVData() {
-    const container = document.getElementById("scroll-box");
-
-    try {
+    async function loadCSVData() {
+      try {
         const res = await fetch(SHEET_URL);
-        const csv = await res.text();
+        const csvText = await res.text();
+        const rows = csvText.split('\n').slice(1); // Remove headers
 
-        const rows = csv.split("\n").slice(1); // skip header
-        container.innerHTML = "";
-
+        const container = document.getElementById('scroll-box');
         rows.forEach(row => {
-            if (!row.trim()) return;
+          const cols = row.split(',');
 
-            const cols = parseCSVLine(row);
+          if (cols.length < 9) return; // Skip empty/incomplete rows
 
-            // Force minimum 8 columns (A to H)
-            while (cols.length < 8) cols.push("");
-            
-            // Trim values again after parsing to be safe
-            const trimmedCols = cols.map(c => c.trim());
+          const [
+            timestamp,
+            name,
+            age,
+            twelfthPass,
+            qualification,
+            postType,
+            about,
+            resumeLink,
+            whatsapp
+          ] = cols;
 
-            // ✅ Correct Mapping and Filtering
-            const timestamp   = trimmedCols[0];
-            const company     = trimmedCols[1];
-            const year        = trimmedCols[2];
-            const hiring      = trimmedCols[3];
-            const education   = trimmedCols[4];
-            const nature      = trimmedCols[5];
-            const about       = trimmedCols[6];
-            const linkedin    = trimmedCols[7];
-            
-            // CRITICAL FILTER: Skip card if the Company Name is empty, reducing "N/A" cards.
-            if (!company) return; 
+          const twelfth = twelfthPass.toLowerCase().includes("yes") ? "✅ 12th Passed" : "";
+          const box = document.createElement("div");
+          box.className = "bg-white p-4 shadow-lg rounded-xl border border-gray-200";
 
-            // ✅ Hiring Badge Logic and styling fix
-            const isHiring = hiring.toLowerCase().includes("yes") || hiring.toLowerCase().includes("job");
-            const statusText = isHiring ? "✅ Hiring" : "🔴 Not Hiring";
-            const statusBadge = `<span class="${isHiring ? 'text-green-600' : 'text-red-600'} font-bold">${statusText}</span>`;
-
-            // ✅ Safe Link Fix
-            let link = "#";
-            let linkText = "N/A";
-
-            if (linkedin) {
-                // Ensure URL starts with http(s)
-                link = linkedin.startsWith("http") ? linkedin : "https://" + linkedin;
-                linkText = "View Link";
-            }
-
-            const box = document.createElement("div");
-            // Used Tailwind classes for better display
-            box.className = "bg-white p-4 rounded-xl shadow border border-gray-200 mb-4";
-
-            // ✅ FINAL DISPLAY LABELS AND STRUCTURE
-            box.innerHTML = `
-                <p class="font-bold text-lg text-gray-800">🏢 ${company || "N/A"}</p>
-                <p class="text-sm text-gray-500">📅 <b>Established:</b> ${year || "N/A"}</p>
-                <p class="text-sm">📌 <b>Status:</b> ${statusBadge}</p>
-                <p class="text-sm">🎓 <b>Requirement:</b> ${education || "N/A"}</p>
-                <p class="text-sm">💼 <b>Internship/Job Nature:</b> ${nature || "N/A"}</p>
-                <p class="text-sm mt-2"><b>✨ Company Focus Word:</b> ${about || "No description provided."}</p>
-                <p class="text-sm mt-2">🔗 <a href="${link}" target="_blank" class="text-blue-600 hover:text-blue-800 underline transition duration-150">${linkText}</a></p>
-                <p class="text-xs text-gray-400 mt-2">🕒 ${timestamp}</p>
-            `;
-
-            container.appendChild(box);
+          box.innerHTML = `
+            <p class="font-semibold text-lg">👤 ${name}</p>
+            <p>🎂 Age: ${age}</p>
+            <p>🎓 ${qualification} ${twelfth ? '| ' + twelfth : ''}</p>
+            <p>💼 Post: ${postType}</p>
+            <p>🔗 <a href="${resumeLink}" target="_blank" class="text-blue-600 underline">Resume</a></p>
+            <p>✍️ ${about}</p>
+          `;
+          container.appendChild(box);
         });
 
-    } catch (err) {
-        console.error("Data loading error:", err);
-        document.getElementById("scroll-box").innerHTML = `<p class="text-red-600 text-center p-4">❌ Failed to load company data.</p>`;
+      } catch (error) {
+        document.getElementById('scroll-box').innerHTML =
+          '<p class="text-red-600 text-center">❌ Failed to load data.</p>';
+      }
     }
-}
 
-loadCSVData();
-</script>
+    loadCSVData();
+  </script>
 
     <script>
         // --- Navbar Toggle for Mobile ---
