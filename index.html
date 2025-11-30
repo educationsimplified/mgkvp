@@ -569,28 +569,22 @@
 
 
 
+<!-- ==================== YOUTUBE POPUP (PRO VERSION | 9:16 | AUDIO OK | DRAG ENABLED) ==================== -->
 
-
-
-<!-- ==================== YOUTUBE POPUP (PRO VERSION | 9:16) ==================== -->
 <style>
 #youtube-notification {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
-  width: 300px;           /* BIGGER SIZE */
-  aspect-ratio: 9 / 16;  /* SHORTS RATIO */
-
+  width: 300px;
+  aspect-ratio: 9 / 16;
   background: linear-gradient(145deg, #0b0f2a, #020617);
   border: 1.5px solid rgba(0,225,255,0.4);
   border-radius: 22px;
-
   box-shadow:
     0 25px 60px rgba(0,0,0,0.6),
     0 0 30px rgba(0,105,255,0.5);
-
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -612,7 +606,7 @@
   box-shadow: inset 0 0 5px rgba(255,255,255,0.2);
 }
 
-/* HEADLINE */
+/* TITLE */
 #youtube-notification h3 {
   color: #dbeafe;
   font-size: 0.9em;
@@ -622,7 +616,7 @@
   letter-spacing: 0.5px;
 }
 
-/* PRO CLOSE BUTTON */
+/* CLOSE BUTTON */
 #youtube-notification .close-btn {
   position: absolute;
   top: -12px;
@@ -651,7 +645,7 @@
   box-shadow: 0 0 20px rgba(255,0,0,0.9);
 }
 
-/* VIDEO AREA */
+/* VIDEO */
 #youtube-notification iframe {
   width: 100%;
   aspect-ratio: 9 / 16;
@@ -661,33 +655,81 @@
   box-shadow: 0 0 18px rgba(0,0,0,0.7);
 }
 
-/* ANIMATION */
+/* Animation */
 @keyframes fadeScale {
   from { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
-  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
-/* MOBILE FIT */
+/* MOBILE */
 @media (max-width: 600px) {
-  #youtube-notification {
-    width: 240px;
-  }
+  #youtube-notification { width: 240px; }
 }
 </style>
 
-<!-- ==================== YOUTUBE POPUP ==================== -->
+<!-- ==================== POPUP HTML ==================== -->
 <div id="youtube-notification">
   <div class="drag-handle">🔴 Watch This Full Video</div>
   <span class="close-btn" onclick="closeNotification()">✕</span>
   <h3>Before Using the Website</h3>
 
-  <iframe 
+  <iframe
     src="https://www.youtube.com/embed/HysIcn2dsH4?autoplay=1&playsinline=1&rel=0"
     allow="autoplay; encrypted-media; picture-in-picture"
     allowfullscreen>
   </iframe>
 </div>
 
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+/* CLOSE BUTTON */
+function closeNotification() {
+  document.getElementById("youtube-notification").style.display = "none";
+}
+
+/* DRAG SYSTEM */
+let dragged = null;
+let offsetX = 0, offsetY = 0;
+
+const popup = document.getElementById("youtube-notification");
+const handle = popup.querySelector(".drag-handle");
+
+handle.addEventListener("mousedown", function (e) {
+  dragged = popup;
+  const rect = popup.getBoundingClientRect();
+  offsetX = e.clientX - rect.left;
+  offsetY = e.clientY - rect.top;
+  popup.style.transition = "none";
+});
+
+document.addEventListener("mouseup", () => dragged = null);
+
+document.addEventListener("mousemove", function (e) {
+  if (!dragged) return;
+  popup.style.left = e.clientX - offsetX + "px";
+  popup.style.top = e.clientY - offsetY + "px";
+  popup.style.transform = "none";
+});
+
+/* MOBILE TOUCH SUPPORT */
+handle.addEventListener("touchstart", function (e) {
+  dragged = popup;
+  let t = e.touches[0];
+  const rect = popup.getBoundingClientRect();
+  offsetX = t.clientX - rect.left;
+  offsetY = t.clientY - rect.top;
+});
+
+document.addEventListener("touchend", () => dragged = null);
+
+document.addEventListener("touchmove", function (e) {
+  if (!dragged) return;
+  let t = e.touches[0];
+  popup.style.left = t.clientX - offsetX + "px";
+  popup.style.top = t.clientY - offsetY + "px";
+  popup.style.transform = "none";
+});
+</script>
 
 
 
