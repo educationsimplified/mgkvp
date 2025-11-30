@@ -580,34 +580,40 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 320px;
-    background: rgba(0, 0, 0, 0.8);
+    
+    width: 220px;   /* WIDTH of short */
+    aspect-ratio: 9 / 16;  /* FORCE 9:16 RATIO */
+    
+    background: rgba(0, 0, 0, 0.85);
     border: 2px solid #00e1ff;
-    border-radius: 10px;
+    border-radius: 16px;
     box-shadow: 0 0 20px #0032e6, 0 0 30px #98ffff;
-    padding: 10px;
+    padding: 6px;
     text-align: center;
     z-index: 200;
     opacity: 0;
     animation: youtubeFadeIn 0.8s forwards;
     cursor: grab;
+    display: flex;
+    flex-direction: column;
   }
 
   #youtube-notification h3 {
     color: #ffffff;
-    font-size: 1em;
-    margin-bottom: 5px;
+    font-size: 0.8em;
+    margin: 4px 0;
     text-shadow: 0 0 10px #130072;
   }
 
   #youtube-notification .close-btn {
     position: absolute;
-    top: 5px;
-    right: 10px;
+    top: 2px;
+    right: 6px;
     color: rgb(255, 255, 0);
-    font-size: 2.5em;
+    font-size: 1.5em;
     cursor: pointer;
     transition: 0.3s;
+    z-index: 10;
   }
 
   #youtube-notification .close-btn:hover {
@@ -617,13 +623,23 @@
 
   #youtube-notification .drag-handle {
     background: #ff0000;
-    color: rgb(255, 255, 255);
+    color: white;
     font-weight: bold;
-    padding: 5px;
+    font-size: 0.7em;
+    padding: 4px;
     text-align: center;
     cursor: grab;
-    border-radius: 5px;
-    margin-bottom: 5px;
+    border-radius: 6px;
+    margin-bottom: 3px;
+  }
+
+  /* Shorts video area */
+  #youtube-notification iframe {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    border-radius: 10px;
+    border: none;
+    flex-grow: 1;
   }
 
   @keyframes youtubeFadeIn {
@@ -637,20 +653,10 @@
     }
   }
 
-  /* Responsive Design */
-  @media (max-width: 768px) {
+  /* Mobile optimization */
+  @media (max-width: 600px) {
     #youtube-notification {
-      width: 90%;
-      max-width: 300px;
-    }
-
-    #youtube-notification iframe {
-      width: 100%;
-      height: 170px;
-    }
-
-    #youtube-notification h3 {
-      font-size: 0.9em;
+      width: 180px;
     }
   }
 </style>
@@ -659,18 +665,15 @@
 <div id="youtube-notification">
   <div class="drag-handle">🔍 Website Kaise Chalana Hai</div>
   <span class="close-btn" onclick="closeNotification()">&times;</span>
-  <h3>Watch this Video</h3>
+  <h3>Watch Short</h3>
   <iframe
-    width="300"
-    height="180"
-    src="https://www.youtube.com/embed/T7Mv6SGimtc?si=Xb2ACVOzXYeIH5-c&autoplay=1"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
+    src="https://www.youtube.com/embed/HysIcn2dsH4?autoplay=1&playsinline=1"
+    title="YouTube Shorts Player"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen>
   </iframe>
 </div>
+
 
 
 
@@ -1150,11 +1153,103 @@
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
+          <a href="https://educationsimplified.github.io/mgkvp/alumniregester.html" class="grid-card">
+                <i class="fas fa-user-graduate"></i>
+                <span>Register For MGKVP Alumni & Current Student</span>
+                </a>
+          
+          <a href="https://educationsimplified.github.io/mgkvp/alumni.html" class="grid-card">
+                <i class="fas fa-users"></i>
+            <span>MGKVP Alumni & Current Student Data</span>
+            </a>
+          
+          
             <a href="https://educationsimplified.github.io/mgkvp/donate.html" class="grid-card" title="Donate Help">
                 <i class="fas fa-hand-holding-heart text-red-600 text-2xl" aria-hidden="true"></i>
                 <span class="font-semibold text-red-700">Donate to NGO For Education</span>
             </a>
-            <a href="https://educationsimplified.github.io/mgkvp/help.html" class="grid-card" title="Emergency Anti-Ragging Help">
+          
+          
+            <a href="https://educationsimplified.github.io/mgkvp/job.html" class="grid-card">
+             <i class="fas fa-building"></i>
+                <span>Register Your Company to Hire Interns</span>
+                </a>
+
+            <a href="https://educationsimplified.github.io/mgkvp/jobseekers.html" class="grid-card">
+                <i class="fas fa-city"></i>
+                <span>Registered Company Data</span>
+            </a>
+          
+            <a href="https://uzairb2b.github.io/resume_maker/" class="grid-card">
+                <i class="fas fa-id-card"></i>
+                <span>Create Resume (FREE)</span>
+            </a>
+          
+          
+            <a href="https://educationsimplified.github.io/mgkvp/filepage.html" class="grid-card">
+                <i class="fas fa-file-alt"></i>
+                <span>Create Project File Front Page</span>
+            </a>
+          
+          
+          <a href="https://educationsimplified.github.io/mgkvp/documentry.html" class="grid-card" title="Documentry Made By Us">
+                <i class="fas fa-film text-blue-600 text-2xl" aria-hidden="true"></i>
+                <span class="font-semibold text-red-700">Documentry</span>
+            </a>
+          
+          <a href="https://videoxai.blogspot.com/" class="grid-card">
+            <i class="fab fa-youtube"></i>
+            <span>VideoX AI</span>
+            </a>
+          
+          <a href="https://eksochteam.blogspot.com/" class="grid-card">
+                <i class="fas fa-lightbulb"></i>
+                <span>EK Soch Website</span>
+            </a>
+          
+            <a href="https://educationsimplified.github.io/mgkvp/ebook.html" class="grid-card" title="E-Book Library">
+                <i class="fas fa-book-open text-red-600 text-2xl" aria-hidden="true"></i>
+                <span class="font-semibold text-red-700">E-Book Library</span>
+            </a>          
+          
+          <a href="https://educationsimplified.github.io/mgkvp/videocourses.html" class="grid-card" title="Online Study Video Platform">
+                <i class="fas fa-chalkboard-teacher text-red-600 text-2xl" aria-hidden="true"></i>
+                <span class="font-semibold text-red-700">Online Study Video Platform</span>
+            </a>
+          
+          <a href="https://educationsimplified.github.io/mgkvp/dict.html" class="grid-card">
+                <i class="fa-solid fa-spell-check"></i>
+                <span>Online Dictionary</span>
+            </a>
+          
+          <a href="https://educationsimplified.github.io/focux_study/" class="grid-card">
+                <i class="fas fa-graduation-cap"></i>
+                <span>FocuX Study App</span>
+            </a>
+          
+          
+          <a href="https://uzairaiservices.blogspot.com/" class="grid-card" title="Level Up Your Study With AI">
+                <i class="fas fa-robot text-red-600 text-2xl" aria-hidden="true"></i>
+                <span class="font-semibold text-red-700">Level Up Your Study With A.I.</span>
+            </a>
+          
+  
+          <a href="https://uzairb2b.github.io/education" class="grid-card">
+                <i class="fas fa-brain"></i>
+                <span>Learn Skills</span>
+            </a>
+          
+          <a href="https://educationsimplified.github.io/mgkvp/tools.html" class="grid-card">
+                <i class="fas fa-toolbox"></i>
+                <span>Free Tools by Uzair B2B</span>
+            </a>
+          
+          <a href="https://uzairb2b.github.io/certificate/" class="grid-card">
+                <i class="fas fa-award"></i>
+                <span>Download Uzair B2B Certificate</span>
+            </a>
+          
+          <a href="https://educationsimplified.github.io/mgkvp/help.html" class="grid-card" title="Emergency Anti-Ragging Help">
                 <i class="fas fa-exclamation-triangle text-red-600 text-2xl" aria-hidden="true"></i>
                 <span class="font-semibold text-red-700">Anti-Ragging & Emergency Help</span>
             </a>
@@ -1162,84 +1257,7 @@
                 <i class="fas fa-newspaper text-red-600 text-2xl" aria-hidden="true"></i>
                 <span class="font-semibold text-red-700">MGKVP Official News Page</span>
             </a>
-            <a href="https://uzairaiservices.blogspot.com/" class="grid-card" title="Level Up Your Study With AI">
-                <i class="fas fa-robot text-red-600 text-2xl" aria-hidden="true"></i>
-                <span class="font-semibold text-red-700">Level Up Your Study With A.I.</span>
-            </a>
-            <a href="https://educationsimplified.github.io/mgkvp/documentry.html" class="grid-card" title="Documentry Made By Us">
-                <i class="fas fa-film text-blue-600 text-2xl" aria-hidden="true"></i>
-                <span class="font-semibold text-red-700">Documentry</span>
-            </a>
-            <a href="https://educationsimplified.github.io/mgkvp/ebook.html" class="grid-card" title="E-Book Library">
-                <i class="fas fa-book-open text-red-600 text-2xl" aria-hidden="true"></i>
-                <span class="font-semibold text-red-700">E-Book Library</span>
-            </a>
-            <a href="https://educationsimplified.github.io/mgkvp/dict.html" class="grid-card">
-                <i class="fa-solid fa-spell-check"></i>
-                <span>Online Dictionary</span>
-            </a>
-            <a href="https://educationsimplified.github.io/mgkvp/videocourses.html" class="grid-card" title="Online Study Video Platform">
-                <i class="fas fa-chalkboard-teacher text-red-600 text-2xl" aria-hidden="true"></i>
-                <span class="font-semibold text-red-700">Online Study Video Platform</span>
-            </a>
-            <a href="https://uzairb2b.github.io/education" class="grid-card">
-                <i class="fas fa-brain"></i>
-                <span>Learn Skills</span>
-            </a>
-            <a href="https://eksochteam.blogspot.com/" class="grid-card">
-                <i class="fas fa-lightbulb"></i>
-                <span>EK Soch</span>
-            </a>
-            <a href="https://educationsimplified.github.io/mgkvp/job.html" class="grid-card">
-             <i class="fas fa-building"></i>
-                <span>Register Your Company to Hire Interns</span>
-                </a>
-
             
-            <a href="https://uzairb2b.github.io/resume_maker/" class="grid-card">
-                <i class="fas fa-id-card"></i>
-                <span>Create Resume (FREE)</span>
-            </a>
-            <a href="https://educationsimplified.github.io/mgkvp/jobseekers.html" class="grid-card">
-                <i class="fas fa-city"></i>
-                <span>Companies Data</span>
-            </a>
-            
-            </a>
-            <a href="https://uzairb2b.github.io/certificate/" class="grid-card">
-                <i class="fas fa-award"></i>
-                <span>Download Certificate</span>
-            </a>
-            <a href="https://educationsimplified.github.io/mgkvp/tools.html" class="grid-card">
-                <i class="fas fa-toolbox"></i>
-                <span>Free Tools</span>
-            </a>
-            <a href="https://uzairb2b.github.io/Bookmark/" class="grid-card">
-                <i class="fas fa-qrcode"></i>
-                <span>Download Website QR</span>
-            </a><a href="https://educationsimplified.github.io/mgkvp/alumniregester.html" class="grid-card">
-                <i class="fas fa-user-graduate"></i>
-                <span>Register For MGKVP Alumni & Current Student</span>
-                </a>
-
-            <a href="https://educationsimplified.github.io/mgkvp/alumni.html" class="grid-card">
-                <i class="fas fa-users"></i>
-            <span>MGKVP Alumni & Current Student Data</span>
-            </a>
-
-            <a href="https://educationsimplified.github.io/mgkvp/filepage.html" class="grid-card">
-                <i class="fas fa-file-alt"></i>
-                <span>Create Project File Front Page</span>
-            </a>
-            <a href="https://educationsimplified.github.io/focux_study/" class="grid-card">
-                <i class="fas fa-graduation-cap"></i>
-                <span>FOCUX Study APP</span>
-            </a>
-            <a href="https://videoxai.blogspot.com/" class="grid-card">
-            <i class="fab fa-youtube"></i>
-            <span>VIDEO X AI</span>
-            </a>
-
             <a href="https://educationsimplified.github.io/mgkvp/about.html" class="grid-card">
                 <i class="fas fa-info-circle"></i>
                 <span>About Us</span>
@@ -1248,6 +1266,29 @@
                 <i class="fas fa-images"></i>
                 <span>Our Gallery</span>
             </a>
+  
+            
+            
+          
+            
+          
+            
+            
+          
+            
+            
+            <a href="https://uzairb2b.github.io/Bookmark/" class="grid-card">
+                <i class="fas fa-qrcode"></i>
+                <span>Download Website QR</span>
+            </a>
+
+            
+
+          
+            
+            
+
+            
             <a href="https://educationsimplified.github.io/mgkvp/admin.html" class="grid-card">
                 <i class="fas fa-user-shield text-4xl mb-3 text-primary"></i>
                 <span>Admin Login</span>
@@ -2112,7 +2153,6 @@ loadCSVData();
     
 </body>
 </html>
-
 
 
 
