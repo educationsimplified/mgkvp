@@ -680,11 +680,26 @@
   </iframe>
 </div>
 <!-- ==================== JAVASCRIPT ==================== -->
+<!-- ==================== JAVASCRIPT ==================== -->
 <script>
 /* CLOSE BUTTON */
 function closeNotification() {
   document.getElementById("youtube-notification").style.display = "none";
 }
+
+/* AUTO PLAY AUDIO FOR LAPTOP */
+window.addEventListener("DOMContentLoaded", () => {
+  const audio = document.getElementById("popup-audio");
+
+  if (audio) {
+    audio.play().catch(() => {
+      // If browser blocks autoplay, play on first click
+      document.addEventListener("click", () => {
+        audio.play();
+      }, { once: true });
+    });
+  }
+});
 </script>
 
 
@@ -2126,6 +2141,7 @@ loadCSVData();
     
 </body>
 </html>
+
 
 
 
