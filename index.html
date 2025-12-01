@@ -679,58 +679,13 @@
     allowfullscreen>
   </iframe>
 </div>
-
 <!-- ==================== JAVASCRIPT ==================== -->
 <script>
 /* CLOSE BUTTON */
 function closeNotification() {
   document.getElementById("youtube-notification").style.display = "none";
 }
-
-/* DRAG SYSTEM */
-let dragged = null;
-let offsetX = 0, offsetY = 0;
-
-const popup = document.getElementById("youtube-notification");
-const handle = popup.querySelector(".drag-handle");
-
-handle.addEventListener("mousedown", function (e) {
-  dragged = popup;
-  const rect = popup.getBoundingClientRect();
-  offsetX = e.clientX - rect.left;
-  offsetY = e.clientY - rect.top;
-  popup.style.transition = "none";
-});
-
-document.addEventListener("mouseup", () => dragged = null);
-
-document.addEventListener("mousemove", function (e) {
-  if (!dragged) return;
-  popup.style.left = e.clientX - offsetX + "px";
-  popup.style.top = e.clientY - offsetY + "px";
-  popup.style.transform = "none";
-});
-
-/* MOBILE TOUCH SUPPORT */
-handle.addEventListener("touchstart", function (e) {
-  dragged = popup;
-  let t = e.touches[0];
-  const rect = popup.getBoundingClientRect();
-  offsetX = t.clientX - rect.left;
-  offsetY = t.clientY - rect.top;
-});
-
-document.addEventListener("touchend", () => dragged = null);
-
-document.addEventListener("touchmove", function (e) {
-  if (!dragged) return;
-  let t = e.touches[0];
-  popup.style.left = t.clientX - offsetX + "px";
-  popup.style.top = t.clientY - offsetY + "px";
-  popup.style.transform = "none";
-});
 </script>
-
 
 
  
@@ -2171,6 +2126,7 @@ loadCSVData();
     
 </body>
 </html>
+
 
 
 
