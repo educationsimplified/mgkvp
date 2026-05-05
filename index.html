@@ -1203,18 +1203,26 @@ body {
 <div id="read-progress"></div>
 
 <!-- ══════════ YOUTUBE POPUP ══════════ -->
-<div id="yt-popup" role="dialog" aria-label="Watch intro video">
+<!-- ══════════ POSTER POPUP (IDs Unchanged) ══════════ -->
+<div id="yt-popup" role="dialog" aria-label="View Announcement">
   <div id="yt-inner">
-    <button id="yt-close-btn" aria-label="Close video popup">✕</button>
-    <div class="yt-handle" id="yt-handle">
-      <span>🔴 Watch Before Using</span>
-    </div>
-    <p class="yt-subtitle">How to use this website</p>
+    <button id="yt-close-btn" aria-label="Close popup">✕</button>
+    
+   <div class="yt-handle" id="yt-handle">
+  <span>ANNOUNCEMENT!</span>
+</div>
+    
     <div class="yt-vid">
-      <iframe src="https://www.youtube.com/embed/HysIcn2dsH4?autoplay=1&playsinline=1&rel=0"
-        allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      <!-- Added loading="lazy" and decodes="async" for maximum performance -->
+      <img 
+        src="https://educationsimplified.github.io/mgkvp/poster.jpg" 
+        alt="Education Simplified Poster"  
+        decodes="async"
+        style="width:100%; height:auto; display:block; border-radius: 8px;"
+      >
     </div>
   </div>
+</div>>
 </div>
 
 <!-- ══════════ NAVBAR ══════════ -->
